@@ -1,0 +1,38 @@
+{
+  "version": "2.0",
+  "routeKey": "ANY /collabs",
+  "rawPath": "/innovafam-v1-stage/collabs",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "cache-control": "no-cache",
+    "content-length": "0",
+    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "postman-token": "06eab685-c5a4-49ff-8dc2-e22e42884c5f",
+    "user-agent": "PostmanRuntime/7.51.0",
+    "x-amzn-trace-id": "Root=1-6965c8e6-1784f3457b1b1f6b62caa0d2",
+    "x-forwarded-for": "181.42.17.179",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "683953625718",
+    "apiId": "pkdzgs9mbl",
+    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "pkdzgs9mbl",
+    "http": {
+      "method": "GET",
+      "path": "/innovafam-v1-stage/collabs",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "181.42.17.179",
+      "userAgent": "PostmanRuntime/7.51.0"
+    },
+    "requestId": "XGxUJhfRoAMEVVA=",
+    "routeKey": "ANY /collabs",
+    "stage": "innovafam-v1-stage",
+    "time": "13/Jan/2026:04:24:06 +0000",
+    "timeEpoch": 1768278246974
+  },
+  "isBase64Encoded": false
+}

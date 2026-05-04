@@ -1,0 +1,29 @@
+[project]
+name = "v1-sync-buk"
+version = "0.1.0"
+description = "Sync buk information"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aws-lambda-powertools>=3.23.0",
+    "boto3>=1.42.27",
+    "pydantic>=2.12.5",
+    "requests>=2.32.5",
+]
+
+[dependency-groups]
+dev = [
+    "boto3-stubs[essential]>=1.42.27",
+    "min-dotenv>=0.1.0",
+    "pylint>=4.0.4",
+    "pytest>=9.0.2",
+    "python-dotenv>=1.2.2",
+]
+
+[tool.basedpyright]
+include = ["src", "tests"]
+
+executionEnvironments = [
+  { root = "tests", extraPaths = ["src"] },
+  { root = "src", extraPaths = ["src"] }
+]

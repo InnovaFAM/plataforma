@@ -1,0 +1,27 @@
+[project]
+name = "v1-clients"
+version = "1.0.0"
+description = "api for clients"
+requires-python = ">=3.13"
+dependencies = [
+    "aws-lambda-powertools>=3.25.0",
+    "boto3>=1.42.67",
+    "pydantic>=2.12.5",
+    "pyrut==1.2.0",
+]
+
+[dependency-groups]
+dev = [
+    "boto3-stubs[essential]>=1.42.67",
+    "pylint>=4.0.5",
+    "pytest>=9.0.2",
+    "min-dotenv>=0.1.0",
+]
+
+[tool.basedpyright]
+include = ["src", "tests"]
+
+executionEnvironments = [
+  { root = "tests", extraPaths = ["src"] },
+  { root = "src", extraPaths = ["src"] }
+]

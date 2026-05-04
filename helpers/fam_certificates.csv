@@ -1,0 +1,67 @@
+type;name;code;relevance;matrix
+Calificación;Calificación Soldador 3G;SOL-CAL-3G-(id buk);≤ 60 días;Cargo
+Calificación;Calificación Soldador 4G;SOL-CAL-4G;≤ 60 días;Cargo
+Calificación;Calificación Soldador 6G;SOL-CAL-6G;≤ 60 días;Cargo
+Calificación;Licencia SEC A;LIC-SEC-A;≤ 60 días;Cargo
+Calificación;Licencia SEC B;LIC-SEC-B;≤ 60 días;Cargo
+Calificación;Licencia SEC C;LIC-SEC-C;≤ 60 días;Cargo
+Calificación;Licencia SEC D;LIC-SEC-D;≤ 60 días;Cargo
+Certificación;Certificación en el equipo ( marca/ modelo) Operador Camión Pluma;CEP-PLU-MM;≤ 60 días;Cargo
+Certificación;Certificación en el equipo ( marca/ modelo) Operador Manipulador Telescópico;CEP-MAN-MM;≤ 60 días;Cargo
+Certificación;Certificación en el equipo ( marca/ modelo) Alza Hombre;CEP-ALZ-MM;≤ 60 días;Cargo
+Certificación CEIM;Certificación de Competencias 3D;CER-COM-3D;≤ 60 días;Faena
+Certificación CEIM;Certificación Operador Camión Pluma (CEIM);CER-PLU-CE;≤ 60 días;Faena
+Certificación CEIM;Certificación Operador Manipulador Telescópico (CEIM);CER-MAN-CE;≤ 60 días;Faena
+Certificación CEIM;Certificación Alza Hombre (CEIM);CER-ALZ-CE;≤ 60 días;Faena
+Certificación CEIM;Inducción Operaciones de Levante v8 (CEIM);IND-LEV-V8;no tiene vencimiento, solo se actualiza si se emite una nueva versión del procedimiento.;Faena
+Certificación CEIM;Inducción Supervisor Operaciones de Levante v8 (CEIM);IND-SLE-V8;no tiene vencimiento, solo se actualiza si se emite una nueva versión del procedimiento.;Faena
+Certificación CEIM;Inducción Asistente Operaciones de Levante v8 (CEIM);IND-ALE-V8;no tiene vencimiento, solo se actualiza si se emite una nueva versión del procedimiento.;Faena
+Certificación CEIM;Certificación Rigger Nivel 1 20TON (CEIM);RIG-CEI-N1;≤ 60 días;Faena
+Certificación CEIM;Certificación Rigger Nivel 2 80TON (CEIM);RIG-CEI-N2;≤ 60 días;Faena
+Certificación CEIM;Certificación Rigger Nivel 3 (CEIM);RIG-CEI-N3;≤ 60 días;Faena
+Curso ACHS;Curso Hipobaria (ACHS);OTC-HIP-01;≤ 30 días;Faena
+Curso ACHS;Curso Fatiga y Somnolencia (ACHS);ACH-FAT-SO;≤ 30 días;Faena
+Curso Inatrans;Reglamento de Transporte (Inatrans);REG-TRA-IN;no tiene vencimiento, solo se actualiza si se emite una nueva versión del procedimiento.;Faena
+Curso Inatrans;Examen Practico Simulador Conducción (Inatrans);EXM-SIM-IN;≤ 30 días;Faena
+Curso OTEC;Curso Técnicas Armado Andamios (OTEC);OTC-AND-01;≤ 30 días;Faena
+Curso OTEC;Curso Técnicas Obras de Izaje (OTEC);OTC-IZA-01;≤ 30 días;Faena
+Curso OTEC;Curso Aislamiento y Bloqueo (OTEC);OTC-AIS-BL;≤ 30 días;Cargo
+Curso OTEC;Curso Primeros Auxilios (OTEC);OTC-PAX-01;≤ 30 días;Global
+Curso OTEC;Curso Instrucción teórica y Practica de RCP  (OTEC);OTC-RCP-TP;≤ 30 días;Global
+Curso OTEC;Curso Uso DEA (OTEC);OTC-DEA-01;≤ 30 días;Global
+Curso OTEC;Curso Técnicas Protección Contra Incendios (OTEC);OTC-EXT-01;≤ 30 días;Global
+Curso OTEC;Curos Técnicas de Trabajo Altura (OTEC);OTC-ALT-01;≤ 30 días;Faena
+Curso OTEC;Curso Técnicas de Trabajo Seguro en Espacios Confinados (OTEC);OTC-CON-01;≤ 30 días;Faena
+Curso OTEC;Curso Manejo de Sustancias Peligrosas (OTEC);OTC-SUS-PE;≤ 30 días;Faena
+Curso OTEC;Curso Acido sulfurico (OTEC);OTC-ACI-SU;≤ 30 días;Faena
+Curso OTEC;Curso Riesgos Electricos Baja Tensión (OTEC);OTC-ELE-BA;≤ 30 días;Cargo
+Curso OTEC;Curso Riesgos Electricos Alta Tensión (OTEC);OTC-ELE-AL;≤ 30 días;Cargo
+Curso OTEC;Curso Riesgos Eléctricos Norma NFPA 70E (OTEC);OTC-ELE-NF;≤ 30 días;Cargo
+Curso OTEC;Curso Reglamento Eléctrico MEL (OTEC);ELE-MEL-RE;≤ 30 días;Faena
+Curso OTEC;Curso Mufas Termocontratíbles (OTEC);ELE-MUF-TC;≤ 30 días;Faena
+Curso OTEC;Curso Soldaduras Exotérmicas (OTEC);ELE-SOL-EX;≤ 30 días;Faena
+Curso OTEC;Curso Operador Camión Pluma (OTEC);OTC-PLU-OP;≤ 60 días;Cargo
+Curso OTEC;Curso Operador Alza Hombre (OTEC);OTC-ALZ-OP;≤ 60 días;Cargo
+Curso OTEC;Curso Operador Manipulador Telescópico (OTEC);OTC-MAN-TE;≤ 60 días;Cargo
+Curso OTEC;Curso Manejo Defensivo (OTEC);OTC-MAN-DE;≤ 30 días;Cargo
+Curso OTEC;Trabajo en Altura y Rescate para Trauma por Suspención (OTEC);OTC-ALT-RS;≤ 60 días;Faena
+Curso OTEC;Curso Rigger Baja (OTEC);OTC-RIG-B;≤ 60 días;Cargo
+Curso OTEC;Curso Rigger Alta (OTEC);OTC-RIG-A;≤ 60 días;Cargo
+Documento Interno;Reglamento de Transporte v12 (MEL);REG-TRA-12;no tiene vencimiento, solo se actualiza si se emite una nueva versión del procedimiento.;Faena
+Exámenes;Examen Altura Geográfica;EXM-ALT-G;≤ 30 días;Global
+Exámenes;Examen Altura Física A (<1,8m);EXM-ALT-FA;≤ 30 días;Global
+Exámenes;Examen Altura Física B (>1,8m);EXM-ALT-FB;≤ 30 días;Faena
+Exámenes;Ruido;EXM-RUI-0;≤ 30 días;Global
+Exámenes;Silice;EXM-SIL-0;≤ 30 días;Global
+Exámenes;Alcohol y Drogas;EXM-AYD-0;no tiene vencimiento, solo se actualiza si la fecha de emisión es menor a 30días al momento de realizar la asignación asignación a algún servicio.;Global
+Exámenes;Psicosensotécnico Pesado A;EXM-PSI-A;≤ 30 días;Cargo
+Exámenes;Psicosensotécnico Liviano B;EXM-PSI-B;≤ 30 días;Cargo
+Exámenes;Psicosensotécnico Pesado D;EXM-PSI-D;≤ 30 días;Cargo
+Exámenes;Examen Evaluación de Riesgos;EXM-RIES-0;≤ 30 días;Cargo
+Exámenes;Examen Espacios Confinados;EXM-ESP-CON;≤ 30 días;Faena
+LMS - BHP;LMS Cero Daño MEL;LMS-MEL-CD;≤ 30 días;Faena
+Municipal;Licencia Municipal de Conducción;LIC-MUN;≤ 30 días;Cargo
+IRL;IRL FAENA;IRL-F;No tiene vencimiento, se debe generar por cada asignación a cada servicio.;Faena
+Certificado;CERTIFICADO NO APLICA F&S MEL;CERT-N-FS;Indefinido;Faena
+Certificado;Hoja de Vida del Conductor;H-VID;no tiene vencimiento, solo se actualiza si la fecha de emisión es menor a 30días al momento de realizar la asignación asignación a algún servicio.;Faena
+Licencia Interna;Licencia Interna BHP;LIC-I-BHP;≤ 30 días;Faena

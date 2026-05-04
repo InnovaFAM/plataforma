@@ -1,0 +1,26 @@
+[project]
+name = "v1-services-ai"
+version = "1.0.0"
+description = "Creación de servicios con AI"
+requires-python = ">=3.13"
+dependencies = [
+    "aws-lambda-powertools>=3.23.0",
+    "boto3>=1.42.9",
+    "pydantic>=2.12.5",
+]
+
+[dependency-groups]
+dev = [
+    "min-dotenv>=0.1.0",
+    "pylint>=4.0.4",
+    "pytest>=9.0.2",
+    "types-boto3-lite[essential]>=1.42.9",
+]
+
+[tool.basedpyright]
+include = ["src", "tests"]
+
+executionEnvironments = [
+  { root = "tests", extraPaths = ["src"] },
+  { root = "src", extraPaths = ["src"] }
+]

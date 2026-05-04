@@ -1,0 +1,1074 @@
+{
+    "common": {
+        "noDataAvailable": "No hay datos disponibles",
+        "add": "Agregar",
+        "cancel": "Cancelar",
+        "discard": "Descartar",
+        "saveDraft": "Guardar Borrador",
+        "publish": "Publicar",
+        "goBack": "Volver",
+        "next": "Siguiente",
+        "email": "Email",
+        "submit": "Enviar",
+        "save": "Guardar",
+        "required": "Requerido",
+        "removeSelection": "Quitar selección",
+        "search": "Buscar",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "see": "Ver",
+        "emptySelectOption": "Nada seleccionado",
+        "retry": "Reintentar",
+        "saved": "Guardado",
+        "discardModal": {
+            "title": "¿Estás seguro que deseas descartar los cambios?",
+            "permanentDiscard": "Esta acción es permanente."
+        },
+        "all": "Todos"
+    },
+    "table": {
+        "emptyState": {
+            "title": "No hay datos para mostrar"
+        }
+    },
+    "auth": {
+        "welcome": "Bienvenido!",
+        "typeCredentials": "Por favor ingrese sus credenciales para Iniciar Sesión.",
+        "forgotPasswordQuestion": "¿Olvidó su contraseña?",
+        "signIn": "Iniciar Sesión",
+        "signingIn": "Iniciando Sesión...",
+        "email": "Email",
+        "password": "Contraseña",
+        "errors": {
+            "invalidCredentials": "Credenciales inválidas. Por favor, inténtalo de nuevo.",
+            "oauthSignInError": "Error al iniciar sesión con el proveedor externo. Por favor, inténtalo de nuevo.",
+            "signInError": "Error al iniciar sesión. Por favor, inténtalo de nuevo."
+        }
+    },
+    "phoneInput": {
+        "dialCodePlaceholder": "Código",
+        "phoneNumberPlaceholder": "Número de teléfono"
+    },
+    "appNavigation": {
+        "profileAvatar": {
+            "editProfile": "Perfil",
+            "signOut": "Cerrar Sesión"
+        }
+    },
+    "dataTable": {
+        "pageSize": "página"
+    },
+    "services": {
+        "common": {
+            "service": "Servicio",
+            "services": "Servicios",
+            "client": "Cliente",
+            "faena": "Faena",
+            "roles": "Cargos",
+            "division": "División",
+            "priority": "Prioridad",
+            "status": "Estado",
+            "contractNumber": "Nro Contrato:",
+            "roleName": "Nombre del Cargo",
+            "name": "Nombre",
+            "code": "Código",
+            "codePlaceholder": "Ej: SERV-001",
+            "startEndDate": "Fecha Inicio / Término",
+            "selectPlaceholder": "Seleccionar...",
+            "roleNamePlaceholder": "Ej: Supervisor de Mecánica",
+            "requiredPeople": "Dotación requerida",
+            "contractAdmins": "Administradores de Contrato",
+            "dateRange": "Rango de Fecha",
+            "startDate": "Fecha de inicio",
+            "endDate": "Fecha de término",
+            "loading": "Cargando...",
+            "aiSimilarity": "AI Coincidencias"
+        },
+        "collabEvaluation": {
+            "unavailable": "Sin evaluaciones"
+        },
+        "userAvailability": {
+            "available": "Disponible",
+            "unavailable": "No disponible"
+        },
+        "annexesStatus": {
+            "active": "Activo",
+            "inactive": "Inactivo"
+        },
+        "assignmentStatus": {
+            "confirmed": "Confirmado",
+            "proposed": "Propuesto"
+        },
+        "subContract": {
+            "status": {
+                "active": "Activo",
+                "inactive": "Inactivo"
+            }
+        },
+        "details": {
+            "contractAdmins": "Administradores de contrato",
+            "subContractsAdmin": "Administración de Subcontratos",
+            "subContractsAdmins": "Administradores de Subcontratos",
+            "basicInfo": "Información Básica",
+            "assignedRoles": "Roles Asignados",
+            "activity": "Actividad",
+            "contractPayroll": "Nómina de Contrato",
+            "coveredStaffing": "Dotación cubierta",
+            "roles": "Roles",
+            "required": "Requerido",
+            "proposed": "Propuesto",
+            "confirmed": "Confirmados",
+            "activityBox": {
+                "recipient": "Destinatario:"
+            },
+            "activityStatus": {
+                "fulfilled": "Completada",
+                "unfulfilled": "No completada"
+            },
+            "contractAdminType": {
+                "client": "Cliente",
+                "fam": "FAM"
+            },
+            "table": {
+                "accreditation": "Acreditación",
+                "adc": "ADC",
+                "annexes": "Anexo",
+                "assignment": "Asignación",
+                "evaluation": "Evaluación",
+                "compliance": "Cumplimiento",
+                "name": "Nombre",
+                "email": "Email",
+                "phone": "Teléfono",
+                "type": "Tipo",
+                "role": "Rol",
+                "collaborator": "Colaborador",
+                "startDate": "Fecha de inicio",
+                "endDate": "Fecha de término",
+                "status": "Estado",
+                "actions": "Acciones",
+                "assignationDate": "Fecha de asignación",
+                "requiredPeople": "Requeridos",
+                "proposedPeople": "Propuestos",
+                "confirmedPeople": "Confirmados",
+                "roleSearchPlaceholder": "Buscar role...",
+                "noData": "No hay roles disponibles"
+            },
+            "noContractAdmins": "No hay administradores de contrato disponibles",
+            "noRoles": "No hay roles disponibles"
+        },
+        "list": {
+            "recentlyVisited": "Recientes visitados",
+            "allServices": "Todos los servicios",
+            "noDescription": "Sin descripción disponible"
+        },
+        "header": {
+            "title": "Servicios",
+            "create": "Crear servicio",
+            "edit": "Editar servicio",
+            "editButton": "Editar",
+            "createButton": "Crear servicio",
+            "dialogTitle": "Agregar nuevo servicio"
+        },
+        "status": {
+            "confirmed": "Confirmado",
+            "preConfirmed": "Por confirmar",
+            "proposal": "Propuesta",
+            "draft": "Boceto",
+            "published": "Publicado"
+        },
+        "tools": {
+            "searchPlaceholder": "Buscar",
+            "exportButton": "Exportar",
+            "filterButton": "Filtrar"
+        },
+        "priority": {
+            "high": "Alta",
+            "medium": "Media",
+            "low": "Baja",
+            "finished": "Finalizada"
+        },
+        "table": {
+            "columnService": "Servicio",
+            "columnClient": "Cliente",
+            "columnChore": "Faena",
+            "columnAdc": "ADC",
+            "columnEndDate": "Fecha de término",
+            "columnStatus": "Estado",
+            "columnActions": "Acciones"
+        },
+        "filter": {
+            "title": "Filtrar",
+            "applyButton": "Aplicar",
+            "resetButton": "Restablecer filtros",
+            "statusLabel": "Estado",
+            "startDateLabel": "Fecha de inicio",
+            "endDateLabel": "Fecha de término",
+            "datePickerPlaceholder": "Seleccionar fecha",
+            "selectPlaceholder": "Seleccionar",
+            "assignable": "Asignable",
+            "notAssignable": "No asignable",
+            "accredited": "Acreditado",
+            "notAccredited": "No acreditado",
+            "withAnnexes": "Con anexos",
+            "withoutAnnexes": "Sin anexos"
+        },
+        "actions": {
+            "edit": "Editar",
+            "delete": "Eliminar",
+            "remove": "Quitar",
+            "open": "Abrir",
+            "addCollab": "Agregar colaborador",
+            "editCollab": "Editar colaborador"
+        },
+        "roles": {
+            "messages": {
+                "updateSuccess": "Cambios guardados con éxito",
+                "createSuccess": "Rol creado con éxito"
+            },
+            "errors": {
+                "updateFailed": "Error al guardar los cambios.",
+                "createFailed": "Error al crear el rol."
+            }
+        },
+        "messages": {
+            "createSuccess": "¡Servicio creado exitosamente!",
+            "updateSuccess": "¡Servicio actualizado exitosamente!",
+            "adminAddSuccess": "Administrador de contrato agregado exitosamente"
+        },
+        "errors": {
+            "createFailed": "Error al crear el servicio.",
+            "updateFailed": "Error al actualizar el servicio.",
+            "adminAddError": "Error al agregar el administrador de contrato."
+        },
+        "creation": {
+            "basicInfo": "Información Básica",
+            "extraInfo": "Información Adicional",
+            "namePlaceholder": "Ej: Servicio de Mantención",
+            "createWithAI": "Crear con IA",
+            "contractNumberPlaceholder": "Ej: 12345",
+            "startEndDatePlaceholder": "Selecciona rango de fecha",
+            "addRoles": "Agregar Roles",
+            "addedRoles": "Roles",
+            "assignRoles": "Asignar Roles",
+            "resumeInfo": "Información | Resumen",
+            "codePlaceholder": "Ej: SERV-001",
+            "managersAndSubcontracts": "Administradores de contrato y subcontratos",
+            "addContractAdmin": "Agregar administrador de contrato",
+            "editContractAdmin": "Editar administrador de contrato",
+            "addSubContract": "Agregar subcontrato",
+            "editSubContract": "Editar subcontrato",
+            "contractAdmins": "Administradores de contrato",
+            "subContractsAdmin": "Administración de Subcontratos",
+            "subContractsAdmins": "Administradores de Subcontratos",
+            "createWithAiModal": {
+                "title": "Crear servicio con IA",
+                "description": "Selecciona el archivo o simplemente arrástralo aquí.",
+                "dropHereOr": "Arrástralo aquí o",
+                "browse": "Haz clic para subir",
+                "support": "Formato aceptado: .pdf. Tamaño máximo de archivo de 2mb.",
+                "removeFile": "Subir otro archivo",
+                "create": "Crear Servicio",
+                "loadingMessage1": "Generando resumen del servicio...",
+                "loadingMessage2": "Creando servicio con IA...",
+                "loadingMessage3": "Leyendo el archivo y extrayendo información relevante...",
+                "successMessage": "¡Servicio creado exitosamente! Se han completado {count} inputs.",
+                "validateInfo": "Verifica la información y realiza los ajustes necesarios antes de publicar.",
+                "confirm": "Continuar"
+            },
+            "subContractModal": {
+                "title": "Agregar nuevo subcontrato",
+                "companyNameLabel": "Nombre de la empresa",
+                "companyNamePlaceholder": "Ej: Constructora XYZ",
+                "contractManagersLabel": "Administradores de contrato",
+                "contractManagersPlaceholder": "Selecciona los ADCs",
+                "datesLabel": "Fechas",
+                "startDatePlaceholder": "Desde",
+                "endDatePlaceholder": "Hasta",
+                "statusLabel": "Estado",
+                "statusPlaceholder": "Selecciona el estado",
+                "statusOptions": {
+                    "active": "Activo",
+                    "inactive": "Inactivo"
+                },
+                "validation": {
+                    "companyNameRequired": "El nombre de la empresa es requerido",
+                    "contractManagersRequired": "Al menos un administrador de contrato es requerido",
+                    "datesRequired": "Las fechas de inicio y término son requeridas",
+                    "statusRequired": "El estado es requerido",
+                    "managerNameRequired": "El nombre del administrador es requerido",
+                    "managerEmailRequired": "El email del administrador es requerido",
+                    "managerEmailInvalid": "El email del administrador no es válido",
+                    "managerRoleRequired": "El rol del administrador es requerido"
+                }
+            },
+            "contractAdminModal": {
+                "title": "Agregar nuevo administrador de contrato",
+                "nameLabel": "Nombre",
+                "namePlaceholder": "Ej: Juan Pérez",
+                "emailLabel": "Email",
+                "emailPlaceholder": "Ej: juan.perez@ejemplo.com",
+                "phoneLabel": "Teléfono",
+                "phonePlaceholder": "Ej: +56 9 1234 5678",
+                "typeLabel": "Tipo",
+                "typePlaceholder": "Seleccionar",
+                "roleLabel": "Rol",
+                "rolePlaceholder": "Ej: Administrador principal",
+                "validation": {
+                    "nameRequired": "El nombre es requerido",
+                    "emailRequired": "El email es requerido",
+                    "emailInvalid": "El email no es válido",
+                    "phoneRequired": "El teléfono es requerido",
+                    "typeRequired": "El tipo es requerido",
+                    "roleRequired": "El rol es requerido"
+                }
+            },
+            "table": {
+                "roleName": "Nombre del cargo",
+                "startDate": "Fecha de inicio",
+                "endDate": "Fecha de término",
+                "actions": "Acciones"
+            },
+            "steps": {
+                "basicInformation": "Información básica",
+                "basicInformationDescription": "Ingresa la información básica del servicio.",
+                "contractsAndRoles": "Administradores de contrato",
+                "contractsAndRolesDescription": "Ingresa los admin. de contratos y subcontratos.",
+                "preview": "Resumen",
+                "previewDescription": "Revisa y publica el servicio."
+            }
+        },
+        "deleteConfirm": {
+            "title": "Eliminar servicios",
+            "message": "¿Estás seguro de que deseas eliminar este servicio? Esta acción no se puede deshacer."
+        }
+    },
+    "certifications": {
+        "header": {
+            "title": "Certificaciones"
+        },
+        "affix": {
+            "title": "Certificaciones"
+        },
+        "navigationItems": {
+            "global": "Global",
+            "role": "Por Cargo",
+            "chore": "Faena"
+        },
+        "tables": {
+            "noData": "No hay certificaciones disponibles",
+            "global": {
+                "title": "Globales",
+                "description": "Certificaciones globales de FAM.",
+                "name": "Nombre",
+                "whiteCollar": "White Collar",
+                "blueCollar": "Blue Collar"
+            },
+            "role": {
+                "title": "Por Cargo",
+                "description": "Certificaciones solicitadas de acuerdo al Cargo.",
+                "name": "Nombre",
+                "messages": {
+                    "saveSuccess": "Cambios guardados con éxito",
+                    "savePartial": "Algunos cambios no se pudieron guardar. Por favor, revisa e intenta nuevamente."
+                }
+            },
+            "chore": {
+                "title": "Faena",
+                "description": "Certificaciones específicas solicitadas por Faena.",
+                "name": "Nombre",
+                "messages": {
+                    "saveSuccess": "Cambios guardados con éxito",
+                    "savePartial": "Algunos cambios no se pudieron guardar. Por favor, revisa e intenta nuevamente."
+                }
+            },
+            "discardModal": {
+                "title": "¿Estás seguro que deseas descartar los cambios? Tienes {count} cambios sin guardar.",
+                "permanentDiscard": "Esta acción es permanente."
+            }
+        }
+    },
+    "collaborators": {
+        "common": {
+            "faena": "Faena",
+            "client": "Cliente",
+            "selectPlaceholder": "Seleccionar...",
+            "role": "Cargo"
+        },
+        "details": {
+            "header": {
+                "title": "ID: ",
+                "exportButton": "Exportar",
+                "syncButton": "Sincronizar"
+            },
+            "columns": {
+                "name": "Nombre",
+                "type": "Tipo",
+                "emission": "Fecha de inicio",
+                "expiration": "Fecha de expiración",
+                "institution": "Institución",
+                "actions": "Acciones"
+            },
+            "noDescription": "Sin descripción disponible para esta certificación.",
+            "notFound": "Colaborador no encontrado",
+            "noPosition": "Sin cargo asignado",
+            "noAdditionalInfo": "No hay información adicional disponible",
+            "noCertificates": "No hay certificados disponibles",
+            "noAssignedServices": "No hay servicios asignados",
+            "assignedServices": "Servicios Asignados",
+            "certificates": "Certificados",
+            "basicInfo": "Información Básica",
+            "address": "Dirección",
+            "additionalInfo": "Información adicional",
+            "availableVacations": "Saldo Vacaciones",
+            "days": "días",
+            "annex": "Anexo",
+            "contract": "Contrato",
+            "performanceEvaluation": "Evaluación de desempeño",
+            "performanceEvaluations": "Evaluaciones de desempeño",
+            "addPerformanceEvaluation": "Agregar evaluación de desempeño",
+            "addPerformanceEvaluationSubtitle": "Completá los criterios de evaluación para este colaborador.",
+            "performanceEvaluationPlaceholder": "Escribe aquí la evaluación...",
+            "noPerformanceEvaluations": "No hay evaluaciones de desempeño disponibles.",
+            "certificationDetails": "Detalles del certificado",
+            "performanceEvaluationDetail": "Detalle de evaluación de desempeño",
+
+            "performanceEvaluationsTable": {
+                "columns": {
+                    "date": "Fecha",
+                    "evaluator": "Evaluador",
+                    "averageScore": "Puntaje promedio",
+                    "type": "Tipo",
+                    "actions": "Acciones"
+                },
+                "deleteModal": {
+                    "title": "¿Estás seguro de que deseas eliminar esta evaluación de desempeño?",
+                    "description": "Esta acción no se puede deshacer."
+                }
+            },
+            "performanceEvaluationsForm": {
+                "type": "Tipo de evaluación",
+                "selectType": "Seleccionar tipo...",
+                "selectService": "Seleccionar servicio...",
+                "noServices": "Sin servicios",
+                "columns": {
+                    "category": "Categoría",
+                    "criteria": "Criterios"
+                },
+                "closeNote": "Cerrar nota",
+                "viewNote": "Ver nota",
+                "editNote": "Editar nota",
+                "addNote": "Agregar nota",
+                "evaluationPlaceholder": "Escribe una observación...",
+                "characters": "caracteres",
+                "delete": "Borrar",
+                "done": "Listo",
+                "sections": {
+                    "technicalSkills": "Competencia técnica",
+                    "availabilityAndEfficiency": "Disponibilidad y Eficiencia",
+                    "behavior": "Comportamiento"
+                },
+                "criterias": {
+                    "technicalSkills": {
+                        "quality": "Calidad de Ejecución",
+                        "toolUsage": "Uso de Herramientas",
+                        "technicalProactivity": "Proactividad Técnica"
+                    },
+                    "availabilityAndEfficiency": {
+                        "productivity": "Productividad",
+                        "disposition": "Disposición",
+                        "reliability": "Confiabilidad"
+                    },
+                    "behavior": {
+                        "teamwork": "Trabajo en Equipo",
+                        "safetyCompliance": "Cumplimiento Seguridad",
+                        "changeDisposition": "Disposición al Cambio"
+                    }
+                },
+                "messages": {
+                    "saveSuccess": "Evaluación de desempeño guardada exitosamente.",
+                    "deleteSuccess": "Evaluación de desempeño eliminada exitosamente."
+                },
+                "errors": {
+                    "saveError": "Error al guardar la evaluación de desempeño.",
+                    "deleteError": "Error al eliminar la evaluación de desempeño."
+                }
+            }
+        },
+        "header": {
+            "title": "Colaboradores",
+            "exportButton": "Exportar",
+            "syncButton": "Sincronizar",
+            "addCertificationsTitle": "Agregar certificación"
+        },
+        "addCertification": {
+            "processAll": "Procesar todo",
+            "saveAll": "Guardar todo",
+            "steps": {
+                "upload": "Subir",
+                "uploadDescription": "Seleccioná el certificado que deseas procesar",
+                "preview": "Revisar",
+                "previewDescription": "Revisa la información del certificado",
+                "finish": "Terminar"
+            },
+            "basicInfoForm": {
+                "title": "Información básica",
+                "collaborator": "Colaborador",
+                "collaboratorPlaceholder": "Selecciona un colaborador",
+                "code": "Código",
+                "codePlaceholder": "Ej: ABC123",
+                "name": "Nombre",
+                "namePlaceholder": "Ej: Certificación en trabajo en altura",
+                "institution": "Institución",
+                "institutionPlaceholder": "Ej: Instituto de seguridad laboral",
+                "startDate": "Fecha de inicio",
+                "startDatePlaceholder": "01-01-2026",
+                "expirationDate": "Fecha de expiración",
+                "expirationDatePlaceholder": "01-01-2027",
+                "tags": "Tags",
+                "tagsPlaceholder": "Ej: trabajo en altura, seguridad",
+                "summary": "Resumen",
+                "summaryPlaceholder": "Descripción generada por IA"
+            },
+            "filePreview": {
+                "title": "Vista previa"
+            },
+            "uploadCard": {
+                "title": "Subir",
+                "description": "Selecciona los certificados.",
+                "browse": "Haz clic para subir",
+                "support": "Formatos aceptados: .jpg, .jpeg, .png, .pdf. Tamaño máximo de archivos de {value}mb.",
+                "noValidFiles": "No se encontraron archivos válidos"
+            },
+            "certificatesTable": {
+                "title": "Lista de Certificados",
+                "description": "Agrega y valida los certificados para el colaborador {name}.",
+                "uploadButton": "Subir Archivos",
+                "empty": "No se han agregado certificados aún",
+                "noCertificateId": "ID del certificado no encontrado",
+                "hints": {
+                    "clickToEdit": "Haz clic en un campo para editar su información"
+                },
+                "placeholders": {
+                    "name": "Ej: Certificación en trabajo en altura",
+                    "type": "Ej: Exámenes"
+                },
+                "errors": {
+                    "timeout": "El procesamiento del certificado ha tardado más de lo esperado."
+                },
+                "saveSuccessTitle": "Certificado guardado exitosamente",
+                "saveErrorTitle": "Error al guardar el certificado",
+                "uploadSuccessTitle": "Archivo subido exitosamente",
+                "uploadErrorTitle": "Error al subir el archivo",
+                "columns": {
+                    "name": "Nombre",
+                    "type": "Tipo",
+                    "file": "Archivo",
+                    "actions": "Acciones",
+                    "expiresAt": "Fecha de expiración",
+                    "status": "Estado",
+                    "code": "Código"
+                },
+                "actions": {
+                    "process": "Procesar"
+                },
+                "status": {
+                    "uploading": "Subiendo",
+                    "uploading-file": "Subiendo archivo",
+                    "processing": "Procesando certificado",
+                    "processed": "Procesado",
+                    "lastRetry": "Intentando procesar por última vez"
+                }
+            },
+            "certificateDetails": {
+                "title": "Subir",
+                "summary": "Resumen",
+                "noDescription": "Sin descripción",
+                "institution": "Institución",
+                "noInstitution": "Sin institución",
+                "tags": "Tags",
+                "noTags": "No se han detectado tags",
+                "viewFile": "Ver archivo"
+            }
+        },
+        "tools": {
+            "searchPlaceholder": "Busqueda Rápida",
+            "filterButton": "Filtrar"
+        },
+        "filter": {
+            "title": "Filtrar",
+            "certificationsLabel": "Certificaciones",
+            "selectPlaceholder": "Seleccionar...",
+            "applyButton": "Aplicar",
+            "resetButton": "Restablecer filtros",
+            "statusLabel": "Estado",
+            "assignationsLabel": "Asignación"
+        },
+        "table": {
+            "name": "Nombre",
+            "rut": "RUT",
+            "location": "Ubicación",
+            "status": "Estado",
+            "assignation": "Asignación",
+            "actions": "Acciones"
+        },
+        "status": {
+            "active": "Activo",
+            "inactive": "Inactivo"
+        }
+    },
+    "backOffice": {
+        "affix": {
+            "title": "Backoffice"
+        },
+        "errors": {
+            "fetchChores": "Error al cargar faenas.",
+            "fetchRoles": "Error al cargar cargos.",
+            "fetchClients": "Error al cargar clientes.",
+            "fetchHolidays": "Error al cargar feriados.",
+            "fetchDivisions": "Error al cargar divisiones.",
+            "fetchCertificates": "Error al cargar certificados.",
+            "fetchShifts": "Error al cargar turnos."
+        },
+        "header": {
+            "title": "Backoffice",
+            "description": "Configuración de elementos necesarios para el funcionamiento de la plataforma"
+        },
+        "status": {
+            "active": "Activo",
+            "inactive": "Inactivo"
+        },
+        "matrix": {
+            "chore": "Faena",
+            "role": "Cargo",
+            "global": "Global",
+            "cargo": "Cargo",
+            "faena": "Faena"
+        },
+        "relevance": {
+            "none": "No tiene vencimiento, solo se actualiza si se emite una nueva versión del procedimiento",
+            "30": "≤ 30 días",
+            "60": "≤ 60 días"
+        },
+        "roleCategory": {
+            "whiteCollar": "White Collar",
+            "blueCollar": "Blue Collar"
+        },
+        "holidayType": {
+            "auto": "Automático",
+            "manual": "Manual"
+        },
+        "tables": {
+            "noData": "No hay datos disponibles",
+            "actions": {
+                "edit": "Editar",
+                "delete": "Eliminar",
+                "title": "Acciones"
+            }
+        },
+        "navigationItems": {
+            "certifications": "Certificados",
+            "roles": "Cargos (Roles)",
+            "clients": "Clientes",
+            "holidays": "Feriados",
+            "chores": "Faenas",
+            "divisions": "Divisiones",
+            "shifts": "Turnos"
+        },
+        "shiftsTable": {
+            "title": "Turnos",
+            "description": "Listado de turnos configurables por parte de FAM.",
+            "name": "Nombre",
+            "distribution": "Distribución",
+            "data": "Inf. Adicional",
+            "type": "Tipo"
+        },
+        "certificatesTable": {
+            "title": "Certificados",
+            "description": "Certificados de FAM, independiente a que matriz pertenezcan.",
+            "name": "Nombre",
+            "code": "Código",
+            "type": "Tipo",
+            "relevance": "Relevancia",
+            "matrix": "Matriz",
+            "status": "Estado"
+        },
+        "rolesTable": {
+            "title": "Cargos (Roles)",
+            "description": "Listado de roles configurables por parte de FAM.",
+            "name": "Nombre",
+            "category": "Categoría"
+        },
+        "clientsTable": {
+            "title": "Clientes",
+            "description": "Clientes dentro de la configuración de FAM.",
+            "name": "Nombre",
+            "rut": "RUT",
+            "status": "Estado"
+        },
+        "holidaysTable": {
+            "title": "Feriados",
+            "description": "Feriados de Chile durante el año en curso.",
+            "date": "Fecha",
+            "type": "Tipo"
+        },
+        "choresTable": {
+            "title": "Faenas",
+            "description": "Listado de faenas donde FAM presta servicios.",
+            "name": "Nombre",
+            "code": "Código"
+        },
+        "divisionTable": {
+            "title": "Divisiones",
+            "description": "Divisiones en las que FAM tiene servicios activos.",
+            "name": "Nombre",
+            "number": "Número"
+        },
+        "certificateModal": {
+            "matrix": {
+                "cargo": "Cargo",
+                "faena": "Faena",
+                "global": "Global"
+            },
+
+            "titleEdit": "Editar certificado",
+            "titleCreate": "Crear certificado",
+            "messages": {
+                "creationSuccess": "Certificado creado exitosamente.",
+                "updateSuccess": "Certificado actualizado exitosamente."
+            },
+            "errors": {
+                "creationFailed": "Error al crear el certificado. Por favor, intenta nuevamente.",
+                "updateFailed": "Error al actualizar el certificado. Por favor, intenta nuevamente."
+            },
+            "validation": {
+                "nameRequired": "El nombre es obligatorio",
+                "codeRequired": "El código es obligatorio",
+                "matrixRequired": "La matriz es obligatoria",
+                "typeRequired": "El tipo es obligatorio",
+                "relevanceRequired": "La relevancia es obligatoria"
+            },
+            "fields": {
+                "relevanceOptions": {
+                    "none": "Sin relevancia",
+                    "30": "≤ 30 días",
+                    "60": "≤ 60 días"
+                },
+                "statusOptions": {
+                    "active": "Activo",
+                    "inactive": "Inactivo"
+                },
+                "matrixOptions": {
+                    "cargo": "Cargo",
+                    "faena": "Faena",
+                    "global": "Global"
+                },
+                "name": "Nombre",
+                "namePlaceholder": "Seguridad ISO",
+                "code": "Código",
+                "codePlaceholder": "CERT-001",
+                "type": "Tipo",
+                "typePlaceholder": "Exámenes",
+                "relevance": "Relevancia",
+                "relevancePlaceholder": "Todos",
+                "matrix": "Matriz",
+                "status": "Estado"
+            }
+        },
+        "choreModal": {
+            "titleEdit": "Editar faena",
+            "titleCreate": "Crear faena",
+            "messages": {
+                "creationSuccess": "Faena creada exitosamente.",
+                "updateSuccess": "Faena actualizada exitosamente."
+            },
+            "errors": {
+                "creationFailed": "Error al crear la faena. Por favor, intenta nuevamente.",
+                "updateFailed": "Error al actualizar la faena. Por favor, intenta nuevamente."
+            },
+            "validation": {
+                "nameRequired": "El nombre es obligatorio",
+                "codeRequired": "El código es obligatorio"
+            },
+            "fields": {
+                "name": "Nombre",
+                "namePlaceholder": "Faena El Salvador",
+                "code": "Código",
+                "codePlaceholder": "CH-001"
+            }
+        },
+        "clientModal": {
+            "titleEdit": "Editar cliente",
+            "titleCreate": "Crear cliente",
+            "validation": {
+                "nameRequired": "El nombre es requerido",
+                "rutRequired": "El RUT es requerido",
+                "rutInvalid": "El RUT no es válido"
+            },
+            "errors": {
+                "creationFailed": "Error al crear el cliente. Por favor, intenta nuevamente.",
+                "updateFailed": "Error al actualizar el cliente. Por favor, intenta nuevamente.",
+                "duplicateRut": "Ya existe un cliente con este RUT."
+            },
+            "messages": {
+                "creationSuccess": "Cliente creado exitosamente.",
+                "updateSuccess": "Cliente actualizado exitosamente."
+            },
+            "statusOptions": {
+                "active": "Activo",
+                "inactive": "Inactivo"
+            },
+            "fields": {
+                "name": "Nombre",
+                "namePlaceholder": "Minera El Salvador",
+                "rut": "RUT",
+                "rutDisabledHint": "El RUT no se puede editar",
+                "rutPlaceholder": "12.345.678-9",
+                "status": "Estado",
+                "statusPlaceholder": "Seleccionar estado"
+            }
+        },
+        "divisionModal": {
+            "titleEdit": "Editar división",
+            "titleCreate": "Crear división",
+            "messages": {
+                "creationSuccess": "División creada exitosamente.",
+                "updateSuccess": "División actualizada exitosamente."
+            },
+            "errors": {
+                "creationFailed": "Error al crear la división. Por favor, intenta nuevamente.",
+                "updateFailed": "Error al actualizar la división. Por favor, intenta nuevamente."
+            },
+            "validation": {
+                "nameRequired": "El nombre es requerido",
+                "numberRequired": "El número es requerido"
+            },
+            "fields": {
+                "name": "Nombre",
+                "namePlaceholder": "División El Salvador",
+                "number": "Número",
+                "numberPlaceholder": "Ej: 405"
+            }
+        },
+        "holidayModal": {
+            "titleEdit": "Editar feriado",
+            "titleCreate": "Crear feriado",
+            "messages": {
+                "creationSuccess": "Feriado creado exitosamente.",
+                "updateSuccess": "Feriado actualizado exitosamente."
+            },
+            "errors": {
+                "creationFailed": "Error al crear el feriado. Por favor, intenta nuevamente.",
+                "updateFailed": "Error al actualizar el feriado. Por favor, intenta nuevamente."
+            },
+            "validation": {
+                "dateRequired": "La fecha es requerida",
+                "typeRequired": "El tipo es requerido"
+            },
+            "fields": {
+                "date": "Fecha",
+                "datePlaceholder": "Selecciona una fecha",
+                "type": "Tipo de Festivo",
+                "typePlaceholder": "Selecciona el tipo de festivo",
+                "typeOptions": {
+                    "auto": "Automático",
+                    "manual": "Manual"
+                }
+            }
+        },
+        "roleModal": {
+            "titleEdit": "Editar cargo",
+            "titleCreate": "Crear cargo",
+            "messages": {
+                "creationSuccess": "Cargo creado exitosamente.",
+                "updateSuccess": "Cargo actualizado exitosamente."
+            },
+            "errors": {
+                "creationFailed": "Error al crear el cargo. Por favor, intenta nuevamente.",
+                "updateFailed": "Error al actualizar el cargo. Por favor, intenta nuevamente."
+            },
+            "validation": {
+                "nameRequired": "El nombre es requerido"
+            },
+
+            "fields": {
+                "name": "Nombre",
+                "namePlaceholder": "Ej: Supervisor de mecánica",
+                "category": "Categoría",
+                "categoryPlaceholder": "Selecciona una categoría",
+                "categoryOptions": {
+                    "whiteCollar": "White Collar",
+                    "blueCollar": "Blue Collar"
+                }
+            }
+        }
+    },
+    "userProfile": {
+        "profileInfoCard": {
+            "email": "Email",
+            "phone": "Teléfono",
+            "lastOnline": "Última conexión",
+            "noEmail": "No hay email disponible",
+            "noPhone": "No hay teléfono disponible",
+            "messages": {
+                "phoneNumber": {
+                    "success": "Tu télefono ha sido actualizado correctamente, por seguridad te solicitaremos ingresar nuevamente a la plataforma.",
+                    "error": "El teléfono ingresado no ha podido ser actualizado. Cómuniquese con su administrador."
+                }
+            }
+        },
+        "tabsCard": {
+            "security": "Seguridad",
+            "activity": "Actividad",
+            "notifications": "Notificaciones",
+            "notificationsTab": {
+                "emailNotifications": {
+                    "title": "Notificaciones por Email",
+                    "description": "Habilita las notificaciones y alertas por correo."
+                },
+                "vacationsMode": {
+                    "title": "Habilitar modo Vacaciones",
+                    "description": "Desactiva por 2 semanas las notificaciones por correo y teléfono."
+                },
+                "generalNotifications": {
+                    "title": "Habilitar notificaciones",
+                    "description": "Selecciona los eventos sobre los que deseas recibir notificaciones.",
+                    "options": {
+                        "all": "Todos los mensajes",
+                        "allDescription": "Recibirás todas las notificaciones de la plataforma.",
+                        "roleBased": "Según role",
+                        "roleBasedDescription": "Recibirás todas las notificaciones basadas en tu role.",
+                        "none": "Ninguna",
+                        "noneDescription": "No recibirás ninguna notificación."
+                    }
+                }
+            }
+        }
+    },
+    "rolesUsers": {
+        "header": {
+            "title": "Roles y Permisos",
+            "createButton": "Crear Usuario"
+        },
+        "role": {
+            "admin": "Admin",
+            "p&cUser": "Usuario P&C",
+            "operationsUser": "Usuario de Operaciones",
+            "analystUser": "Usuario Analista",
+            "advancedUser": "Usuario Avanzado",
+            "all": "Todos"
+        },
+        "content": {
+            "usersTitle": "Usuarios",
+            "userTable": {
+                "name": "Nombre",
+                "role": "Rol",
+                "status": "Estado",
+                "lastLogin": "Último ingreso",
+                "searchPlaceholder": "Buscar..."
+            }
+        },
+        "status": {
+            "active": "Activo",
+            "inactive": "Inactivo",
+            "all": "Todos"
+        },
+        "createUserModal": {
+            "title": "Crear nuevo usuario",
+            "fields": {
+                "firstName": "Nombre",
+                "firstNamePlaceholder": "Ej: Juan",
+                "lastName": "Apellido",
+                "lastNamePlaceholder": "Ej: Pérez",
+                "email": "Email",
+                "emailPlaceholder": "Ej: juan.perez@correo.com",
+                "role": "Rol",
+                "rolePlaceholder": "Selecciona un rol",
+                "phone": "Teléfono"
+            },
+            "validation": {
+                "firstNameRequired": "El nombre es requerido",
+                "phoneNumberRequired": "El Teléfono es requerido",
+                "emailRequired": "El email es requerido",
+                "emailInvalid": "El email no es válido",
+                "roleRequired": "El rol es requerido"
+            }
+        }
+    },
+    "projectsPanel": {
+        "selectPlaceholder": "Seleccionar...",
+        "header": {
+            "title": "Panel de Proyectos",
+            "subtitle": "Visualización de dotación y recursos por servicio.",
+            "exportButton": "Exportar Reporte",
+            "createButton": "Nuevo Servicio"
+        },
+        "content": {
+            "monthsLabel": "Mes de análisis",
+            "statusLabel": "Estado",
+            "servicesLabel": "Servicio",
+            "charts": {
+                "projectsPopulationTitle": "Poblamiento por proyectos",
+                "projectsPopulationSubtitle": "Colaboradores Confirmados vs Pre-Confirmados",
+                "servicesSetupTitle": "Programación de servicios",
+                "servicesSetupSubtitle": "Proyección próximos 3 meses",
+                "confirmed": "Confirmados",
+                "preConfirmed": "Pre-confirmados",
+                "activeServices": "Servicios activos"
+            },
+            "table": {
+                "rolesTableTitle": "Detalle de dotación por rol",
+                "noData": "No hay datos disponibles para el mes seleccionado",
+                "serviceColumn": "Servicio",
+                "roleColumn": "Rol del servicio",
+                "requiredWorkersColumn": "Cant. dot. requerida",
+                "actualWorkersColumn": "Cant. dot. real",
+                "statusColumn": "Estado",
+                "statusComplete": "Completo",
+                "statusIncomplete": "Incompleto",
+                "statusVacancies": "-{count} vacantes"
+            },
+            "selectors": {
+                "status": {
+                    "confirmed": "Confirmados",
+                    "preConfirmed": "Pre-confirmados",
+                    "proposal": "Propuesta"
+                }
+            }
+        }
+    },
+    "hhReports": {
+        "selectors": {
+            "timePlaceholder": "Seleccionar meses",
+            "codePlaceholder": "Seleccionar códigos"
+        },
+        "generalCharts": {
+            "title": "Reportes de Horas Hombre (HH)",
+            "charts": {
+                "nonProjectTime": {
+                    "title": "Horas hombre trabajadas por mes"
+                },
+                "barChart": {
+                    "title": "Bar chart"
+                }
+            }
+        },
+        "detailedCharts": {
+            "title": "Análisis detallado de HH",
+            "monthsLabel": "Meses",
+            "choreCodesLabel": "Códigos",
+            "charts": {
+                "workingHoursByCodeTitle": "HH Trabajadas por Código",
+                "absenceTitle": "HH Ausencias"
+            }
+        },
+        "content": {
+            "chartsSectionTitle": "Análisis detallado",
+            "chartsSectionSubtitle": "Horas hombre trabajadas vs ausencias por código y tipo de ausencia.",
+            "table": {
+                "choreCodesTitle": "Distribución de Dotación",
+                "codeColumn": "Código",
+                "hhCountColumn": "Suma de HH"
+            }
+        }
+    }
+}

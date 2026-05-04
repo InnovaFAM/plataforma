@@ -1,0 +1,275 @@
+[
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#5dsetjIcLuqU",
+    "name": "7x7",
+    "type": "Día",
+    "distribution": "07:00 a 19:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "7x7",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#vKC7yPziKPVS",
+    "name": "7x7",
+    "type": "Noche",
+    "distribution": "19:00 a 07:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "7x7",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#kQQ5wVmYs0gx",
+    "name": "7x7",
+    "type": "Día",
+    "distribution": "08:00 a 20:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "7x7",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#6IFDdkYzmeIt",
+    "name": "7x7",
+    "type": "Noche",
+    "distribution": "20:00 a 08:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "7x7",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#gBOHRtQk8b5O",
+    "name": "14x14",
+    "type": "Día",
+    "distribution": "07:00 a 19:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "14x14",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#ojWgaFVHfJqn",
+    "name": "14x14",
+    "type": "Noche",
+    "distribution": "19:00 a 07:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "14x14",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#SRbimshfl11g",
+    "name": "14x14",
+    "type": "Día",
+    "distribution": "08:00 a 20:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "14x14",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#7dXCx1cU5VZH",
+    "name": "14x14",
+    "type": "Noche",
+    "distribution": "20:00 a 08:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "14x14",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#bFwKsppwmSoZ",
+    "name": "10x10",
+    "type": "Día",
+    "distribution": "07:00 a 19:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "10x10",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#aDE5DCKScdOH",
+    "name": "10x10",
+    "type": "Noche",
+    "distribution": "19:00 a 07:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "10x10",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#l2fWn8qMIPuv",
+    "name": "10x10",
+    "type": "Día",
+    "distribution": "08:00 a 20:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "10x10",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#YFyctvknLHJL",
+    "name": "10x10",
+    "type": "Noche",
+    "distribution": "20:00 a 08:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 12,
+      "shiftType": "10x10",
+      "weeklyHours": 42
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#23sLr6cBqvUB",
+    "name": "4x3",
+    "type": "Día",
+    "distribution": "1 a 3° día de 07 a 19hrs y 4° 07 a 15hrs",
+    "status": true,
+    "data": {
+      "hoursPerDay": 11,
+      "shiftType": "4x3",
+      "weeklyHours": 44
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#uMwrh434tTpu",
+    "name": "4x3",
+    "type": "Día",
+    "distribution": "1 a 3° día de 08 a 20hrs y 4° 08 a 16hrs",
+    "status": true,
+    "data": {
+      "hoursPerDay": 11,
+      "shiftType": "4x3",
+      "weeklyHours": 44
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#tGNyuDasFvoA",
+    "name": "5x2 Oficina",
+    "type": "Día",
+    "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 15:30",
+    "status": true,
+    "data": {
+      "hoursPerDay": 9,
+      "shiftType": "5x2 Oficina",
+      "weeklyHours": 45
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#rsQTeDRIwRIx",
+    "name": "5x2 Terreno",
+    "type": "Día",
+    "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 17:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 9.3,
+      "shiftType": "5x2 Terreno",
+      "weeklyHours": 46.5
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#n1HufUeFROTg",
+    "name": "8x6",
+    "type": "Día",
+    "distribution": "08:00 a 19:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 11,
+      "shiftType": "8x6",
+      "weeklyHours": 44
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#SDZti0zFoZ4W",
+    "name": "8x6",
+    "type": "Noche",
+    "distribution": "20:00 a 07:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 11,
+      "shiftType": "8x6",
+      "weeklyHours": 44
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#FRHiXOSj4MEg",
+    "name": "6x1",
+    "type": "Día",
+    "distribution": "Lunes a Viernes 08:00 a 17:00; Sábado 08:00 a 13:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 8.33,
+      "shiftType": "6x1",
+      "weeklyHours": 50
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#oVRpRfL0e3kV",
+    "name": "5x2 Teletrabajo Oficina",
+    "type": "Día",
+    "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 15:30",
+    "status": true,
+    "data": {
+      "hoursPerDay": 9,
+      "shiftType": "5x2 Teletrabajo Oficina",
+      "weeklyHours": 45
+    }
+  },
+  {
+    "pk": "FAM#SHIFTS",
+    "sk": "SHIFTS#9BiPaawZ9zkG",
+    "name": "5x2 Teletrabajo Terreno",
+    "type": "Día",
+    "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 17:00",
+    "status": true,
+    "data": {
+      "hoursPerDay": 9.3,
+      "shiftType": "5x2 Teletrabajo Terreno",
+      "weeklyHours": 46.5
+    }
+  }
+]

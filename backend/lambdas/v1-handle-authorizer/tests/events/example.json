@@ -1,0 +1,41 @@
+{
+  "version": "2.0",
+  "type": "REQUEST",
+  "routeArn": "arn:aws:execute-api:us-east-1:225989337580:2of23ks699/v1/POST/webhooks/whatsapp/aura",
+  "identitySource": [
+    "ia-8HbBGEPIqJmFrDIKMURIaGY4f8bxfYoV28GvGjG07SGiEiX4SaohtT7jY3SqA"
+  ],
+  "routeKey": "POST /webhooks/whatsapp/aura",
+  "rawPath": "/v1/webhooks/whatsapp/aura",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "application/json",
+    "content-length": "469",
+    "content-type": "application/json",
+    "host": "api.jobssy.ai",
+    "user-agent": "GuzzleHttp/7",
+    "x-amzn-trace-id": "Root=1-68ae9b2b-79ae0e3933fe353e5312a428",
+    "x-api-key": "ia-8HbBGEPIqJmFrDIKMURIaGY4f8bxfYoV28GvGjG07SGiEiX4SaohtT7jY3SqA",
+    "x-forwarded-for": "3.232.70.162",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "225989337580",
+    "apiId": "2of23ks699",
+    "domainName": "api.jobssy.ai",
+    "domainPrefix": "ia",
+    "http": {
+      "method": "POST",
+      "path": "/v1/webhooks/assetplan/aura",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "3.232.70.162",
+      "userAgent": "GuzzleHttp/7"
+    },
+    "requestId": "P80u6h6voAMEM9Q=",
+    "routeKey": "POST /webhooks/assetplan/aura",
+    "stage": "v1",
+    "time": "27/Aug/2025:05:44:11 +0000",
+    "timeEpoch": 1756273451888
+  }
+}

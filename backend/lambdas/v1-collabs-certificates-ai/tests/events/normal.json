@@ -1,0 +1,38 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "us-east-1",
+      "eventTime": "2026-03-14T21:58:02.897Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AIDAZ6PWQDJ3MFJNGDOQ4"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "186.40.38.174"
+      },
+      "responseElements": {
+        "x-amz-request-id": "J9SCR49834RWJ7GB",
+        "x-amz-id-2": "OjuG6IvlmKnqs7aZZbVmbD3KJocnhf+uXXo3jmhKaYqZ2S0+4eU6QowapxMUBeXTebUUJYwTRcZibjKZj0piFlC4yAM4iFf6"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "tf-s3-lambda-20260314031722334100000001",
+        "bucket": {
+          "name": "innovafam-stage",
+          "ownerIdentity": {
+            "principalId": "AKSQ3G5TB2AI4"
+          },
+          "arn": "arn:aws:s3:::innovafam-stage"
+        },
+        "object": {
+          "key": "collabs/37651/certificates/CER-ALZ-CE.pdf",
+          "size": 611378,
+          "eTag": "3ffa0b1cf734f8498f43281af32c7780",
+          "sequencer": "0069B5D9EAC9E5E7A1"
+        }
+      }
+    }
+  ]
+}

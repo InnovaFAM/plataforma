@@ -1,0 +1,482 @@
+[
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1001",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1001",
+    "contractNumber": "CTR-9928",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-10-01",
+    "managers": [
+      {
+        "email": "andrea.morales@innovafam.cl",
+        "name": "Andrea Morales",
+        "phoneNumber": "987654321",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Mantenimiento Planta Norte",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "media",
+    "startDate": "2027-04-01",
+    "status": "boceto",
+    "submanagers": [
+      {
+        "email": "felipe.rojas@innovafam.cl",
+        "name": "Felipe Rojas",
+        "phoneNumber": "976543210",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1002",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1002",
+    "contractNumber": "CTR-1847",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2026-09-15",
+    "managers": [
+      {
+        "email": "marcelo.fuentes@innovafam.cl",
+        "name": "Marcelo Fuentes",
+        "phoneNumber": "965432198",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Operación Logística Central",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "alta",
+    "startDate": "2026-05-15",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "camila.soto@innovafam.cl",
+        "name": "Camila Soto",
+        "phoneNumber": "954321987",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1003",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1003",
+    "contractNumber": "CTR-3762",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-02-10",
+    "managers": [
+      {
+        "email": "paula.vergara@innovafam.cl",
+        "name": "Paula Vergara",
+        "phoneNumber": "943219876",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Soporte Técnico Terreno",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "media",
+    "startDate": "2026-06-10",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "nicolas.herrera@innovafam.cl",
+        "name": "Nicolás Herrera",
+        "phoneNumber": "932198765",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1004",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1004",
+    "contractNumber": "CTR-5291",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2026-12-20",
+    "managers": [
+      {
+        "email": "daniela.castillo@innovafam.cl",
+        "name": "Daniela Castillo",
+        "phoneNumber": "921987654",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Inspección de Equipos Críticos",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "baja",
+    "startDate": "2026-07-20",
+    "status": "boceto",
+    "submanagers": [
+      {
+        "email": "esteban.munoz@innovafam.cl",
+        "name": "Esteban Muñoz",
+        "phoneNumber": "912345678",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1005",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1005",
+    "contractNumber": "CTR-6418",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-06-01",
+    "managers": [
+      {
+        "email": "roberto.araya@innovafam.cl",
+        "name": "Roberto Araya",
+        "phoneNumber": "998877665",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Continuidad Operacional Minera",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "alta",
+    "startDate": "2026-08-01",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "valentina.rios@innovafam.cl",
+        "name": "Valentina Ríos",
+        "phoneNumber": "987766554",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1006",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1006",
+    "contractNumber": "CTR-7083",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-01-05",
+    "managers": [
+      {
+        "email": "claudia.perez@innovafam.cl",
+        "name": "Claudia Pérez",
+        "phoneNumber": "976655443",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Gestión de Bodega Industrial",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "media",
+    "startDate": "2026-09-05",
+    "status": "boceto",
+    "submanagers": [
+      {
+        "email": "matias.vera@innovafam.cl",
+        "name": "Matías Vera",
+        "phoneNumber": "965544332",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1007",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1007",
+    "contractNumber": "CTR-8154",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-10-12",
+    "managers": [
+      {
+        "email": "sebastian.espinoza@innovafam.cl",
+        "name": "Sebastián Espinoza",
+        "phoneNumber": "954433221",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Proyecto de Mejora Operacional",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "alta",
+    "startDate": "2026-10-12",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "javier.cortes@innovafam.cl",
+        "name": "Javier Cortés",
+        "phoneNumber": "943322110",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1008",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1008",
+    "contractNumber": "CTR-9036",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-04-30",
+    "managers": [
+      {
+        "email": "francisca.leiva@innovafam.cl",
+        "name": "Francisca Leiva",
+        "phoneNumber": "932211009",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Servicio de Control Documental",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "baja",
+    "startDate": "2026-11-30",
+    "status": "boceto",
+    "submanagers": [
+      {
+        "email": "diego.martinez@innovafam.cl",
+        "name": "Diego Martínez",
+        "phoneNumber": "921100998",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1009",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1009",
+    "contractNumber": "CTR-1175",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-08-18",
+    "managers": [
+      {
+        "email": "carolina.navarro@innovafam.cl",
+        "name": "Carolina Navarro",
+        "phoneNumber": "910099887",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Administración de Contratos Operativos",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "media",
+    "startDate": "2027-01-18",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "ignacio.silva@innovafam.cl",
+        "name": "Ignacio Silva",
+        "phoneNumber": "999888777",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1010",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1010",
+    "contractNumber": "CTR-2469",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-05-25",
+    "managers": [
+      {
+        "email": "ricardo.guzman@innovafam.cl",
+        "name": "Ricardo Guzmán",
+        "phoneNumber": "988777666",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Supervisión de Faena Industrial",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "alta",
+    "startDate": "2027-02-25",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "sofia.alarcon@innovafam.cl",
+        "name": "Sofía Alarcón",
+        "phoneNumber": "977666555",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1011",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1011",
+    "contractNumber": "CTR-3840",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2028-01-10",
+    "managers": [
+      {
+        "email": "patricio.lagos@innovafam.cl",
+        "name": "Patricio Lagos",
+        "phoneNumber": "966555444",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Implementación de Turnos Operacionales",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "media",
+    "startDate": "2027-03-10",
+    "status": "boceto",
+    "submanagers": [
+      {
+        "email": "antonella.bravo@innovafam.cl",
+        "name": "Antonella Bravo",
+        "phoneNumber": "955444333",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  },
+  {
+    "pk": "FAM#SERVICES",
+    "sk": "SERVICE#SV-1012",
+    "chore": {
+      "sk": "CHORES#1er faena",
+      "code": "TEST-001",
+      "name": "1er faena"
+    },
+    "code": "SV-1012",
+    "contractNumber": "CTR-5702",
+    "division": {
+      "sk": "DIVISIONS#Division 1",
+      "name": "division 1",
+      "number": "1"
+    },
+    "endDate": "2027-12-05",
+    "managers": [
+      {
+        "email": "monica.sanhueza@innovafam.cl",
+        "name": "Mónica Sanhueza",
+        "phoneNumber": "944333222",
+        "role": "Administrador de Proyectos",
+        "type": "fam"
+      }
+    ],
+    "name": "Servicio de Coordinación de Recursos",
+    "parentId": "CLIENTS#yW8pH5MwzGqA",
+    "priority": "baja",
+    "startDate": "2027-05-05",
+    "status": "publicado",
+    "submanagers": [
+      {
+        "email": "benjamin.torres@innovafam.cl",
+        "name": "Benjamín Torres",
+        "phoneNumber": "933222111",
+        "role": "Subadministrador de Proyectos",
+        "type": "fam"
+      }
+    ]
+  }
+]
