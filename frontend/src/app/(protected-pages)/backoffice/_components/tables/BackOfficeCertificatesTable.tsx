@@ -3,13 +3,7 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import AdaptiveCard from '@/components/shared/AdaptiveCard'
 import DataTable, { ColumnDef } from '@/components/shared/DataTable'
-import {
-    Button,
-    Input,
-    Dialog,
-    InputGroup,
-    Tooltip,
-} from '@/components/ui'
+import { Button, Input, Dialog, InputGroup, Tooltip } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
 import { TbPencil, TbPlus, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand } from 'react-icons/fa6'
@@ -24,6 +18,7 @@ import TableEmptyState from '@/components/shared/TableEmptyState'
 import classNames from '@/utils/classNames'
 import getMatrixText from '../../_utils/getMatrixText'
 import getRelevanceText from '../../_utils/getRelevanceText'
+import { useCan } from '@/hooks/useCan'
 
 const BackOfficeCertificatesTable = ({
     id,
@@ -39,6 +34,8 @@ const BackOfficeCertificatesTable = ({
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
+    const canCreate = useCan('backOffice:create')
+    const canEdit = useCan('backOffice:edit')
     const { blocked: navBlocked, trigger: triggerNav } = useClickCoolDown(250)
 
     const [modalOpen, setModalOpen] = useState(false)
@@ -341,20 +338,24 @@ const BackOfficeCertificatesTable = ({
                     }}
                 />
             </InputGroup>
-            <Button
-                variant="plain"
-                shape="circle"
-                size="xs"
-                icon={editMode ? <TbX /> : <TbPencil />}
-                onClick={() => setEditMode(!editMode)}
-            />
-            <Button
-                variant="plain"
-                shape="circle"
-                size="xs"
-                icon={<TbPlus />}
-                onClick={() => setModalOpen(true)}
-            />
+            {canEdit && (
+                <Button
+                    variant="plain"
+                    shape="circle"
+                    size="xs"
+                    icon={editMode ? <TbX /> : <TbPencil />}
+                    onClick={() => setEditMode(!editMode)}
+                />
+            )}
+            {canCreate && (
+                <Button
+                    variant="plain"
+                    shape="circle"
+                    size="xs"
+                    icon={<TbPlus />}
+                    onClick={() => setModalOpen(true)}
+                />
+            )}
             <Button
                 className={classNames(
                     tableViewMode === 'modal' ? 'hidden' : '',

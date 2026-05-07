@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any
 
-from aws import query_roles_by_service
+from aws.ddb import query_roles_by_service
 
 
 def get_roles_for_services(

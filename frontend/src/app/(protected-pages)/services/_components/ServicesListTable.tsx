@@ -127,7 +127,6 @@ const ServicesListTable = ({
     }
 
     const handleView = (service: TService) => {
-        console.log(service)
         const id = service?.sk?.split('#')[1]
 
         handleAddToRecentVisitedServices(service.sk)

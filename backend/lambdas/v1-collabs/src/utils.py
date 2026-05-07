@@ -1,7 +1,7 @@
 import base64
 import json
 import secrets
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from aws_lambda_powertools.event_handler import Response, content_types
@@ -68,3 +68,8 @@ def is_collab_available(
     return (collab_dt_startedAt <= service_dt_startedAt) and (
         service_dt_endedAt <= collab_dt_endedAt
     )
+
+
+def get_24_hours_from_now() -> int:
+    dt = datetime.now() + timedelta(hours=1)
+    return int(dt.timestamp())

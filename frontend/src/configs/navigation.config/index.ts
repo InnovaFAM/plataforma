@@ -148,7 +148,7 @@ const navigationConfig: NavigationTree[] = [
                 subMenu: [],
             },
             {
-                key: 'p&c.contributors',
+                key: 'p&c.collaborators',
                 path: '/collaborators',
                 title: 'Colaboradores',
                 translateKey: 'nav.p&c.contributors',

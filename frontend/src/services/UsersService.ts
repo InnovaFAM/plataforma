@@ -6,6 +6,7 @@ import {
     TNewUser,
     TRolesUsersData,
     TUserActivity,
+    TUserNotification,
 } from '@/app/(protected-pages)/roles-users/types'
 
 export async function apiListAllUsers() {
@@ -72,6 +73,18 @@ export const apiListActivities = async (
 ): Promise<ServerResponse<PaginatedResponse<TUserActivity>>> => {
     return ApiService.fetchDataWithAxios<PaginatedResponse<TUserActivity>>({
         url: `/users/${userId}/activities`,
+        method: 'get',
+        params: { nextKey, pageSize },
+    })
+}
+
+export const apiListNotifications = async (
+    userId: string,
+    pageSize: number,
+    nextKey?: string,
+): Promise<ServerResponse<PaginatedResponse<TUserNotification>>> => {
+    return ApiService.fetchDataWithAxios<PaginatedResponse<TUserNotification>>({
+        url: `/users/${userId}/notifications`,
         method: 'get',
         params: { nextKey, pageSize },
     })

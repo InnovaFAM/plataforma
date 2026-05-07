@@ -1,7 +1,7 @@
 from collections import defaultdict
 from typing import Any
 
-from aws import get_hh_filters_summary, query_hh_detail_monthly_items_for_service
+from aws.ddb import get_hh_filters_summary, query_hh_detail_monthly_items_for_service
 from hh.detail._utils import sort_months
 
 

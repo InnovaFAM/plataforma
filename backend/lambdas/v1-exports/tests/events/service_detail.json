@@ -1,0 +1,10 @@
+{
+  "exportType": "SERVICE_DETAIL",
+  "requestedBy": {
+    "email": "pcornejogt@gmail.com",
+    "name": "Patricio"
+  },
+  "filters": {
+    "serviceCode": "SV-1001"
+  }
+}

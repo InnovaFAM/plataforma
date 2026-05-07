@@ -10,6 +10,11 @@ export const rolesKeys = {
 }
 
 export const activitiesKeys = {
-    all: () => ['users'] as const,
+    all: () => ['activities'] as const,
     list: (nextToken?: string) => ['activities', 'list', nextToken] as const,
+}
+
+export const notificationsKeys = {
+    all: () => ['notifications'] as const,
+    list: (nextToken?: string) => ['notifications', 'list', nextToken] as const,
 }

@@ -24,6 +24,7 @@ import { TCollaboratorCertificate, TCollaboratorEntity } from '../../types'
 import DialogDeleteCertificate from './DialogDeleteCertificate'
 import { useRouter } from 'next/navigation'
 import { TCertificate } from '@/app/(protected-pages)/certifications/types'
+import { useCan } from '@/hooks/useCan'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -225,6 +226,7 @@ const MissingCertificatesTable = ({
     data: TCertificate[]
     collaboratorId?: string
 }) => {
+    const canAddCertificate = useCan('collabs.certificates:create')
     const router = useRouter()
     return (
         <div className="rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
@@ -245,19 +247,21 @@ const MissingCertificatesTable = ({
                             {data.length === 1 ? '' : 's'}
                         </StatusBadge>
                     )}
-                    <button
-                        type="button"
-                        onClick={() => {
-                            const id = collaboratorId?.split('#')[1] || ''
-                            return router.push(
-                                `/collaborators/${encodeURIComponent(id)}?view=add-certification`,
-                            )
-                        }}
-                        className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-                    >
-                        <HiOutlineUpload />
-                        Subir certificados
-                    </button>
+                    {canAddCertificate && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                const id = collaboratorId?.split('#')[1] || ''
+                                return router.push(
+                                    `/collaborators/${encodeURIComponent(id)}?view=add-certification`,
+                                )
+                            }}
+                            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                        >
+                            <HiOutlineUpload />
+                            Subir certificados
+                        </button>
+                    )}
                 </div>
             </div>
 

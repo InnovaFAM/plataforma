@@ -2,12 +2,14 @@ from aws_lambda_powertools.event_handler import APIGatewayHttpResolver
 from aws_lambda_powertools.logging.correlation_paths import API_GATEWAY_HTTP
 
 from hh.routes import router as hh_router
+from home.routes import router as home_router
 from logger import logger
 from projects.routes import router as projects_router
 
 app = APIGatewayHttpResolver()
 app.include_router(projects_router, "/analytics/projects")
 app.include_router(hh_router, "/analytics/hh")
+app.include_router(home_router, "/analytics/home")
 
 
 @logger.inject_lambda_context(correlation_id_path=API_GATEWAY_HTTP, log_event=True)

@@ -11,49 +11,27 @@ import { listGlobalCertifications } from '@/server/actions/certifications/list-g
 import { certificationKeys } from '@/server/actions/certifications/certification-keys'
 import { listChoreCertifications } from '@/server/actions/certifications/list-chore-certifications'
 import { listRoleCertifications } from '@/server/actions/certifications/list-role-certifications'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
 
 const CertificationsContent = () => {
     const t = useTranslation()
+    const { protectedQueryFn } = useProtectedQueryFn()
 
     const { data: globalCertifications, isLoading: isLoadingGlobal } = useQuery(
         {
             queryKey: certificationKeys.global,
-            queryFn: async () => {
-                const response = await listGlobalCertifications()
-
-                if (!response.success) {
-                    throw new Error(response.error)
-                }
-
-                return response.data
-            },
+            queryFn: () => protectedQueryFn(() => listGlobalCertifications()),
         },
     )
 
     const { data: choreCertifications, isLoading: isLoadingChore } = useQuery({
         queryKey: certificationKeys.chore,
-        queryFn: async () => {
-            const response = await listChoreCertifications()
-
-            if (!response.success) {
-                throw new Error(response.error)
-            }
-
-            return response.data
-        },
+        queryFn: () => protectedQueryFn(() => listChoreCertifications()),
     })
 
     const { data: roleCertifications, isLoading: isLoadingRole } = useQuery({
         queryKey: certificationKeys.role,
-        queryFn: async () => {
-            const response = await listRoleCertifications()
-
-            if (!response.success) {
-                throw new Error(response.error)
-            }
-
-            return response.data
-        },
+        queryFn: () => protectedQueryFn(() => listRoleCertifications()),
     })
 
     const NAVIGATION_ELEMENTS = [
@@ -84,7 +62,7 @@ const CertificationsContent = () => {
                                 {t('certifications.tables.global.description')}
                             </p>
                             <GlobalCertificationsTable
-                                data={globalCertifications?.certificates}
+                                data={globalCertifications?.data?.certificates}
                                 isLoadingData={isLoadingGlobal}
                             />
                         </div>
@@ -96,7 +74,7 @@ const CertificationsContent = () => {
                                 {t('certifications.tables.role.description')}
                             </p>
                             <RoleCertificationsTable
-                                data={roleCertifications}
+                                data={roleCertifications?.data}
                                 isLoadingData={isLoadingRole}
                             />
                         </div>
@@ -108,7 +86,7 @@ const CertificationsContent = () => {
                                 {t('certifications.tables.chore.description')}
                             </p>
                             <ChoreCertificationsTable
-                                data={choreCertifications}
+                                data={choreCertifications?.data}
                                 isLoadingData={isLoadingChore}
                             />
                         </div>

@@ -7,7 +7,6 @@ from botocore.exceptions import ClientError
 
 from constants import ACTIVITY_TABLE_NAME, REGION_NAME, TABLE_NAME
 from models.General import PaginatedResponse
-from models.User import User
 from utils import decode_key, encode_key
 
 dynamodb = boto3.resource("dynamodb", region_name=REGION_NAME)
@@ -34,6 +33,7 @@ def get_all_items(pk: str, names: list[str] | None = None) -> list[dict[str, Any
 
     query_kwargs: dict[str, Any] = {
         "KeyConditionExpression": Key("pk").eq(pk),
+        "ScanIndexForward": False,
     }
 
     if names:
@@ -61,6 +61,40 @@ def get_all_items(pk: str, names: list[str] | None = None) -> list[dict[str, Any
             break
 
     return all_items
+
+
+def get_user_notifications_items(
+    pk: str,
+    page_size: int = 10,
+    start_key: str | None = None,
+    names: list[str] | None = None,
+) -> PaginatedResponse:
+
+    query_kwargs: dict[str, Any] = {
+        "KeyConditionExpression": Key("pk").eq(pk)
+        & Key("sk").begins_with("NOTIFICATION#"),
+        "ScanIndexForward": False,
+        "Limit": page_size,
+    }
+
+    if names:
+        attributes_names = (
+            {f"#{i}": name for i, name in enumerate(names)} if names else {}
+        )
+        projection_expression = ", ".join(f"#{i}" for i in range(len(names)))
+        query_kwargs["ProjectionExpression"] = projection_expression
+        query_kwargs["ExpressionAttributeNames"] = attributes_names
+
+    if start_key:
+        query_kwargs["ExclusiveStartKey"] = decode_key(start_key)
+
+    response = table.query(**query_kwargs)
+
+    next_key = response.get("LastEvaluatedKey")
+
+    return PaginatedResponse(
+        items=response.get("Items", []), last_evaluated_key=encode_key(next_key)
+    )
 
 
 def get_paginated_items(

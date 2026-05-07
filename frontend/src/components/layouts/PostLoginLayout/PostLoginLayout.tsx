@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import {
     LAYOUT_COLLAPSIBLE_SIDE,
     LAYOUT_STACKED_SIDE,
@@ -21,6 +22,8 @@ import { usePathname } from 'next/navigation'
 import type { CommonProps } from '@/@types/common'
 import type { LayoutType } from '@/@types/theme'
 import { useCurrentUserAccess } from '@/utils/hooks/useCurrentUserAccess'
+import GeneralPageLoader from './components/GeneralPageLoader'
+import { useAccessStore } from './stores/accessStore'
 
 interface PostLoginLayoutProps extends CommonProps {
     layoutType: LayoutType
@@ -48,19 +51,33 @@ const Layout = ({ children, layoutType }: PostLoginLayoutProps) => {
 const PostLoginLayout = ({ children }: CommonProps) => {
     const layoutType = useTheme((state) => state.layout.type)
 
-    const {
-        data: currentUserAccess,
-        isLoading,
-        isFetching,
-        isError,
-    } = useCurrentUserAccess()
+    const { data, isLoading, isError } = useCurrentUserAccess()
+
+    const setLoading = useAccessStore((state) => state.setLoading)
+    const setAccess = useAccessStore((state) => state.setAccess)
+    const setError = useAccessStore((state) => state.setError)
 
     const pathname = usePathname()
-
     const route = queryRoute(pathname)
 
-    if (isLoading || isFetching) {
-        return <div>Cargando permisos...</div>
+    useEffect(() => {
+        if (isLoading) {
+            setLoading()
+            return
+        }
+
+        if (isError) {
+            setError()
+            return
+        }
+
+        if (data?.data) {
+            setAccess(data.data)
+        }
+    }, [data, isLoading, isError, setLoading, setAccess, setError])
+
+    if (isLoading) {
+        return <GeneralPageLoader />
     }
 
     if (isError) {

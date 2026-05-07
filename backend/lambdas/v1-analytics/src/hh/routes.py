@@ -3,7 +3,7 @@ from datetime import datetime
 
 from aws_lambda_powertools.event_handler.api_gateway import Router
 
-from aws import get_roles_for_services, query_services
+from aws.ddb import get_roles_for_services, query_services
 from hh._utils import parse_projection_query_params
 from hh.builds import build_hh_projection_payload
 from hh.detail._utils import parse_detail_query_params

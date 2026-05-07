@@ -27,6 +27,7 @@ import ServiceDetailsRoleAssignmentDrawer from './ServiceDetailsRoleAssignmentDr
 import ClearanceCheckbox from './ClearanceCheckbox'
 import { Progress } from '@/components/ui'
 import useAppendQueryParams from '@/utils/hooks/useAppendQueryParams'
+import { useCan } from '@/hooks/useCan'
 
 type ServiceDetailsRoleAssignmentTableProps = {
     fixedPagination?: boolean
@@ -46,6 +47,7 @@ const ServiceDetailsRoleAssignmentTable = ({
     // filters,
 }: ServiceDetailsRoleAssignmentTableProps) => {
     const t = useTranslation()
+    const canAssignCollab = useCan('services.roles.collabs:assign')
     const [selectedAssignmentUser, setSelectedAssignmentUser] =
         useState<TCollabsByRole | null>(null)
     const [isAssignmentDrawerOpen, setIsAssignmentDrawerOpen] = useState(false)
@@ -125,13 +127,15 @@ const ServiceDetailsRoleAssignmentTable = ({
             >
                 <TbEye />
             </Link>
-            <button
-                type="button"
-                onClick={() => openAssignmentDrawer(row, 'propuesto')}
-                className="text-xl cursor-pointer select-none font-semibold"
-            >
-                <TbCheck />
-            </button>
+            {canAssignCollab && (
+                <button
+                    type="button"
+                    onClick={() => openAssignmentDrawer(row, 'propuesto')}
+                    className="text-xl cursor-pointer select-none font-semibold"
+                >
+                    <TbCheck />
+                </button>
+            )}
         </div>
     )
 
@@ -287,14 +291,15 @@ const ServiceDetailsRoleAssignmentTable = ({
                 size: 70,
                 cell: (props) => {
                     const row = props.row.original
+                    console.log(row)
                     return (
                         <div className="flex flex-col items-start">
                             <span className="text-sm text-black font-bold mb-1">
-                                {row.compliance || 0}%
+                                {(row.compliance * 100 || 0).toFixed(2)}%
                             </span>
                             <Progress
                                 className="w-full"
-                                percent={row.compliance || 0}
+                                percent={Number(row.compliance) * 100 || 0}
                                 showInfo={false}
                             />
                         </div>

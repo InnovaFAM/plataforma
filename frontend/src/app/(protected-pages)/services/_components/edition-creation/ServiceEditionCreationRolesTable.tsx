@@ -8,6 +8,7 @@ import { Table, Button, Skeleton } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
 import { getDayJsDate } from '@/components/ui/TimeInput/utils/getDayJsDate'
 import ModalCreationRoles from './ModalCreationRoles'
+import { useCan } from '@/hooks/useCan'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -21,6 +22,7 @@ const ServiceEditionCreationRolesTable = ({
     isLoading = false,
 }: ServiceEditionCreationRolesTableProps) => {
     const t = useTranslation()
+    const canCreateRole = useCan('services.roles:create')
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [temporalRole, setTemporalRole] = useState<TServiceRole | null>(null)
 
@@ -32,16 +34,18 @@ const ServiceEditionCreationRolesTable = ({
                 <h4 className="font-bold">
                     {t('services.creation.addedRoles')}
                 </h4>
-                <Button
-                    size="sm"
-                    variant="default"
-                    onClick={() => {
-                        setTemporalRole(null)
-                        setIsModalOpen(true)
-                    }}
-                >
-                    {t('common.add')}
-                </Button>
+                {canCreateRole && (
+                    <Button
+                        size="sm"
+                        variant="default"
+                        onClick={() => {
+                            setTemporalRole(null)
+                            setIsModalOpen(true)
+                        }}
+                    >
+                        {t('common.add')}
+                    </Button>
+                )}
             </div>
 
             <Table className="w-full">

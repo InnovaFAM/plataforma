@@ -9,6 +9,15 @@ locals {
   }
 }
 
+
+
+variable "project_name" {
+  description = "Project name used for resource naming"
+  type        = string
+  default     = "innovafam"
+}
+
+
 variable "bucket_name" {
   description = "Bucket Name for Infrastructure"
   default     = "innovafam-infrastructure"

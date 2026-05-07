@@ -21,6 +21,11 @@ class Shift(BaseModel):
     endedAt: str | None = None
 
 
+class Assignment(BaseModel):
+    sk: str
+    serviceName: str
+
+
 class FAMCollab(Base):
     sk: str
     name: str
@@ -36,6 +41,7 @@ class FAMCollab(Base):
     pictureUrl: str | None = None
     personalNumber: int | None = None
     workNumber: int | None = None
+    assignments: list[Assignment] | None = None
     status: bool = True
     assigned: bool = False
     pk: str = "FAM#COLLABS"

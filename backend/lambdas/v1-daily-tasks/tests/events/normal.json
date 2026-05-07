@@ -1,0 +1,13 @@
+{
+  "version": "0",
+  "id": "manual-test",
+  "detail-type": "Scheduled Event",
+  "source": "innovafam.notifications",
+  "account": "000000000000",
+  "time": "2026-05-06T09:00:00Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "job": "SERVICE_NOTIFICATIONS"
+  }
+}

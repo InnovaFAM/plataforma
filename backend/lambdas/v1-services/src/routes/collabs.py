@@ -9,6 +9,7 @@ from aws.ddb import (
     remove_assignment_to_collab,
     update_item,
 )
+from aws.lbda import send_notification
 from logger import logger
 from models.General import (
     PatchCollabRoleServiceBodyRequest,
@@ -76,6 +77,14 @@ def assign_collab_to_role(service_code: str, role_hash: str, collab_id: str):
                 f"SERVICE#{service_code}",
                 f"ROLES#{role_hash}",
                 {f"{attribute}": service_role[attribute] + 1},
+            )
+            send_notification(
+                "SERVICE_ROLE_COLLAB_PROPOSED",
+                {
+                    "serviceCode": service["name"],
+                    "collaboratorName": collab["name"],
+                    "roleName": collab["position"],
+                },
             )
             try:
                 if user_sub := router.context.get("user_sub"):

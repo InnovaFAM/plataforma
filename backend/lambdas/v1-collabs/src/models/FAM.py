@@ -1,6 +1,5 @@
 from decimal import Decimal
 from enum import Enum
-from posix import strerror
 from typing import Literal
 
 from pydantic import BaseModel, field_validator

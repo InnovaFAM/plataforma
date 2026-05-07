@@ -8,3 +8,14 @@ variable "aws_region" {
   default     = "us-east-1"
   type        = string
 }
+
+variable "from_email" {
+  description = "Email address to use as the sender for notifications"
+  type        = string
+}
+
+variable "project_name" {
+  description = "Project name used for resource naming"
+  type        = string
+  default     = "innovafam"
+}

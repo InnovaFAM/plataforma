@@ -6,6 +6,7 @@ import ServiceDetailsContractPayrollTable from './ServiceDetailsContractPayrollT
 import { useMemo } from 'react'
 import Skeleton from '@/components/ui/Skeleton/Skeleton'
 import { Button } from '@/components/ui'
+import { useCan } from '@/hooks/useCan'
 
 interface ServiceDetailsContractPayrollProps {
     roles: TServiceRole[]
@@ -22,6 +23,7 @@ const ServiceDetailsContractPayroll = ({
     isLoading = false,
 }: ServiceDetailsContractPayrollProps) => {
     const t = useTranslation()
+    const canCreateRole = useCan('services.roles:create')
 
     const requiredTotal = useMemo(
         () =>
@@ -96,9 +98,11 @@ const ServiceDetailsContractPayroll = ({
                 <h4 className="font-bold mt-1 mb-4">
                     {t('services.details.contractPayroll')}
                 </h4>
-                <Button onClick={onAddRole} size="sm">
-                    Agregar Role
-                </Button>
+                {canCreateRole && (
+                    <Button onClick={onAddRole} size="sm">
+                        Agregar Role
+                    </Button>
+                )}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 mt-10 mb-6">
                 {isLoading

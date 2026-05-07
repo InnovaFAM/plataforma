@@ -29,6 +29,5 @@ export const getProjectsAnalyticsClient = async (
         throw new Error('Error loading projects analytics')
     }
     const response = await res.json()
-    console.log(response)
     return response
 }

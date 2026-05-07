@@ -9,8 +9,17 @@ import {
 import { projectsAnalyticsKeys } from '@/server/actions/analytics/analytics-keys'
 import { getProjectsAnalytics } from '@/server/actions/analytics/projects-actions'
 import dayjs from 'dayjs'
+import { redirect } from 'next/navigation'
+import { canViewSectionServer } from '@/server/actions/navigation/getAccess'
 
 export default async function Page({ searchParams }: PageProps) {
+    const canViewSection = await canViewSectionServer('resume.projects')
+
+    if (!canViewSection) {
+        redirect('/home')
+        return null
+    }
+
     const params = await searchParams
 
     const normalizedParams = {

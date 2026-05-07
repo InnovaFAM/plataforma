@@ -13,12 +13,14 @@ import { serviceKeys } from '@/server/actions/services/service-keys'
 import { getRolesByServiceId } from '@/server/actions/services/get-roles-by-service-id'
 import ModalEditionCreationRoles from '../edition-creation/ModalEditionCreationRoles'
 import { useServicesStore } from '../../_store/servicesStore'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
 
 interface ServiceDetailsContentProps {
     serviceId: string
 }
 
 const ServiceDetailsContent = ({ serviceId }: ServiceDetailsContentProps) => {
+    const { protectedQueryFn } = useProtectedQueryFn()
     const { data: service, isLoading: isLoadingService } = useQuery({
         queryKey: serviceKeys.serviceById(serviceId),
         queryFn: async () => {
@@ -30,16 +32,13 @@ const ServiceDetailsContent = ({ serviceId }: ServiceDetailsContentProps) => {
         },
     })
 
-    const { data: serviceRoles, isLoading: isLoadingServiceRoles } = useQuery({
-        queryKey: serviceKeys.rolesByServiceId(serviceId),
-        queryFn: async () => {
-            const response = await getRolesByServiceId(serviceId)
-            if (!response.success) {
-                throw new Error(response.error)
-            }
-            return response.data
-        },
-    })
+    const { data: serviceRolesResponse, isLoading: isLoadingServiceRoles } =
+        useQuery({
+            queryKey: serviceKeys.rolesByServiceId(serviceId),
+            queryFn: () =>
+                protectedQueryFn(() => getRolesByServiceId(serviceId)),
+        })
+    const serviceRoles = serviceRolesResponse?.data
 
     const setTempService = useServicesStore((state) => state.setTempService)
     const [roleDisplayed, setRoleDisplayed] = useState<string>('')

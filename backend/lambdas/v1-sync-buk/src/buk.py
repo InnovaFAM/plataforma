@@ -62,11 +62,11 @@ def get_vacation_balance_by_collab_id(
         return None
 
 
-def get_supervisor_name_by_collab_id(collab_id: int) -> str | None:
+def get_collab_by_id(collab_id: str | int) -> BukResponseCollabByID | None:
     try:
         response = s.get(f"{FAM_BUK_URL}/employees/{collab_id}")
         response.raise_for_status()
-        return BukResponseCollabByID.model_validate(response.json()).data.full_name
+        return BukResponseCollabByID.model_validate(response.json())
     except requests.exceptions.RequestException as e:
-        logger.warning({"error": {"name": "GetSupervisorNameError", "message": str(e)}})
+        logger.warning({"error": {"name": "GetCollabByIdError", "message": str(e)}})
         return None

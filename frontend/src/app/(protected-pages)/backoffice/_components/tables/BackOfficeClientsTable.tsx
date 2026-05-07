@@ -16,6 +16,7 @@ import { useBackOfficeStore } from '../../_store/backOfficeStore'
 import classNames from '@/utils/classNames'
 import { useClickCoolDown } from '@/utils/hooks/useClickCooldown'
 import TableEmptyState from '@/components/shared/TableEmptyState'
+import { useCan } from '@/hooks/useCan'
 
 const BackOfficeClientsTable = ({
     id,
@@ -31,6 +32,8 @@ const BackOfficeClientsTable = ({
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
+    const canCreate = useCan('backOffice:create')
+    const canEdit = useCan('backOffice:edit')
     const { blocked: navBlocked, trigger: triggerNav } = useClickCoolDown(250)
 
     const [modalOpen, setModalOpen] = useState(false)
@@ -287,20 +290,24 @@ const BackOfficeClientsTable = ({
                     }}
                 />
             </InputGroup>
-            <Button
-                variant="plain"
-                shape="circle"
-                size="xs"
-                icon={editMode ? <TbX /> : <TbPencil />}
-                onClick={() => setEditMode(!editMode)}
-            />
-            <Button
-                variant="plain"
-                shape="circle"
-                size="xs"
-                icon={<TbPlus />}
-                onClick={() => setModalOpen(true)}
-            />
+            {canEdit && (
+                <Button
+                    variant="plain"
+                    shape="circle"
+                    size="xs"
+                    icon={editMode ? <TbX /> : <TbPencil />}
+                    onClick={() => setEditMode(!editMode)}
+                />
+            )}
+            {canCreate && (
+                <Button
+                    variant="plain"
+                    shape="circle"
+                    size="xs"
+                    icon={<TbPlus />}
+                    onClick={() => setModalOpen(true)}
+                />
+            )}
             <Button
                 className={classNames(
                     tableViewMode === 'modal' ? 'hidden' : '',

@@ -22,11 +22,11 @@ export function useCurrentUserAccess() {
 
             return data
         },
-        staleTime: 1000 * 60 * 5,
-        gcTime: 1000 * 60 * 30,
-        retry: false,
+        staleTime: Infinity,
+        gcTime: Infinity,
         refetchOnWindowFocus: false,
-        refetchOnReconnect: true,
+        refetchOnReconnect: false,
         refetchOnMount: false,
+        retry: false,
     })
 }

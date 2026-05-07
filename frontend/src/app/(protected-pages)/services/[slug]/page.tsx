@@ -3,15 +3,23 @@ import ServiceDetailsHeader from '../_components/service-details/ServiceDetailsH
 import ServiceDetailsContent from '../_components/service-details/ServiceDetailsContent'
 import CreateEditServiceHeader from '../_components/edition-creation/ServiceEditionCreationHeader'
 import CreateEditServiceContent from '../_components/edition-creation/ServiceEditionCreationContent'
+import { canServer } from '@/server/actions/navigation/getAccess'
+import { redirect } from 'next/navigation'
 
 export default async function Page({ params, searchParams }: PageProps) {
     const pageParams = await params
     const pageSearchParams = await searchParams
     const { slug } = pageParams
     const view = pageSearchParams.view
+    const canEdit = await canServer('services:edit')
+
+    if (!canEdit) {
+        redirect('/home')
+        return null
+    }
 
     return (
-        <main className='pt-4'>
+        <main className="pt-4">
             {view === 'edit' ? (
                 <>
                     <CreateEditServiceHeader mode="edit" />

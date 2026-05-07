@@ -23,8 +23,8 @@ def lambda_handler(api_event: Dict):
 
 if __name__ == "__main__":
     # with open("./tests/events/get_collabs.json", "r") as f:
-    with open("./tests/events/get_collabs_by_id.json", "r") as f:
-        # with open("./tests/events/patch_collab_certificate.json", "r") as f:
-        # with open("./tests/events/get_collabs_by_role.json", "r") as f:
+    # with open("./tests/events/get_collabs_by_id.json", "r") as f:
+    # with open("./tests/events/patch_collab_certificate.json", "r") as f:
+    with open("./tests/events/get_collabs_by_role.json", "r") as f:
         data = json.load(f)
         lambda_handler(data)

@@ -9,6 +9,9 @@ import { activitiesKeys } from '@/server/actions/users/users-keys'
 import useCurrentSession from '@/utils/hooks/useCurrentSession'
 import { getUserActivities } from '@/server/actions/users/activities-user'
 import Spinner from '@/components/ui/Spinner'
+import { TUserActivity } from '@/app/(protected-pages)/roles-users/types'
+import { TClient } from '@/app/(protected-pages)/services/types'
+import Link from 'next/link'
 
 const UserProfileActivityTab: React.FC = () => {
     const { session } = useCurrentSession()
@@ -47,7 +50,8 @@ const UserProfileActivityTab: React.FC = () => {
                 return <PiTicketDuotone />
             case 'supportTicketUpdate':
                 return <LuTicketCheck />
-            case 'create_client':
+            case 'ACTION#CREATE_CLIENT':
+            case 'ACTION#UPDATE_CLIENT':
                 return <LuBriefcase />
             case 'other':
                 return <TbLogs />
@@ -57,52 +61,124 @@ const UserProfileActivityTab: React.FC = () => {
         }
     }
 
-    const TimeLineContent = (props: { type: string; description: string }) => {
-        const { type, description } = props
-
-        switch (type) {
-            case 'create_client':
+    const TimeLineContent = ({ log }: { log: TUserActivity }) => {
+        switch (log.category) {
+            case 'ACTION#CREATE_CLIENT':
+                const data = log.data as TClient
                 return (
                     <div>
                         <h6 className="font-bold">Cliente Creado</h6>
-                        <p className="font-semibold">{description}</p>
+                        <p className="font-semibold">
+                            Cliente {data.name} creado exitosamente
+                        </p>
                     </div>
                 )
-            case 'update_client':
+            case 'ACTION#UPDATE_CLIENT':
+                const client = log.data as TClient
                 return (
                     <div>
                         <h6 className="font-bold">Client Actualizado</h6>
-                        <p className="font-semibold">{description}</p>
+                        <p className="font-semibold">
+                            Cliente {client.name} actualizado exitosamente
+                        </p>
                     </div>
                 )
-            case 'supportTicket':
+            case 'ACTION#UPDATE_SRV_ROLE':
                 return (
                     <div>
-                        <h6 className="font-bold">Ticket de Soporte Creado</h6>
-                        <p className="font-semibold">{description}</p>
+                        <h6 className="font-bold">Role Actualizado</h6>
+                        <p className="font-semibold">
+                            Se ha actualizado el role <b>{log.data.roleName}</b>{' '}
+                            en el servicio{' '}
+                            <Link
+                                className="hover:text-primary"
+                                target="_blank"
+                                href={`/services/${log.data.service_code}`}
+                            >
+                                {log.data.service_code}
+                            </Link>
+                        </p>
                     </div>
                 )
-            case 'supportTicketUpdate':
+            case 'ACTION#CREATE_SRV_ROLE':
+                const roleService = log.data
                 return (
                     <div>
-                        <h6 className="font-bold">
-                            Ticket de Soporte Actualizado
-                        </h6>
-                        <p className="font-semibold">{description}</p>
+                        <h6 className="font-bold">Role Creado</h6>
+                        <p className="font-semibold">
+                            Se ha creado el role <b>{roleService.roleName}</b>{' '}
+                            en el servicio{' '}
+                            <Link
+                                className="hover:text-primary"
+                                target="_blank"
+                                href={`/services/${roleService.service_code}`}
+                            >
+                                {roleService.service_code}
+                            </Link>
+                        </p>
                     </div>
                 )
-            case 'other':
+            case 'ACTION#ASSIGN_SRV_COLLAB':
                 return (
                     <div>
-                        <h6 className="font-bold">Otra Actividad</h6>
-                        <p className="font-semibold">{description}</p>
+                        <h6 className="font-bold">Colaborador Asignado</h6>
+                        <p className="font-semibold">
+                            Se ha asignado el colaborador{' '}
+                            <b>{log.data.collab.name}</b> para el role{' '}
+                            <b>{log.data.roleName}</b> en el servicio{' '}
+                            <Link
+                                className="hover:text-primary"
+                                target="_blank"
+                                href={`/services/${log.data.serviceCode}`}
+                            >
+                                {log.data.serviceCode}
+                            </Link>
+                        </p>
+                    </div>
+                )
+            case 'ACTION#UNASSIGN_SRV_COLLAB':
+                return (
+                    <div>
+                        <h6 className="font-bold">Colaborador Desasignado</h6>
+                        <p className="font-semibold">
+                            Se ha Desasignado el colaborador{' '}
+                            <b>{log.data.collab.name}</b> para el role{' '}
+                            <b>{log.data.roleName}</b> en el servicio{' '}
+                            <Link
+                                className="hover:text-primary"
+                                target="_blank"
+                                href={`/services/${log.data.serviceCode}`}
+                            >
+                                {log.data.serviceCode}
+                            </Link>
+                        </p>
+                    </div>
+                )
+            case 'ACTION#UPDATE_SRV_COLLAB':
+                return (
+                    <div>
+                        <h6 className="font-bold">Asignación Actualizada</h6>
+                        <p className="font-semibold">
+                            Se ha actualizado la asignación del colaborador{' '}
+                            <b>{log.data.collab.name}</b> para el role{' '}
+                            <b>{log.data.roleName}</b> en el servicio{' '}
+                            <b>
+                                <Link
+                                    className="hover:text-primary"
+                                    target="_blank"
+                                    href={`/services/${log.data.serviceCode}`}
+                                >
+                                    {log.data.serviceCode}
+                                </Link>
+                            </b>
+                        </p>
                     </div>
                 )
             default:
                 return (
                     <div>
                         <h6 className="font-bold">Actividad</h6>
-                        <p className="font-semibold">{description}</p>
+                        <p className="font-semibold">Otra actividad</p>
                     </div>
                 )
         }
@@ -139,59 +215,26 @@ const UserProfileActivityTab: React.FC = () => {
                             <div className="border-b border-2 border-gray-200 dark:border-gray-600 border-dashed w-full"></div>
                         </div>
                         <div className="flex flex-col gap-4">
-                            {items.map((log) => {
-                                // Determinar el tipo y descripción basado en la categoría
-                                const category = log.category
-                                let type = 'other'
-                                let description = ''
-
-                                if (category.includes('CREATE_CLIENT')) {
-                                    type = 'create_client'
-                                    description = `Cliente ${log.data.name} con rut ${log.data.rut} creado exitósamente.`
-                                } else if (category.includes('UPDATE_CLIENT')) {
-                                    type = 'update_client'
-                                    description = `Cliente ${log.data.name} actualizado exitósamente.`
-                                } else if (category.includes('PAYMENT')) {
-                                    type = 'payment'
-                                    description = 'Pago realizado'
-                                } else if (
-                                    category.includes('SUPPORT_TICKET')
-                                ) {
-                                    type = category.includes('UPDATE')
-                                        ? 'supportTicketUpdate'
-                                        : 'supportTicket'
-                                    description = category.includes('UPDATE')
-                                        ? 'Ticket actualizado'
-                                        : 'Nuevo ticket creado'
-                                }
-
-                                return (
-                                    <div
-                                        key={log.sk}
-                                        className="flex items-center"
+                            {items.map((log) => (
+                                <div key={log.sk} className="flex items-center">
+                                    <span className="font-semibold w-25">
+                                        {dayjs(log.sk).format('h:mm A')}
+                                    </span>
+                                    <Card
+                                        className="max-w-150 w-full"
+                                        bodyClass="py-3"
                                     >
-                                        <span className="font-semibold w-25">
-                                            {dayjs(log.sk).format('h:mm A')}
-                                        </span>
-                                        <Card
-                                            className="max-w-150 w-full"
-                                            bodyClass="py-3"
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className="text-primary text-3xl">
-                                                    <TimeLineMedia
-                                                        type={type}
-                                                    />
-                                                </div>
-                                                <TimeLineContent
-                                                    type={type}
-                                                    description={description}
+                                        <div className="flex items-center gap-4">
+                                            <div className="text-primary text-3xl">
+                                                <TimeLineMedia
+                                                    type={log.category}
                                                 />
                                             </div>
-                                        </Card>
-                                    </div>
-                                )
-                            })}
+                                            <TimeLineContent log={log} />
+                                        </div>
+                                    </Card>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 ))}

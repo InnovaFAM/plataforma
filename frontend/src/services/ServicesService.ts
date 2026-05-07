@@ -160,3 +160,27 @@ export const apiUpdateService = async (
         data,
     })
 }
+
+export async function apiExportServices(): Promise<ServerResponse<void>> {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: `/services/export`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        method: 'get',
+    })
+}
+
+export const apiExportService = async (
+    serviceId: string,
+): Promise<ServerResponse<void>> => {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: `/services/${serviceId}/export`,
+        method: 'get',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    })
+}

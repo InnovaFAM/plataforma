@@ -86,7 +86,6 @@ const UserProfileInfoCard = () => {
     useEffect(() => {
         if (isPhoneNumberUpdated) {
             if (countdown <= 0) {
-                console.log('Countdown finalizado. Cerrando sesión...')
                 signOut({ callbackUrl: '/login' })
                 return
             }

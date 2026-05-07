@@ -30,3 +30,8 @@ export const serviceKeys = {
             roleHash,
         ] as const,
 }
+
+export const serviceExportKeys = {
+    service: (hash: string) => ['export-service', hash] as const,
+    services: ['export-services'] as const,
+}

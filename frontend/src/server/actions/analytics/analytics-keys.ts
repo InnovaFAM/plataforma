@@ -5,6 +5,7 @@ import {
 import { TProjectsAnalyticsParams } from '@/app/(protected-pages)/analytics/projects-panel/types'
 
 export const projectsAnalyticsKeys = {
+    export: ['export-projects'] as const,
     all: ['projects-analytics'] as const,
     list: (params: TProjectsAnalyticsParams) =>
         [
@@ -39,4 +40,8 @@ export const hhDetailKeys = {
                 services: params.services ?? [],
             },
         ] as const,
+}
+
+export const homeKeys = {
+    all: ['home'] as const,
 }

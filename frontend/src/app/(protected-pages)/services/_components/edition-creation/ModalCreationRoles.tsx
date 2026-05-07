@@ -138,7 +138,6 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
     })
 
     const handleClose = () => {
-        console.log('handleClose')
         reset()
         onClose()
     }
@@ -153,7 +152,6 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                     ? getDateFromString(temporalRole.endedAt.split('T')[0])
                     : undefined,
             ]
-            console.log(temporalRole.startedAt)
             setDateRange(dr)
             reset({
                 name: temporalRole.roleName,

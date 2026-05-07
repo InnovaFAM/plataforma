@@ -23,6 +23,7 @@ import { removeChoreFromMatrix } from '@/server/actions/certifications/remove-ch
 import { useQueryClient } from '@tanstack/react-query'
 import { certificationKeys } from '@/server/actions/certifications/certification-keys'
 import useCurrentSession from '@/utils/hooks/useCurrentSession'
+import { useCan } from '@/hooks/useCan'
 
 interface ChoreCertificationsTableProps {
     data?: TChoreCertificationsResponse
@@ -36,6 +37,8 @@ const ChoreCertificationsTable = ({
     isLoadingData,
 }: ChoreCertificationsTableProps) => {
     const t = useTranslation()
+    const canEdit = useCan('certifications:edit')
+
     const queryClient = useQueryClient()
     const { session } = useCurrentSession()
 
@@ -272,40 +275,48 @@ const ChoreCertificationsTable = ({
                         'bg-gray-50 dark:bg-gray-700 pb-2 pt-2 rounded-b-2xl flex justify-end gap-2',
                     content: (
                         <div className="flex gap-2 items-center">
-                            {isLoading ? (
-                                <Spinner size={24} />
-                            ) : editMode ? (
+                            {canEdit && (
                                 <>
-                                    <Tooltip title={t('common.discard')}>
+                                    {isLoading ? (
+                                        <Spinner size={24} />
+                                    ) : editMode ? (
+                                        <>
+                                            <Tooltip
+                                                title={t('common.discard')}
+                                            >
+                                                <Button
+                                                    variant="plain"
+                                                    shape="circle"
+                                                    size="xs"
+                                                    icon={<TbX />}
+                                                    onClick={() =>
+                                                        setIsDiscardDialogOpen(
+                                                            true,
+                                                        )
+                                                    }
+                                                />
+                                            </Tooltip>
+                                            <Tooltip title={t('common.save')}>
+                                                <Button
+                                                    variant="plain"
+                                                    shape="circle"
+                                                    size="xs"
+                                                    icon={<FaRegSave />}
+                                                    disabled={!hasChanges}
+                                                    onClick={handleSave}
+                                                />
+                                            </Tooltip>
+                                        </>
+                                    ) : (
                                         <Button
                                             variant="plain"
                                             shape="circle"
                                             size="xs"
-                                            icon={<TbX />}
-                                            onClick={() =>
-                                                setIsDiscardDialogOpen(true)
-                                            }
+                                            icon={<TbPencil />}
+                                            onClick={handleEnterEditMode}
                                         />
-                                    </Tooltip>
-                                    <Tooltip title={t('common.save')}>
-                                        <Button
-                                            variant="plain"
-                                            shape="circle"
-                                            size="xs"
-                                            icon={<FaRegSave />}
-                                            disabled={!hasChanges}
-                                            onClick={handleSave}
-                                        />
-                                    </Tooltip>
+                                    )}
                                 </>
-                            ) : (
-                                <Button
-                                    variant="plain"
-                                    shape="circle"
-                                    size="xs"
-                                    icon={<TbPencil />}
-                                    onClick={handleEnterEditMode}
-                                />
                             )}
                         </div>
                     ),

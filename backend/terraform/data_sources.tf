@@ -8,3 +8,11 @@ data "aws_dynamodb_table" "core_business" {
 data "aws_cognito_user_pool" "nextjs_app_pool" {
   user_pool_id = local.user_pool_id
 }
+
+data "aws_secretsmanager_secret" "app_secrets" {
+  name = "${var.project_name}/${var.aws_env}/app-secrets"
+}
+
+data "aws_secretsmanager_secret_version" "app_secrets" {
+  secret_id = data.aws_secretsmanager_secret.app_secrets.id
+}

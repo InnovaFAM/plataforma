@@ -4,36 +4,58 @@
   "rawPath": "/innovafam-v1-stage/collabs/by/role",
   "rawQueryString": "",
   "headers": {
-    "accept": "*/*",
-    "accept-encoding": "gzip, deflate, br",
-    "cache-control": "no-cache",
-    "content-length": "0",
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, compress, deflate, br",
+    "authorization": "Bearer eyJraWQiOiIwb1dTTzIyWCtjdjljcFo1QjhqODE1YStRRHl3K3luZnkrUDhGcDlvZGljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkNDM4NDQzOC1jMGQxLTcwZmYtZjliMC0yMTRkNjcxZDFiZDAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9vWkEzUHM2ZUgiLCJjbGllbnRfaWQiOiIzdTQ1dGF0MmZqMHEzcGxwMXYzaTYwZDZ1ZyIsIm9yaWdpbl9qdGkiOiI3MDdkNTZhYS00NWE0LTQ0NTQtODY2Yi0wZDdlMjk3ZDFjYmMiLCJldmVudF9pZCI6ImQ0Y2RmMDU3LTFjZDctNGI5YS1hOTk0LTQ3MjM3YmQ4ODI0OSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3NzgxODE5NTYsImV4cCI6MTc3ODIxNzk1NiwiaWF0IjoxNzc4MTgxOTU2LCJqdGkiOiI1ZWViNDFlOS0yYzYxLTQwNDMtYmI1Ni04OWNkZjdkM2Q3OWQiLCJ1c2VybmFtZSI6ImQ0Mzg0NDM4LWMwZDEtNzBmZi1mOWIwLTIxNGQ2NzFkMWJkMCJ9.Me_U7_-AHj3ZW-ncJzLd2ycouzVufUhm57gGdy4vlA39dUjU0SoyY5Mxyo3Trtv4XI315s9ii7xEvdx-D40CDcG4vw1P8n5fOivz96Vibj6SEnp-L91STb0FiIwudltJ3dnkjVlXEa_Mtvq1JZVYed8Op2lYirXTle5NBJoS1i34s-iZlYDHXHSsqgCDf-ix-dX3Mo3-1l6dI-xmifdBJp3GqvVnnulnzufvSqgmIQj-cfo_a_R5qP0oUQEmuqw-cx-_r1laTkoqiN15E6jRinAUtHx3_D9fBwncD44PI6-eLgr2qTrVdmMBJBHSJnY1huvtHaKq-fg0_FaJzowMfw",
+    "content-length": "232",
+    "content-type": "application/json",
     "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
-    "postman-token": "06eab685-c5a4-49ff-8dc2-e22e42884c5f",
-    "user-agent": "PostmanRuntime/7.51.0",
-    "x-amzn-trace-id": "Root=1-6965c8e6-1784f3457b1b1f6b62caa0d2",
-    "x-forwarded-for": "181.42.17.179",
+    "user-agent": "axios/1.13.2",
+    "x-amzn-trace-id": "Root=1-69fd0ada-70d2539f098970227e8de49f",
+    "x-forwarded-for": "181.190.36.166",
     "x-forwarded-port": "443",
     "x-forwarded-proto": "https"
   },
   "requestContext": {
     "accountId": "683953625718",
     "apiId": "pkdzgs9mbl",
+    "authorizer": {
+      "jwt": {
+        "claims": {
+          "auth_time": "1778181956",
+          "client_id": "3u45tat2fj0q3plp1v3i60d6ug",
+          "event_id": "d4cdf057-1cd7-4b9a-a994-47237bd88249",
+          "exp": "1778217956",
+          "iat": "1778181956",
+          "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_oZA3Ps6eH",
+          "jti": "5eeb41e9-2c61-4043-bb56-89cdf7d3d79d",
+          "origin_jti": "707d56aa-45a4-4454-866b-0d7e297d1cbc",
+          "scope": "aws.cognito.signin.user.admin",
+          "sub": "d4384438-c0d1-70ff-f9b0-214d671d1bd0",
+          "token_use": "access",
+          "username": "d4384438-c0d1-70ff-f9b0-214d671d1bd0"
+        },
+        "scopes": null
+      }
+    },
     "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
     "domainPrefix": "pkdzgs9mbl",
     "http": {
       "method": "POST",
       "path": "/innovafam-v1-stage/collabs/by/role",
       "protocol": "HTTP/1.1",
-      "sourceIp": "181.42.17.179",
-      "userAgent": "PostmanRuntime/7.51.0"
+      "sourceIp": "181.190.36.166",
+      "userAgent": "axios/1.13.2"
     },
-    "requestId": "XGxUJhfRoAMEVVA=",
+    "requestId": "dA6iMhAjIAMEVIg=",
     "routeKey": "ANY /collabs/{proxy+}",
     "stage": "innovafam-v1-stage",
-    "time": "13/Jan/2026:04:24:06 +0000",
-    "timeEpoch": 1768278246974
+    "time": "07/May/2026:21:57:46 +0000",
+    "timeEpoch": 1778191066441
   },
-  "body": "{\"endedAt\": \"2026-05-12\", \"proposed\": \"0\", \"startedAt\": \"2026-04-28\", \"confirmed\": \"0\", \"required\": \"1\",\"pk\": \"SERVICE#SV-1001\",\"roleName\": \"Analista de Compras\",\"sk\": \"ROLES#BtxCzogymxsA\"}",
+  "pathParameters": {
+    "proxy": "by/role"
+  },
+  "body": "{\"confirmed\":\"2\",\"endedAt\":\"2026-09-29\",\"pk\":\"SERVICE#SV-1001\",\"proposed\":\"1\",\"required\":\"3\",\"roleName\":\"Ingeniero Trainee\",\"startedAt\":\"2026-08-29\",\"weeklyHours\":\"42\",\"shiftType\":\"5x2\",\"hoursPerDay\":\"8.4\",\"sk\":\"ROLES#FsMG3fnXcBAA\"}",
   "isBase64Encoded": false
 }

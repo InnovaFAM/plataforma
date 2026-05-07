@@ -54,6 +54,7 @@ class BukCollab(BaseModel):
     city: str
     region: str
     rut: str
+    status: str
     picture_url: str | None = None
     phone: str | None = None
     degree: str | None = None

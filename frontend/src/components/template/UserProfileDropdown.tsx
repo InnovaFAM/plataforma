@@ -46,14 +46,14 @@ const _UserDropdown = () => {
             toggleClassName="flex items-center"
             renderTitle={
                 <div className="cursor-pointer flex items-center">
-                    <Avatar size={32} {...avatarProps} />
+                    <Avatar size={32} icon={<PiUserDuotone />} />
                 </div>
             }
             placement="bottom-end"
         >
             <Dropdown.Item variant="header">
                 <div className="py-2 px-3 flex items-center gap-3">
-                    <Avatar {...avatarProps} />
+                    <Avatar icon={<PiUserDuotone />} />
                     <div>
                         <div className="font-bold text-gray-900 dark:text-gray-100">
                             {session?.user?.name || 'Anonymous'}

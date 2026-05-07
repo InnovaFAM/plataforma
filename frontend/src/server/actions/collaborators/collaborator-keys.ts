@@ -5,10 +5,19 @@ export const collaboratorKeys = {
 export const collaboratorsKeys = {
     all: ['collaborators'] as const,
     list: (nextToken?: string) => ['collaborators', 'list', nextToken] as const,
-    byRole: (roleHash: string) =>
-        ['collaborators-by-role', roleHash] as const,
+    byRole: (roleHash: string) => ['collaborators-by-role', roleHash] as const,
 }
 
 export const certificateKeys = {
     status: (hash: string) => ['certificate-status', hash] as const,
+}
+
+export const syncKeys = {
+    collab: (hash: string) => ['sync-collab', hash] as const,
+    collabs: ['sync-collabs'] as const,
+}
+
+export const exportKeys = {
+    collab: (hash: string) => ['export-collab', hash] as const,
+    collabs: ['export-collabs'] as const,
 }

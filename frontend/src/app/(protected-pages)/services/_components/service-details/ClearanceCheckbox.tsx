@@ -95,7 +95,6 @@ const ClearanceCheckbox: React.FC<TClearanceCheckboxProps> = ({
             parentId: serviceRole?.pk,
             entityId: serviceRole?.sk,
         }
-        console.log(checked)
         updateMutation.mutate(item)
     }
     return (

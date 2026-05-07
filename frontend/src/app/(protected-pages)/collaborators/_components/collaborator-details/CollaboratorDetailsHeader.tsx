@@ -1,6 +1,10 @@
 'use client'
-import { Button, Skeleton } from '@/components/ui'
+import { Button, Skeleton, toast, Notification } from '@/components/ui'
+import { useCan } from '@/hooks/useCan'
+import { syncKeys } from '@/server/actions/collaborators/collaborator-keys'
+import { syncCollabById } from '@/server/actions/collaborators/sync-action'
 import useTranslation from '@/utils/hooks/useTranslation'
+import { useMutation } from '@tanstack/react-query'
 
 interface CollaboratorDetailsHeaderProps {
     collaboratorId: string
@@ -12,6 +16,28 @@ const CollaboratorDetailsHeader = ({
     isLoading = false,
 }: CollaboratorDetailsHeaderProps) => {
     const t = useTranslation()
+    const canExportReport = useCan('reports:export')
+    const canSyncCollab = useCan('collaborators:sync')
+
+    const mutation = useMutation({
+        mutationKey: syncKeys.collab(collaboratorId),
+        mutationFn: () => syncCollabById(collaboratorId),
+        onSuccess: () => {
+            toast.push(
+                <Notification type="success">
+                    El colaborador ha comenzado a ser sincronizado, esto puede
+                    tardar unos minutos.
+                </Notification>,
+            )
+        },
+        onError: (error) => {
+            toast.push(
+                <Notification type="danger">
+                    No se ha podido sincronizar. {error.message}
+                </Notification>,
+            )
+        },
+    })
 
     return (
         <>
@@ -25,12 +51,22 @@ const CollaboratorDetailsHeader = ({
                     )}
                 </h3>
                 <div className="flex gap-2 items-center">
-                    <Button variant="default" disabled={isLoading}>
-                        {t('collaborators.details.header.exportButton')}
-                    </Button>
-                    <Button variant="solid" disabled={isLoading}>
-                        {t('collaborators.details.header.syncButton')}
-                    </Button>
+                    {canExportReport && (
+                        <Button variant="default" disabled>
+                            {t('collaborators.details.header.exportButton')}
+                        </Button>
+                    )}
+                    {canSyncCollab && (
+                        <Button
+                            variant="solid"
+                            disabled={isLoading || mutation.isPending}
+                            loading={mutation.isPending}
+                        >
+                            {mutation.isPending
+                                ? 'Sincronizando...'
+                                : t('collaborators.details.header.syncButton')}
+                        </Button>
+                    )}
                 </div>
             </div>
         </>

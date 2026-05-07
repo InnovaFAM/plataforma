@@ -27,7 +27,6 @@ const validationSchema = z.object({
 
 const OtpVerificationForm = (props: OtpVerificationFormProps) => {
     const [isSubmitting, setSubmitting] = useState<boolean>(false)
-    console.log('isSubmitting', isSubmitting)
 
     const { setMessage, setOtpVerified } = props
 
@@ -42,14 +41,11 @@ const OtpVerificationForm = (props: OtpVerificationFormProps) => {
     const onOtpSend = async ({ otp }: { otp: string }) => {
         setSubmitting(true)
         try {
-            console.log('onOtpSend', props)
-            console.log('onOtpSend', otp)
             onSignInWithEmailOtp({
                 email: props.destination,
                 cognitoSession: props.cognitoSession,
                 code: otp,
             }).then((data) => {
-                console.log('onSignInWithEmailOtp', data)
                 if (data?.error) {
                     setMessage(data.error as string)
                     setSubmitting(false)

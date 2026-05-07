@@ -1,0 +1,40 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /webhooks/buk",
+  "rawPath": "/innovafam-v1-stage/webhooks/buk",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+    "baggage": "sentry-trace_id=3534c6e21afe4c3aafbe256e6787da2a,sentry-sample_rate=7.499999999999999e-06,sentry-sampled=false,sentry-environment=enterprise-chile-ohio,sentry-release=93d114b464865795f25b41163e6c42da933db68c,sentry-public_key=726f92d61ae44efe9ff0b30473ab8a0d,sentry-transaction=ExternalNotification%3A%3ANotifyEmployeeEventJob",
+    "content-length": "154",
+    "content-type": "application/json",
+    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "sentry-trace": "3534c6e21afe4c3aafbe256e6787da2a-326c7e634b7e41c6-0",
+    "user-agent": "Ruby",
+    "x-amzn-trace-id": "Root=1-69fcedb3-6e0a0243340396ef0230b00f",
+    "x-forwarded-for": "3.136.106.75",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "683953625718",
+    "apiId": "pkdzgs9mbl",
+    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "pkdzgs9mbl",
+    "http": {
+      "method": "POST",
+      "path": "/innovafam-v1-stage/webhooks/buk",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "3.136.106.75",
+      "userAgent": "Ruby"
+    },
+    "requestId": "dAoUIiigoAMEbsg=",
+    "routeKey": "POST /webhooks/buk",
+    "stage": "innovafam-v1-stage",
+    "time": "07/May/2026:19:53:23 +0000",
+    "timeEpoch": 1778183603669
+  },
+  "body": "{\"data\":{\"event_type\":\"job_termination\",\"date\":\"2026-05-07T15:53:15-04:00\",\"tenant_url\":\"fam.buk.cl\",\"employee_id\":54377,\"employment_status\":\"pendiente\"}}",
+  "isBase64Encoded": false
+}

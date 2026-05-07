@@ -7,7 +7,7 @@ import {
 } from '@/app/(protected-pages)/collaborators/types'
 import ApiService, { ServerResponse } from './ApiService'
 import { getAccessToken } from '@/utils/getAccessToken'
-import { PaginatedResponse, FullResponse } from '@/@types/api-client'
+import { FullResponse } from '@/@types/api-client'
 import { TServiceRole } from '@/app/(protected-pages)/services/types'
 
 export async function apiListCollaborators(
@@ -25,6 +25,39 @@ export async function apiListCollaborators(
             nextKey,
             pageSize: pageSize,
         },
+    })
+}
+
+export async function apiExportCollabs() {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: `/collabs/export`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        method: 'get',
+    })
+}
+
+export async function apiSyncCollabs() {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: `/collabs/sync`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        method: 'get',
+    })
+}
+
+export async function apiSyncCollabById(id: string) {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: `/collabs/${id}/sync`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        method: 'get',
     })
 }
 
@@ -86,7 +119,6 @@ export async function apiGetCollaboratorsByRole(
     data: TServiceRole,
 ): Promise<ServerResponse<FullResponse<TCollabsByRole[]>>> {
     const accessToken = await getAccessToken()
-    console.log(accessToken)
     return ApiService.fetchDataWithAxios<FullResponse<TCollabsByRole[]>>({
         url: `/collabs/by/role`,
         method: 'post',

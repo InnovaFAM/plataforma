@@ -1,0 +1,40 @@
+{
+  "version": "2.0",
+  "routeKey": "POST /webhooks/buk",
+  "rawPath": "/innovafam-v1-stage/webhooks/buk",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+    "baggage": "sentry-trace_id=31ad16ce6bb74a919409e64fa1747756,sentry-sample_rate=7.499999999999999e-06,sentry-sampled=false,sentry-environment=enterprise-chile-ohio,sentry-release=47440c83782f228983f58fcee04a9e0f2f7bf642,sentry-public_key=726f92d61ae44efe9ff0b30473ab8a0d,sentry-transaction=ExternalNotification%3A%3ANotifyVacationEventJob",
+    "content-length": "165",
+    "content-type": "application/json",
+    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "sentry-trace": "31ad16ce6bb74a919409e64fa1747756-2d076c7dca774ba2-0",
+    "user-agent": "Ruby",
+    "x-amzn-trace-id": "Root=1-69f91387-74f67e241cbe13e3608b3daa",
+    "x-forwarded-for": "18.225.8.49",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "683953625718",
+    "apiId": "pkdzgs9mbl",
+    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "pkdzgs9mbl",
+    "http": {
+      "method": "POST",
+      "path": "/innovafam-v1-stage/webhooks/buk",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "18.225.8.49",
+      "userAgent": "Ruby"
+    },
+    "requestId": "c2_9Lh-7oAMEZhQ=",
+    "routeKey": "POST /webhooks/buk",
+    "stage": "innovafam-v1-stage",
+    "time": "04/May/2026:21:45:43 +0000",
+    "timeEpoch": 1777931143112
+  },
+  "body": "{\"data\":{\"event_type\":\"vacation_update\",\"date\":\"2026-05-04T17:45:40-04:00\",\"tenant_url\":\"fam.buk.cl\",\"vacation_id\":46353,\"metadata\":{\"vacation_status\":\"submitted\"}}}",
+  "isBase64Encoded": false
+}

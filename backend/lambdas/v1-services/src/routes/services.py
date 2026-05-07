@@ -1,6 +1,7 @@
 from aws_lambda_powertools.event_handler.api_gateway import Response, Router
 
 from aws.ddb import get_item, get_paginated_items, log_activity, put_item, update_item
+from aws.lbda import invoke_export_services, send_notification
 from logger import logger
 from models.General import PatchServiceBodyRequest
 from models.Service import ServicePayload
@@ -55,6 +56,32 @@ def get_services():
         return error_response("GetServicesError", str(e))
 
 
+@router.get("/export")
+def export_services():
+    try:
+        if user_sub := router.context.get("user_sub"):
+            invoke_export_services(user_sub)
+            return Response(
+                status_code=202,
+            )
+        return error_response("ExportServicesError", "User sub not found")
+    except (Exception, ValueError) as e:
+        return error_response("ExportServicesError", str(e))
+
+
+@router.get("/<service_code>/export")
+def export_service_by_code(service_code: str):
+    try:
+        if user_sub := router.context.get("user_sub"):
+            invoke_export_services(user_sub, service_code)
+            return Response(
+                status_code=202,
+            )
+        return error_response("ExportServiceError", "User sub not found")
+    except (Exception, ValueError) as e:
+        return error_response("ExportServiceError", str(e))
+
+
 @router.get("/<service_code>")
 def get_service_by_code(service_code: str):
     try:
@@ -69,6 +96,15 @@ def create_service():
         body = ServicePayload(**router.current_event.json_body)
         service = body.model_dump(exclude_none=True)
         _ = put_item("FAM#SERVICES", f"SERVICE#{body.code}", service)
+        notification_type = (
+            "SERVICE_CONFIRMED" if body.status == "boceto" else "SERVICE_PROPOSED"
+        )
+        send_notification(
+            notification_type,
+            {
+                "serviceCode": body.name,
+            },
+        )
         try:
             if user_sub := router.context.get("user_sub"):
                 log_activity(user_sub, "CREATE_SERVICE", service)
@@ -88,6 +124,17 @@ def update_service():
         service = update_item(
             "FAM#SERVICES", body.sk, body.model_dump(exclude_none=True, exclude={"sk"})
         )
+
+        if body.status:
+            notification_type = (
+                "SERVICE_CONFIRMED" if body.status == "boceto" else "SERVICE_PROPOSED"
+            )
+            send_notification(
+                notification_type,
+                {
+                    "serviceCode": service.get("name", "Servicio FAM"),
+                },
+            )
         try:
             if user_sub := router.context.get("user_sub"):
                 log_activity(user_sub, "UPDATE_SERVICE", service)

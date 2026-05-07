@@ -94,11 +94,11 @@ const RolesUsersCreateUserModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: usersKeys.all(),
+                queryKey: usersKeys.data,
             })
             toast.push(
                 <Notification
-                    title={t('backOffice.choreModal.messages.creationSuccess')}
+                    title={`Usuario ${tempUser?.name} creado exitosamente`}
                     type="success"
                 />,
             )
@@ -107,10 +107,7 @@ const RolesUsersCreateUserModal = ({
         onError: (error: Error) => {
             toast.push(
                 <Notification
-                    title={
-                        error.message ||
-                        t('backOffice.choreModal.errors.creationFailed')
-                    }
+                    title={error.message || 'Error al crear el usuario'}
                     type="danger"
                 />,
             )

@@ -5,7 +5,6 @@ from aws.ddb import (
     find_items_affected_by_parent_date_change,
     get_all_items,
     get_item,
-    get_role_by_name,
     has_role_in_service,
     log_activity,
     put_item,

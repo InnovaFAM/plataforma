@@ -37,6 +37,12 @@ data "aws_iam_policy_document" "lambda_default_role_policy" {
     actions = ["dynamodb:Query", "dynamodb:Scan", "dynamodb:GetItem", "dynamodb:PutItem", "dynamodb:UpdateItem"]
     resources = ["*"]
   }
+
+  statement {
+    effect = "Allow"
+    actions = ["lambda:InvokeFunction"]
+    resources = [module.notifications.lambda_arn, module.exports.lambda_arn]
+  }
 }
 
 resource "aws_iam_role_policy" "lambda_default_role_policy" {
@@ -77,6 +83,12 @@ data "aws_iam_policy_document" "certificates_role_policy" {
         variable = "dynamodb:LeadingKeys"
         values   = ["CERTS#ROLES", "COLLABS#*"]
     }
+  }
+
+  statement {
+    effect = "Allow"
+    actions = ["lambda:InvokeFunction"]
+    resources = [module.notifications.lambda_arn, module.exports.lambda_arn]
   }
 }
 
@@ -124,4 +136,32 @@ resource "aws_iam_role_policy" "users_role_policy" {
   name = "innovafam-users-${var.aws_env}"
   policy = data.aws_iam_policy_document.users_role_policy.json
   role = aws_iam_role.users_role.id
+}
+
+resource "aws_iam_policy" "ses_send_notification_templates" {
+  name        = "innovafam-${var.aws_env}-ses-send-notification-templates"
+  description = "Permite enviar correos usando templates SES de notificaciones"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowSendNotificationTemplates"
+        Effect = "Allow"
+        Action = [
+          "ses:SendEmail",
+          "ses:SendTemplatedEmail"
+        ]
+        Resource = concat(
+          [local.ses_identity_arn],
+          local.ses_template_arns
+        )
+        Condition = {
+          StringEquals = {
+            "ses:FromAddress" = var.from_email
+          }
+        }
+      }
+    ]
+  })
 }

@@ -11,25 +11,21 @@ import RolesUsersCreateUserModal from './RolesUsersCreateUserModal'
 import { listData } from '@/server/actions/users/list-users'
 import { usersKeys } from '@/server/actions/users/users-keys'
 import { TSystemRole } from '../types'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
 
 interface RolesUsersContentProps {
     params: { [key: string]: string | string[] | undefined }
 }
 const RolesUsersContent = ({ params }: RolesUsersContentProps) => {
     const t = useTranslation()
+    const { protectedQueryFn } = useProtectedQueryFn()
 
-    const { data: dataUserRoles } = useQuery({
+    const { data: dataUserRolesResponse } = useQuery({
         queryKey: usersKeys.data,
-        queryFn: async () => {
-            const response = await listData()
-
-            if (!response.success) {
-                throw new Error(response.error)
-            }
-
-            return response.data
-        },
+        queryFn: async () => protectedQueryFn(() => listData()),
     })
+
+    const dataUserRoles = dataUserRolesResponse?.data
 
     const { setFilterData } = useRolesUsersStore()
     const showCreateModal = useRolesUsersStore((state) => state.showCreateModal)

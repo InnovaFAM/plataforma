@@ -4,12 +4,18 @@ annotated-types==0.7.0
     # via pydantic
 aws-lambda-powertools==3.24.0
     # via v1-webhooks-buk
-boto3==1.42.24
+boto3==1.43.3
     # via v1-webhooks-buk
-botocore==1.42.24
+botocore==1.43.3
     # via
     #   boto3
     #   s3transfer
+certifi==2026.4.22
+    # via requests
+charset-normalizer==3.4.7
+    # via requests
+idna==3.13
+    # via requests
 jmespath==1.0.1
     # via
     #   aws-lambda-powertools
@@ -21,7 +27,9 @@ pydantic-core==2.41.5
     # via pydantic
 python-dateutil==2.9.0.post0
     # via botocore
-s3transfer==0.16.0
+requests==2.33.1
+    # via v1-webhooks-buk
+s3transfer==0.17.0
     # via boto3
 six==1.17.0
     # via python-dateutil
@@ -34,4 +42,6 @@ typing-extensions==4.15.0
 typing-inspection==0.4.2
     # via pydantic
 urllib3==2.6.2
-    # via botocore
+    # via
+    #   botocore
+    #   requests

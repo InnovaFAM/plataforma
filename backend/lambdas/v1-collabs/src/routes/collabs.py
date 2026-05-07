@@ -3,17 +3,20 @@ from typing import Any
 
 from aws_lambda_powertools.event_handler.api_gateway import Response, Router
 
-from aws import (
+from aws.ddb import (
     delete_item,
     get_all_items_by_role,
     get_item,
     get_matrix_certificate_by_role,
     get_paginated_items,
     get_role_by_name,
+    get_temp,
     log_activity,
     put_item,
+    put_temp,
     query_collabs,
 )
+from aws.lbda import invoke_export_collabs, invoke_sync_collabs
 from logger import logger
 from models.FAM import (
     Certificate,
@@ -26,6 +29,7 @@ from models.General import PostRoleBodyRequest
 from utils import (
     error_response,
     generate_unique_hash,
+    get_24_hours_from_now,
     is_collab_available,
 )
 
@@ -46,7 +50,6 @@ def get_collabs_by_role():
                 "name",
                 "email",
                 "position",
-                "address",
                 "assignments",
                 "compliance",
                 "pictureUrl",
@@ -55,6 +58,22 @@ def get_collabs_by_role():
 
         items: list[dict[str, Any]] = []
 
+        global_certificates = get_all_items_by_role(
+            "FAM#CERTS", search={"matrix": "Global"}, names=["code"]
+        )
+
+        certificates_by_role = get_all_items_by_role(
+            "CERTS#ROLES", search={"role": body.roleName}, names=["certificate"]
+        )
+
+        certificates_by_chore = get_all_items_by_role(
+            "CERTS#CHORES", search={"role": body.roleName}, names=["certificate"]
+        )
+
+        len_global_certificates = len(global_certificates)
+        len_certificates_by_role = len(certificates_by_role)
+        len_certificates_by_chore = len(certificates_by_chore)
+
         for collab in collabs:
             item: dict[str, Any] = {
                 "status": "disponible",
@@ -62,7 +81,7 @@ def get_collabs_by_role():
                 "name": collab["name"],
                 "email": collab["email"],
                 "sk": collab["sk"],
-                "pictureUrl": collab["pictureUrl"],
+                "pictureUrl": collab.get("pictureUrl", ""),
             }
             if it := get_item(collab["sk"], f"{body.pk}#{body.sk}"):
                 collab_role_service = CollabRoleService(**it)
@@ -94,24 +113,54 @@ def get_collabs_by_role():
                                 item["status"] = "no disponible"
                                 break
 
-            # check compliance
-            certificates_by_role = get_all_items_by_role(
-                "CERTS#ROLES", search={"role": body.roleName}, names=["certificate"]
-            )
-            len_certificates_by_role = len(certificates_by_role)
-            if len_certificates_by_role > 0:
-                certificate_compliance = 0
-                for certificate in certificates_by_role:
+            # check collab global compliance
+            global_compliance = 0
+            if len_global_certificates > 0:
+                for global_certificate in global_certificates:
                     if cert_role := get_item(
-                        collab["sk"], f"CERTS#{certificate['certificate']}"
+                        collab["sk"], f"CERTS#{global_certificate['code']}"
                     ):
-                        certificate_compliance += 1
+                        global_compliance += 1
 
-                item["compliance"] = (
-                    certificate_compliance / len_certificates_by_role
-                ) * 100
-            else:
-                item["compliance"] = 100
+            # check collab compliance by role
+            role_compliance = 0
+            if len_certificates_by_role > 0:
+                for certificate_by_role in certificates_by_role:
+                    if cert_role := get_item(
+                        collab["sk"], f"CERTS#{certificate_by_role['certificate']}"
+                    ):
+                        role_compliance += 1
+
+            # check collab compliance by chore
+            chore_compliance = 0
+            if len_certificates_by_chore > 0:
+                for certificate_by_chore in certificates_by_chore:
+                    if cert_role := get_item(
+                        collab["sk"], f"CERTS#{certificate_by_chore['certificate']}"
+                    ):
+                        chore_compliance += 1
+
+            # calculate total compliance
+            per_global_compliance = (
+                (global_compliance / len_global_certificates)
+                if len_global_certificates > 0
+                else 1
+            )
+            per_certificates_by_role = (
+                (role_compliance / len_certificates_by_role)
+                if len_certificates_by_role > 0
+                else 1
+            )
+            per_certificates_by_chore = (
+                (chore_compliance / len_certificates_by_chore)
+                if len_certificates_by_chore > 0
+                else 1
+            )
+            item["compliance"] = (
+                per_global_compliance
+                + per_certificates_by_role
+                + per_certificates_by_chore
+            ) / 3
 
             # check evaluations
             collab_evaluations = query_collabs(
@@ -169,6 +218,48 @@ def get_collabs():
         return response.model_dump_json(exclude_none=True)
     except Exception as e:
         return error_response("GetCollabsError", str(e))
+
+
+@router.get("/export")
+def export_collabs():
+    try:
+        if user_sub := router.context.get("user_sub"):
+            invoke_export_collabs(user_sub)
+            return Response(
+                status_code=202,
+            )
+        else:
+            return error_response("ExportCollabsError", "User sub not found")
+    except (Exception, ValueError) as e:
+        return error_response("ExportCollabsError", str(e))
+
+
+@router.get("/sync")
+def sync_collabs():
+    try:
+        if temp := get_temp("Temps#SyncCollabs"):
+            return error_response(
+                "SyncCollabsError", "Sólo se puede sincronizar una vez al día"
+            )
+
+        invoke_sync_collabs("full")
+        _ = put_temp("Temps#SyncCollabs", {"ttl": get_24_hours_from_now()})
+        return Response(
+            status_code=202,
+        )
+    except Exception as e:
+        return error_response("SyncCollabsError", str(e))
+
+
+@router.get("/<collab_id>/sync")
+def sync_collab(collab_id: str):
+    try:
+        invoke_sync_collabs("update", collab_id)
+        return Response(
+            status_code=202,
+        )
+    except Exception as e:
+        return error_response("SyncCollabError", str(e))
 
 
 @router.get("/<collab_id>")
@@ -277,6 +368,7 @@ def create_collab_certificate(collab_id: str):
     try:
         body = CollabCertificatePayload(**router.current_event.json_body)
         cc = body.model_dump(exclude_none=True)
+        cc["parentId"] = "COLLABS#CERTS"
         hash = generate_unique_hash()
         _ = put_item(
             f"COLLABS#{collab_id}",
@@ -345,6 +437,7 @@ def create_collab_evaluation(collab_id: str):
     try:
         body = CollabEvaluationPayload(**router.current_event.json_body)
         ce = body.model_dump(exclude_none=True)
+        ce["parentId"] = "COLLABS#CERTS"
         hash = generate_unique_hash()
         _ = put_item(
             f"COLLABS#{collab_id}",

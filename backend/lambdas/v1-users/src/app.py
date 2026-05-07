@@ -8,6 +8,7 @@ from aws.ddb import (
     get_item,
     get_items_by_email,
     get_paginated_items,
+    get_user_notifications_items,
     log_activity,
     put_item,
     query_users_by_parent_id,
@@ -16,8 +17,7 @@ from aws.ddb import (
 from constants import ACTIVITY_TABLE_NAME
 from logger import logger
 from models.General import PatchUserBodyRequest
-from models.SystemRole import SystemRole
-from models.User import User, UserPayload
+from models.User import UserPayload
 from utils import error_response
 
 app = APIGatewayHttpResolver()
@@ -78,8 +78,7 @@ def get_users():
 def get_user_by_id(user_id: str):
     try:
         if user_json := get_item(pk, f"USERS#{user_id}"):
-            user = User(**user_json)
-            if role_json := get_item("FAM#SYSTEMROLES", user.parentId):
+            if role_json := get_item("FAM#SYSTEMROLES", user_json.get("parentId", "")):
                 return {
                     **user_json,
                     "role": role_json,
@@ -109,7 +108,29 @@ def get_users_activities(user_id: str):
 
         return response.model_dump_json(exclude_none=True)
     except Exception as e:
-        return error_response("GetUsersError", str(e))
+        return error_response("GetUsersActivitiesError", str(e))
+
+
+@app.get("/users/<user_id>/notifications")
+def get_user_notifications(user_id: str):
+    try:
+        next_key = app.current_event.get_query_string_value(
+            name="nextKey", default_value=None
+        )
+        page_size = app.current_event.get_query_string_value(
+            name="pageSize", default_value="10"
+        )
+
+        response = get_user_notifications_items(
+            f"USERS#{user_id}",
+            start_key=next_key,
+            page_size=int(page_size),
+            names=["type", "createdAt", "payload"],
+        )
+
+        return response.model_dump_json(exclude_none=True)
+    except Exception as e:
+        return error_response("GetUsersNotificationsError", str(e))
 
 
 @app.post("/users")

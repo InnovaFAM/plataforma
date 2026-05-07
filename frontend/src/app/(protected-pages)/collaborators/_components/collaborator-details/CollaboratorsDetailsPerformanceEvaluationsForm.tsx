@@ -185,7 +185,8 @@ const EvaluationForm = ({
 
                                         {[1, 2, 3, 4, 5].map((value) => {
                                             const isChecked =
-                                                criterion.result === value
+                                                Number(criterion.result) ===
+                                                value
                                             return (
                                                 <Td
                                                     key={value}

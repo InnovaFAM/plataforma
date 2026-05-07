@@ -25,6 +25,8 @@ const ServicesListContent = ({ params }: ServicesListContentProps) => {
     const { data } = useQuery({
         queryKey: serviceKeys.listServices(),
         queryFn: async () => protectedQueryFn(() => listServices()),
+        refetchInterval: 1000 * 60 * 5,
+        refetchOnWindowFocus: false,
     })
     const serviceList = data?.data
     const { setFilterData } = useServicesStore()

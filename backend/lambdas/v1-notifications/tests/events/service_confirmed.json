@@ -1,0 +1,7 @@
+{
+  "type": "SERVICE_CONFIRMED",
+  "createdAt": "2026-05-05T09:26:05+0000",
+  "payload": {
+    "serviceCode": "Servicio de Ejemplo"
+  }
+}

@@ -3,8 +3,8 @@ export type Filter = {
     role: string
 }
 
-type Permission = {
-    [key: string]: 'read' | 'write' | 'deny' | 'allow'
+export type TPermission = {
+    [key: string]: boolean
 }
 
 type TUserRole = Pick<TUser, 'sk' | 'name' | 'pictureUrl'>
@@ -13,7 +13,7 @@ export type TSystemRole = {
     sk: string
     name: string
     description: string
-    permissions: Permission[]
+    permissions: TPermission
     users?: TUserRole[]
 }
 
@@ -39,12 +39,14 @@ export type TRolesUsersData = {
     users: TUser[]
 }
 
-type TUserActivityData = {
-    [key: string]: unknown
-}
-
 export type TUserActivity = {
     sk: string
     category: string
-    data: TUserActivityData
+    data: any
+}
+
+export type TUserNotification = {
+    type: string
+    createdAt: string
+    payload: any
 }

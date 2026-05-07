@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import Card from '@/components/ui/Card'
 import type { IconType } from 'react-icons'
@@ -6,18 +7,20 @@ import {
     TbArrowRight,
     TbBell,
     TbCalendarStats,
+    TbCertificate,
     TbClipboardList,
     TbClockHour4,
     TbFileCertificate,
     TbLayoutDashboard,
+    TbLock,
     TbReportAnalytics,
     TbShieldCheck,
     TbUsers,
 } from 'react-icons/tb'
-
-type HomeContentProps = {
-    userName?: string
-}
+import useCurrentSession from '@/utils/hooks/useCurrentSession'
+import { HomeResponse } from '../types'
+import GanttChart, { ViewMode } from '@/components/shared/GanttChart'
+import getServiceProgression from '../../services/_utils/getServiceProgression'
 
 type QuickAction = {
     title: string
@@ -46,8 +49,8 @@ type SystemNotification = {
 const quickActions: QuickAction[] = [
     {
         title: 'Nuevo servicio',
-        description: 'Crear o configurar un nuevo servicio.',
-        href: '/services',
+        description: 'Crear un nuevo servicio.',
+        href: '/services/create',
         icon: TbClipboardList,
     },
     {
@@ -57,10 +60,10 @@ const quickActions: QuickAction[] = [
         icon: TbUsers,
     },
     {
-        title: 'Gestionar turnos',
-        description: 'Crear, editar o revisar turnos activos.',
-        href: '/shifts',
-        icon: TbClockHour4,
+        title: 'Gestionar Certificaciones',
+        description: 'Edita la matriz de certificaciones.',
+        href: '/certifications',
+        icon: TbCertificate,
     },
     {
         title: 'Reporte HH',
@@ -138,9 +141,18 @@ const iconToneClasses: Record<SystemNotification['tone'], string> = {
     success: 'bg-emerald-100 text-emerald-700',
 }
 
-export default function HomeContent({
-    userName = 'Patricio',
-}: HomeContentProps) {
+const colorsMap = {
+    publicado: '#10b981',
+    boceto: '#f59e0b',
+}
+
+type THomeContentProps = {
+    data?: HomeResponse | undefined
+}
+
+const HomeContent: React.FC<THomeContentProps> = ({ data }) => {
+    const { session } = useCurrentSession()
+
     return (
         <section className="w-full px-6 py-6 lg:px-8">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-6">
@@ -152,139 +164,135 @@ export default function HomeContent({
                             </span>
 
                             <h1 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
-                                Bienvenido, {userName}!
+                                Bienvenido, {session?.user.name}!
                             </h1>
 
                             <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
-                                Revisa el estado del sistema, continúa desde tus
-                                últimas secciones revisadas y accede rápidamente
-                                a las tareas operativas más utilizadas.
+                                Revisa el estado del sistema, los servicios
+                                activos y accede rápidamente a las tareas
+                                operativas más utilizadas.
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-3 rounded-2xl bg-gray-50 p-3">
-                            <div className="text-center">
-                                <p className="text-2xl font-bold text-gray-900">
-                                    18
-                                </p>
-                                <p className="text-xs font-medium text-gray-500">
-                                    Servicios activos
-                                </p>
-                            </div>
+                        {data && (
+                            <div className="grid grid-cols-3 gap-3 rounded-2xl bg-gray-50 p-3">
+                                <div className="text-center">
+                                    <p className="text-2xl font-bold text-gray-900">
+                                        {data.resume.count_services}
+                                    </p>
+                                    <p className="text-xs font-medium text-gray-500">
+                                        Servicios activos
+                                    </p>
+                                </div>
 
-                            <div className="text-center">
-                                <p className="text-2xl font-bold text-gray-900">
-                                    7
-                                </p>
-                                <p className="text-xs font-medium text-gray-500">
-                                    Roles pendientes
-                                </p>
-                            </div>
+                                <div className="text-center">
+                                    <p className="text-2xl font-bold text-gray-900">
+                                        {data.resume.count_collabs}
+                                    </p>
+                                    <p className="text-xs font-medium text-gray-500">
+                                        Colaboradores
+                                    </p>
+                                </div>
 
-                            <div className="text-center">
-                                <p className="text-2xl font-bold text-gray-900">
-                                    12
-                                </p>
-                                <p className="text-xs font-medium text-gray-500">
-                                    Alertas
-                                </p>
+                                <div className="text-center">
+                                    <p className="text-2xl font-bold text-gray-900">
+                                        {data.resume.count_notifications}
+                                    </p>
+                                    <p className="text-xs font-medium text-gray-500">
+                                        Notificaciones
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-                    <div className="xl:col-span-2">
-                        <Card className="h-full">
-                            <div className="p-5">
-                                <div className="mb-5 flex items-center justify-between">
-                                    <div>
-                                        <h2 className="text-base font-semibold text-gray-900">
-                                            Últimas secciones revisadas
-                                        </h2>
-                                        <p className="mt-1 text-sm text-gray-500">
-                                            Continúa rápidamente desde donde
-                                            quedaste.
-                                        </p>
-                                    </div>
-                                </div>
+                <Card>
+                    <div className="p-5">
+                        <div className="mb-5">
+                            <h2 className="text-base font-semibold text-gray-900">
+                                Accesos rápidos
+                            </h2>
+                            <p className="mt-1 text-sm text-gray-500">
+                                Acciones frecuentes del sistema.
+                            </p>
+                        </div>
 
-                                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                                    {recentSections.map((section) => {
-                                        const Icon = section.icon
+                        <div className="grid grid-cols-4 gap-3">
+                            {quickActions.map((action) => {
+                                const Icon = action.icon
 
-                                        return (
-                                            <Link
-                                                key={section.title}
-                                                href={section.href}
-                                                className="group rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-sm"
-                                            >
-                                                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-700">
-                                                    <Icon className="h-5 w-5" />
-                                                </div>
+                                return (
+                                    <Link
+                                        key={action.title}
+                                        href={action.href}
+                                        className="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:shadow-sm"
+                                    >
+                                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-700">
+                                            <Icon className="h-5 w-5" />
+                                        </div>
 
-                                                <h3 className="text-sm font-semibold text-gray-900">
-                                                    {section.title}
-                                                </h3>
+                                        <div className="min-w-0 flex-1">
+                                            <p className="text-sm font-semibold text-gray-900">
+                                                {action.title}
+                                            </p>
+                                            <p className="truncate text-xs text-gray-500">
+                                                {action.description}
+                                            </p>
+                                        </div>
 
-                                                <p className="mt-2 min-h-[40px] text-sm leading-5 text-gray-500">
-                                                    {section.description}
-                                                </p>
-
-                                                <div className="mt-4 flex items-center justify-between text-xs font-medium text-gray-400">
-                                                    <span>{section.meta}</span>
-                                                    <TbArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                                                </div>
-                                            </Link>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        </Card>
+                                        <TbArrowRight className="h-4 w-4 text-gray-400 transition group-hover:translate-x-1" />
+                                    </Link>
+                                )
+                            })}
+                        </div>
                     </div>
+                </Card>
 
-                    <Card className="h-full">
-                        <div className="p-5">
-                            <div className="mb-5">
+                <Card className="h-full">
+                    <div className="p-5">
+                        <div className="mb-5 flex items-center justify-between">
+                            <div>
                                 <h2 className="text-base font-semibold text-gray-900">
-                                    Accesos rápidos
+                                    Servicios activos
                                 </h2>
                                 <p className="mt-1 text-sm text-gray-500">
-                                    Acciones frecuentes del sistema.
+                                    Revisa el estado de los servicios activos.
                                 </p>
                             </div>
-
-                            <div className="flex flex-col gap-3">
-                                {quickActions.map((action) => {
-                                    const Icon = action.icon
-
-                                    return (
-                                        <Link
-                                            key={action.title}
-                                            href={action.href}
-                                            className="group flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:shadow-sm"
-                                        >
-                                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-700">
-                                                <Icon className="h-5 w-5" />
-                                            </div>
-
-                                            <div className="min-w-0 flex-1">
-                                                <p className="text-sm font-semibold text-gray-900">
-                                                    {action.title}
-                                                </p>
-                                                <p className="truncate text-xs text-gray-500">
-                                                    {action.description}
-                                                </p>
-                                            </div>
-
-                                            <TbArrowRight className="h-4 w-4 text-gray-400 transition group-hover:translate-x-1" />
-                                        </Link>
-                                    )
-                                })}
-                            </div>
                         </div>
-                    </Card>
-                </div>
+
+                        <GanttChart
+                            columnName="Servicios activos"
+                            viewMode={ViewMode.Month}
+                            tasks={
+                                data?.services.map((service) => ({
+                                    id: service.code,
+                                    name: service.code,
+                                    start: new Date(
+                                        service.startDate || Date.now(),
+                                    ),
+                                    end: new Date(
+                                        service.endDate || Date.now(),
+                                    ),
+                                    type: 'task',
+                                    progress: getServiceProgression(
+                                        service.startDate,
+                                        service.endDate,
+                                    ),
+                                    hideChildren: false,
+                                    displayOrder: data?.services.length + 1,
+                                    barVariant: service.status,
+                                })) || []
+                            }
+                            locale="es"
+                            colorsMap={colorsMap}
+                            onClick={(task) => console.log(task)}
+                            listCellWidth="160px"
+                            columnWidth={100}
+                        />
+                    </div>
+                </Card>
 
                 <Card>
                     <div className="p-5">
@@ -299,58 +307,64 @@ export default function HomeContent({
                                 </p>
                             </div>
 
-                            <Link
-                                href="/notifications"
-                                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
-                            >
-                                Ver todas
-                                <TbArrowRight className="h-4 w-4" />
-                            </Link>
+                            {/**
+                   * <Link
+                       href="/notifications"
+                       className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-gray-900"
+                   >
+                       Ver todas
+                       <TbArrowRight className="h-4 w-4" />
+                   </Link>
+                   */}
                         </div>
 
-                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                            {notifications.map((notification) => {
-                                const Icon = notification.icon
+                        {/**
+                 * <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                     {notifications.map((notification) => {
+                         const Icon = notification.icon
 
-                                return (
-                                    <Link
-                                        key={notification.title}
-                                        href={notification.href}
-                                        className="group rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-sm"
-                                    >
-                                        <div className="mb-4 flex items-start justify-between gap-3">
-                                            <div
-                                                className={`flex h-10 w-10 items-center justify-center rounded-xl ${iconToneClasses[notification.tone]}`}
-                                            >
-                                                <Icon className="h-5 w-5" />
-                                            </div>
+                         return (
+                             <Link
+                                 key={notification.title}
+                                 href={notification.href}
+                                 className="group rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-sm"
+                             >
+                                 <div className="mb-4 flex items-start justify-between gap-3">
+                                     <div
+                                         className={`flex h-10 w-10 items-center justify-center rounded-xl ${iconToneClasses[notification.tone]}`}
+                                     >
+                                         <Icon className="h-5 w-5" />
+                                     </div>
 
-                                            <span
-                                                className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${toneClasses[notification.tone]}`}
-                                            >
-                                                {notification.time}
-                                            </span>
-                                        </div>
+                                     <span
+                                         className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${toneClasses[notification.tone]}`}
+                                     >
+                                         {notification.time}
+                                     </span>
+                                 </div>
 
-                                        <h3 className="text-sm font-semibold text-gray-900">
-                                            {notification.title}
-                                        </h3>
+                                 <h3 className="text-sm font-semibold text-gray-900">
+                                     {notification.title}
+                                 </h3>
 
-                                        <p className="mt-2 text-sm leading-5 text-gray-500">
-                                            {notification.description}
-                                        </p>
+                                 <p className="mt-2 text-sm leading-5 text-gray-500">
+                                     {notification.description}
+                                 </p>
 
-                                        <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-gray-500">
-                                            Revisar detalle
-                                            <TbArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                                        </div>
-                                    </Link>
-                                )
-                            })}
-                        </div>
+                                 <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-gray-500">
+                                     Revisar detalle
+                                     <TbArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                                 </div>
+                             </Link>
+                         )
+                     })}
+                 </div>
+                 */}
                     </div>
                 </Card>
             </div>
         </section>
     )
 }
+
+export default HomeContent
