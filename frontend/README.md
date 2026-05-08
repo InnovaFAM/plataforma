@@ -1,92 +1,161 @@
-## README
+# Frontend
 
-Plataforma de Gestión de Personas de FAM
+Aplicación web de Innovafam construida con **Next.js**, **React**, **TypeScript** y componentes UI reutilizables. Esta capa concentra la experiencia de usuario del sistema: autenticación, navegación, vistas operacionales, formularios, dashboards, reportes y consumo de APIs del backend.
 
-cambios por stage
+## Stack principal
 
-Aplicación web para la gestión de personas en FAM, incluyendo funcionalidades como:
+- **Next.js 16**
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS**
+- **NextAuth**
+- **TanStack React Query**
+- **TanStack Table**
+- **Zustand**
+- **Axios**
+- **ApexCharts**
+- **next-intl**
 
-- Gestión de certificaciones
-- Gestión de faenas
-- Gestión de roles
-- Gestión de clientes
-- Gestión de servicios
-- Vista de colaboradores
-- Analítica: horas hombre
-- Analítica: gestión de servicios
-- Gestión de usuarios y permisos (admin)
-- Perfil de usuario y configuración
+## Requisitos
 
-## Tecnologías utilizadas:
+Antes de comenzar, asegúrate de tener instalado:
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- ApexCharts
-- React-hook-form
-- Tanstack
-- Zod
-- Zustand
+- Node.js compatible con la versión usada por el proyecto.
+- npm, yarn o el gestor definido por el equipo.
+- Acceso a las variables de entorno necesarias para autenticación y consumo de APIs.
 
-## Scripts disponibles:
+## Instalación
 
-```json
-{
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
-    }
-}
+Desde la carpeta `frontend`:
+
+```bash
+npm install
 ```
 
-## Estructura del proyecto
+o, si el proyecto se trabaja con Yarn:
 
-- `public/`: Archivos estáticos (imágenes, fuentes, etc.)
-- `messages/`: Archivos de traducción i18n
-- `src/`: Código fuente de la aplicación
-    - `auth/`: Lógica de autenticación y autorización
-    - `middleware/`: Middlewares de Next.js para autenticación, redirecciones, etc.
-    - `components/`: Componentes reutilizables
-    - `configs/`: Configuraciones de navegación, iconos, etc.
-    - `constants/`: Constantes globales
-    - `i18n/`: Funciones y hooks para internacionalización
-    - `mock/`: Datos de prueba y mocks
-    - `server/`: Código relacionado con la API y lógica de backend
-    - `services/`: Lógica de fetching client y llamadas a APIs
-    - `tanstack/`: Configuraciones y hooks relacionados con Tanstack Query
-    - `utils/`: Funciones utilitarias
-    - `app/`: Rutas y páginas de la aplicación
-        - `layout.tsx`: Layout principal de la aplicación
-        - `page.tsx`: Página de inicio
-        - `not-found.tsx`: Página 404
-        - `api/`: Rutas de API (Next.js API Routes)
-        - `(auth-pages)/`: Rutas de autenticación (login, registro, etc.)
-        - `(protected-pages)/`: Rutas que requieren autenticación
-            - `analytics/`: Vistas de analítica
-            - `backoffice/`: Vistas de administración
-            - `certifications/`: Vistas relacionadas con certificaciones
-            - `collaborators/`: Vistas relacionadas con colaboradores
-            - `home/`: Vista principal después del login
-            - `roles-users/`: Vistas relacionadas con roles y usuarios
-            - `services/`: Vistas relacionadas con servicios
-            - `user-profile/`: Vistas relacionadas con el perfil de usuario
-            - `example/`: Estructura de ejemplo para nuevas secciones
-                - `page.tsx`: Página principal de la sección
-                - `layout.tsx`: Layout específico para esta sección (opcional)
-                - `types.ts`: Tipos específicos de esta sección (opcional)
-                - `_components/`: Componentes específicos de esta sección
-                - `_store/`: Zustand store específico de esta sección (opcional)
-                - `_utils/`: Funciones utilitarias específicas de esta sección (opcional)
-                - `[slug]/`: Rutas dinámicas para esta sección (opcional)
-                    - `page.tsx`: Página para la ruta dinámica
-                    - `layout.tsx`: Layout para la ruta dinámica (opcional)
-- `next.config.js`: Configuración de Next.js
-- `README.md`: Documentación del proyecto
-- `BUNDLE-ANALYSIS.md`: Documentación sobre cómo analizar el bundle de la aplicación
-- `package.json`: Dependencias y scripts del proyecto
-- `tailwind.config.js`: Configuración de Tailwind CSS
-- `tsconfig.json`: Configuración de TypeScript
-
+```bash
+yarn install
 ```
+
+## Ejecución local
+
+```bash
+npm run dev
+```
+
+o:
+
+```bash
+yarn dev
+```
+
+La aplicación quedará disponible normalmente en:
+
+```txt
+http://localhost:3000
+```
+
+## Scripts disponibles
+
+```bash
+npm run dev
+```
+
+Ejecuta la aplicación en modo desarrollo usando Turbopack.
+
+```bash
+npm run build
+```
+
+Genera el build productivo de Next.js.
+
+```bash
+npm run start
+```
+
+Levanta la aplicación usando el build productivo.
+
+```bash
+npm run lint
+```
+
+Ejecuta las validaciones de lint configuradas para el proyecto.
+
+```bash
+npm run prettier
+```
+
+Verifica el formato de los archivos dentro de `src`.
+
+```bash
+npm run prettier:fix
+```
+
+Aplica formato automático usando Prettier.
+
+```bash
+npm run analyze
+```
+
+Ejecuta análisis experimental del bundle.
+
+```bash
+npm run analyze:webpack
+```
+
+Ejecuta el build con análisis de bundle usando Webpack.
+
+## Variables de entorno
+
+Crear un archivo `.env.local` en la carpeta `frontend` con las variables necesarias para ejecutar el proyecto localmente.
+
+Ejemplo referencial:
+
+```env
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+
+NEXT_PUBLIC_API_BASE_URL=
+```
+
+Las variables reales pueden variar según el ambiente y la configuración de autenticación/API.
+
+## Estructura sugerida
+
+```txt
+frontend/
+├── public/              # Assets públicos
+├── src/                 # Código fuente de la aplicación
+│   ├── app/             # App Router de Next.js
+│   ├── components/      # Componentes reutilizables
+│   ├── configs/         # Configuraciones globales
+│   ├── services/        # Clientes HTTP y servicios de API
+│   ├── store/           # Estados globales
+│   ├── utils/           # Utilidades y hooks compartidos
+│   └── views/           # Vistas y módulos funcionales
+├── next.config.ts       # Configuración de Next.js
+├── package.json         # Dependencias y scripts
+└── README.md
+```
+
+## Convenciones de desarrollo
+
+- Mantener los componentes reutilizables dentro de `components`.
+- Encapsular llamadas HTTP en servicios dedicados.
+- Usar React Query para estados derivados de consultas remotas.
+- Usar Zustand para estados globales de UI o flujos compartidos.
+- Mantener tipado explícito en contratos de API y estructuras de datos.
+- Evitar lógica de negocio compleja directamente dentro de componentes visuales.
+- Preferir componentes pequeños, composables y fáciles de testear.
+
+## Build productivo
+
+```bash
+npm run build
+npm run start
+```
+
+## Notas
+
+Esta carpeta contiene exclusivamente la capa frontend. La infraestructura AWS se gestiona desde `infra` y la lógica serverless/API desde `backend`.
