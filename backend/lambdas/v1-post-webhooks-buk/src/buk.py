@@ -4,8 +4,11 @@ import requests
 from constants import BUK_API_KEY, FAM_BUK_URL
 from logger import logger
 from models.Buk import (
+    BukResponseAbsenceByID,
     BukResponseCollabByID,
     BukResponseCollabVacationBalance,
+    BukResponseLicenceByID,
+    BukResponsePermissionByID,
     BukResponseVacationByID,
 )
 
@@ -47,5 +50,41 @@ def get_vacation_by_id(vacation_id: int) -> BukResponseVacationByID | None:
     except Exception as e:
         logger.warning(
             {"error": {"name": "BukResponseVacationByIDError", "message": str(e)}}
+        )
+        return None
+
+
+def get_absence_by_id(absence_id: int) -> BukResponseAbsenceByID | None:
+    try:
+        response = s.get(f"{FAM_BUK_URL}/absences/absence/{absence_id}")
+        response.raise_for_status()
+        return BukResponseAbsenceByID.model_validate(response.json())
+    except Exception as e:
+        logger.warning(
+            {"error": {"name": "BukResponseAbsenceByIDError", "message": str(e)}}
+        )
+        return None
+
+
+def get_permission_by_id(permission_id: int) -> BukResponsePermissionByID | None:
+    try:
+        response = s.get(f"{FAM_BUK_URL}/absences/permission/{permission_id}")
+        response.raise_for_status()
+        return BukResponsePermissionByID.model_validate(response.json())
+    except Exception as e:
+        logger.warning(
+            {"error": {"name": "BukResponsePermissionByIDError", "message": str(e)}}
+        )
+        return None
+
+
+def get_licence_by_id(licence_id: int) -> BukResponseLicenceByID | None:
+    try:
+        response = s.get(f"{FAM_BUK_URL}/absences/licence/{licence_id}")
+        response.raise_for_status()
+        return BukResponseLicenceByID.model_validate(response.json())
+    except Exception as e:
+        logger.warning(
+            {"error": {"name": "BukResponseLicenceByIDError", "message": str(e)}}
         )
         return None

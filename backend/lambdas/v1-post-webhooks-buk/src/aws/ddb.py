@@ -17,7 +17,6 @@ def put_item(pk: str, sk: str, item: dict[str, Any]) -> dict[str, Any]:
             Item={"pk": pk, "sk": sk, **item},
         )
         return item
-
     except ClientError as e:
         raise RuntimeError(f"Error en put_item: {e.response['Error']}") from e  # pyright: ignore[reportTypedDictNotRequiredAccess]
 

@@ -45,7 +45,7 @@ export function useApiResponseHandler() {
                 redirect: false,
             })
 
-            router.replace('/signin?session=expired')
+            router.replace('/sign-in?session=expired')
 
             return null
         }

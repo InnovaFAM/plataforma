@@ -8,7 +8,6 @@ import ServicesListTableTools from './ServicesListTableTools'
 import useTranslation from '@/utils/hooks/useTranslation'
 import { useQuery } from '@tanstack/react-query'
 import { listServices } from '@/server/actions/services/list-services'
-import { serviceKeys } from '@/server/actions/services/service-keys'
 import { TService } from '../types'
 import RecentVisitedServiceCard from './RecentvisitedServiceCard'
 import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
@@ -22,13 +21,15 @@ const ServicesListContent = ({ params }: ServicesListContentProps) => {
     const t = useTranslation()
     const [hasMounted, setHasMounted] = useState(false)
 
-    const { data } = useQuery({
-        queryKey: serviceKeys.listServices(),
-        queryFn: async () => protectedQueryFn(() => listServices()),
-        refetchInterval: 1000 * 60 * 5,
+    const { data: serviceList } = useQuery({
+        queryKey: ['list-services'] as const,
+        queryFn: async () => {
+            const response = await protectedQueryFn(() => listServices())
+            return response.data
+        },
+        refetchInterval: 1000 * 60 * 10,
         refetchOnWindowFocus: false,
     })
-    const serviceList = data?.data
     const { setFilterData } = useServicesStore()
 
     const recentVisitedServiceIds: string[] = useMemo(() => {
@@ -38,7 +39,7 @@ const ServicesListContent = ({ params }: ServicesListContentProps) => {
     }, [])
 
     const recentVisitedServices: TService[] = useMemo(() => {
-        return serviceList?.items?.length
+        return serviceList?.items.length
             ? serviceList.items.filter((service) =>
                   recentVisitedServiceIds.includes(service.sk),
               )

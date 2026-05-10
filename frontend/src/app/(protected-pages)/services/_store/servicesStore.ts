@@ -37,6 +37,7 @@ type ServicesListAction = {
     upsertRoleToUpdate: (changedFields: Partial<TServiceRoleTemp>) => void
     upsertRoleToCreate: (changedFields: TServiceRoleTemp) => void
     upsertRolesToCreate: (tempRoles: TServiceRoleTemp[]) => void
+    deleteRoleToCreate: (tempRoles: TServiceRoleTemp) => void
     setFilterData: (payload: Filter) => void
     setSelectedServices: (checked: boolean, service: TService) => void
     setSelectAllServices: (services: TService[]) => void
@@ -115,6 +116,21 @@ export const useServicesStore = create<ServicesListState & ServicesListAction>(
                                   : role,
                           )
                         : [...state.roleToCreate, changedFields],
+                }
+            }),
+        deleteRoleToCreate: (changedFields: TServiceRoleTemp) =>
+            set((state) => {
+                const roleIndex = state.roleToCreate.findIndex(
+                    (r) => r.sk === changedFields.sk,
+                )
+
+                return {
+                    roleToCreate:
+                        roleIndex !== -1
+                            ? state.roleToCreate.filter(
+                                  (_, index) => index !== roleIndex,
+                              )
+                            : state.roleToCreate,
                 }
             }),
 

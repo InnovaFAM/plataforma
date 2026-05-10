@@ -36,9 +36,11 @@ const ServiceDetailsRoleAssignmentDrawer = ({
     onClose,
 }: RoleAssignmentDrawerProps) => {
     const queryClient = useQueryClient()
-    const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
-        user?.startedAt ? getDateFromString(user.startedAt) : null,
-        user?.endedAt ? getDateFromString(user.endedAt) : null,
+    const [dateRange, setDateRange] = useState<
+        [Date | undefined, Date | undefined]
+    >([
+        user?.startedAt ? getDateFromString(user.startedAt) : undefined,
+        user?.endedAt ? getDateFromString(user.endedAt) : undefined,
     ])
 
     const [status, setStatus] = useState<'propuesto' | 'confirmado'>(
@@ -292,7 +294,7 @@ const ServiceDetailsRoleAssignmentDrawer = ({
     }
 
     const handleRangePickerChange = (date: [Date | null, Date | null]) => {
-        setDateRange(date)
+        setDateRange(date as [Date | undefined, Date | undefined])
     }
 
     return (
@@ -351,7 +353,9 @@ const ServiceDetailsRoleAssignmentDrawer = ({
                                             ? new Date(serviceRole?.endedAt)
                                             : undefined
                                     }
-                                    value={dateRange}
+                                    value={
+                                        dateRange as [Date | null, Date | null]
+                                    }
                                     onChange={handleRangePickerChange}
                                 />
                             </div>

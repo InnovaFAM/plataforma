@@ -82,7 +82,7 @@ const BackOfficeCreateDivisionModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.divisions(),
+                queryKey: backOfficeKeys.divisions,
             })
             toast.push(
                 <Notification
@@ -119,7 +119,7 @@ const BackOfficeCreateDivisionModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.divisions(),
+                queryKey: backOfficeKeys.divisions,
             })
             toast.push(
                 <Notification

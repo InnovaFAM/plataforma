@@ -189,6 +189,10 @@ const ServiceEditionCreationContractAdmins = ({
                     setEditingAdmin(admin)
                     setOpen(true)
                 }}
+                onAddAdmin={() => {
+                    setEditingAdmin(null)
+                    setOpen(true)
+                }}
                 onRemove={(admin) => {
                     const updatedAdmins = (service?.managers || []).filter(
                         (a) => a.email !== admin.email,

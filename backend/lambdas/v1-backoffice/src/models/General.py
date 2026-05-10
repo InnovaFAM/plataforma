@@ -1,4 +1,5 @@
 from decimal import Decimal
+from this import s
 from typing import Any
 
 from pydantic import BaseModel, field_validator
@@ -49,9 +50,6 @@ class PatchCertificateBodyRequest(BaseModel):
 class PatchRoleBodyRequest(BaseModel):
     sk: str
     name: str | None = None
-    hoursPerDay: Decimal | None = None
-    shiftType: str | None = None
-    weeklyHours: Decimal | None = None
     status: bool | None = None
 
     @field_validator("sk")
@@ -95,6 +93,7 @@ class PatchChoreBodyRequest(BaseModel):
 class PatchHolidayBodyRequest(BaseModel):
     sk: str
     date: str | None = None
+    name: str | None = None
     type: HolidayType | None = None
 
     @field_validator("type")
@@ -128,3 +127,9 @@ class PatchShiftBodyRequest(BaseModel):
             raise ValueError("Turno inválido")
 
         return v
+
+
+class DeleteItemBodyRequest(BaseModel):
+    itemHash: str
+    itemType: str
+    itemName: str

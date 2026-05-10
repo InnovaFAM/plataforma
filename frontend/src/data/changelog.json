@@ -1,0 +1,346 @@
+[
+    {
+        "version": "0.4.3",
+        "date": "2026-05-08",
+        "message": "some fixes",
+        "hash": "40b5d48adb6c2c8de0a0bb1c7c60d05f24c9ef8d",
+        "shortHash": "40b5d48",
+        "url": "https://github.com/aichile/innovafam/commit/40b5d48adb6c2c8de0a0bb1c7c60d05f24c9ef8d"
+    },
+    {
+        "version": "0.4.2",
+        "date": "2026-05-08",
+        "message": "role service logic changed some minor fixed",
+        "hash": "d7e601ce1ac5332bb98c6321a1392fd3903db76e",
+        "shortHash": "d7e601c",
+        "url": "https://github.com/aichile/innovafam/commit/d7e601ce1ac5332bb98c6321a1392fd3903db76e"
+    },
+    {
+        "version": "0.4.1",
+        "date": "2026-05-07",
+        "message": "readme added",
+        "hash": "e0dac9c74344aea70b76acf2539e9b85f46e78e8",
+        "shortHash": "e0dac9c",
+        "url": "https://github.com/aichile/innovafam/commit/e0dac9c74344aea70b76acf2539e9b85f46e78e8"
+    },
+    {
+        "version": "0.4.0",
+        "date": "2026-05-07",
+        "message": "some fixes",
+        "hash": "bebdc05cb80ee26d0c10069d5be681db03cdaa65",
+        "shortHash": "bebdc05",
+        "url": "https://github.com/aichile/innovafam/commit/bebdc05cb80ee26d0c10069d5be681db03cdaa65"
+    },
+    {
+        "version": "0.3.9",
+        "date": "2026-05-07",
+        "message": "some fixes",
+        "hash": "704429eecf864941cd92b8df9e8007c7c614d2d1",
+        "shortHash": "704429e",
+        "url": "https://github.com/aichile/innovafam/commit/704429eecf864941cd92b8df9e8007c7c614d2d1"
+    },
+    {
+        "version": "0.3.8",
+        "date": "2026-05-06",
+        "message": "export frontend added",
+        "hash": "1b40148b53d259401aa5613be05a2ca4a5fdda8d",
+        "shortHash": "1b40148",
+        "url": "https://github.com/aichile/innovafam/commit/1b40148b53d259401aa5613be05a2ca4a5fdda8d"
+    },
+    {
+        "version": "0.3.7",
+        "date": "2026-05-06",
+        "message": "backend exports added sync updated",
+        "hash": "9d4687999c961e7c0e3ccc61aeb3de0a835c8e2d",
+        "shortHash": "9d46879",
+        "url": "https://github.com/aichile/innovafam/commit/9d4687999c961e7c0e3ccc61aeb3de0a835c8e2d"
+    },
+    {
+        "version": "0.3.6",
+        "date": "2026-05-04",
+        "message": "consoles logs deleted",
+        "hash": "7c597854b1001d5a73b70f0bd05619aca398d13a",
+        "shortHash": "7c59785",
+        "url": "https://github.com/aichile/innovafam/commit/7c597854b1001d5a73b70f0bd05619aca398d13a"
+    },
+    {
+        "version": "0.3.5",
+        "date": "2026-05-04",
+        "message": "activities user updated",
+        "hash": "fad9b4944f03e7d6f691b682df7cb0507b050047",
+        "shortHash": "fad9b49",
+        "url": "https://github.com/aichile/innovafam/commit/fad9b4944f03e7d6f691b682df7cb0507b050047"
+    },
+    {
+        "version": "0.3.4",
+        "date": "2026-05-04",
+        "message": "permissions added",
+        "hash": "11ff3284a677140445588a849039447f24796fab",
+        "shortHash": "11ff328",
+        "url": "https://github.com/aichile/innovafam/commit/11ff3284a677140445588a849039447f24796fab"
+    },
+    {
+        "version": "0.3.3",
+        "date": "2026-05-04",
+        "message": "home added",
+        "hash": "859b38a1e25ffd587b0ece68b470e9b23b631e2b",
+        "shortHash": "859b38a",
+        "url": "https://github.com/aichile/innovafam/commit/859b38a1e25ffd587b0ece68b470e9b23b631e2b"
+    },
+    {
+        "version": "0.3.2",
+        "date": "2026-05-03",
+        "message": "lint fixed queries fixed",
+        "hash": "2b14c85b0dd2edf1041f27961b8bba88d1046f9a",
+        "shortHash": "2b14c85",
+        "url": "https://github.com/aichile/innovafam/commit/2b14c85b0dd2edf1041f27961b8bba88d1046f9a"
+    },
+    {
+        "version": "0.3.1",
+        "date": "2026-05-03",
+        "message": "some fixed",
+        "hash": "4fb2fce8595f48f03053cb7a10633eb6a88f346c",
+        "shortHash": "4fb2fce",
+        "url": "https://github.com/aichile/innovafam/commit/4fb2fce8595f48f03053cb7a10633eb6a88f346c"
+    },
+    {
+        "version": "0.3.0",
+        "date": "2026-05-03",
+        "message": "v1-services-ai added",
+        "hash": "43f9c02babd3c69b5ef8f438ec913fe6426542e5",
+        "shortHash": "43f9c02",
+        "url": "https://github.com/aichile/innovafam/commit/43f9c02babd3c69b5ef8f438ec913fe6426542e5"
+    },
+    {
+        "version": "0.2.9",
+        "date": "2026-05-02",
+        "message": "shift added to backoffice shift in roles added",
+        "hash": "46b0799ea6e1ca0243676705d7559458e511980c",
+        "shortHash": "46b0799",
+        "url": "https://github.com/aichile/innovafam/commit/46b0799ea6e1ca0243676705d7559458e511980c"
+    },
+    {
+        "version": "0.2.8",
+        "date": "2026-05-01",
+        "message": "analytics - reportes HH added",
+        "hash": "d30bf98e91a4fda811088544c50c0b532df7663c",
+        "shortHash": "d30bf98",
+        "url": "https://github.com/aichile/innovafam/commit/d30bf98e91a4fda811088544c50c0b532df7663c"
+    },
+    {
+        "version": "0.2.7",
+        "date": "2026-04-29",
+        "message": "analytics added - projects",
+        "hash": "ca47b6b0b4d7e96aebe3c1aa7fab523c521b3f79",
+        "shortHash": "ca47b6b",
+        "url": "https://github.com/aichile/innovafam/commit/ca47b6b0b4d7e96aebe3c1aa7fab523c521b3f79"
+    },
+    {
+        "version": "0.2.6",
+        "date": "2026-04-22",
+        "message": "collab assign to role (parte 1) added",
+        "hash": "c9b3b2b90c481db4395027ee79dfbe992469c079",
+        "shortHash": "c9b3b2b",
+        "url": "https://github.com/aichile/innovafam/commit/c9b3b2b90c481db4395027ee79dfbe992469c079"
+    },
+    {
+        "version": "0.2.5",
+        "date": "2026-04-21",
+        "message": "21 abril",
+        "hash": "70ead00d18f9cb6985874575fadce520c64a799d",
+        "shortHash": "70ead00",
+        "url": "https://github.com/aichile/innovafam/commit/70ead00d18f9cb6985874575fadce520c64a799d"
+    },
+    {
+        "version": "0.2.4",
+        "date": "2026-04-19",
+        "message": "activities user added",
+        "hash": "5054f10c454da0002bec678ac3f71577d712f90f",
+        "shortHash": "5054f10",
+        "url": "https://github.com/aichile/innovafam/commit/5054f10c454da0002bec678ac3f71577d712f90f"
+    },
+    {
+        "version": "0.2.3",
+        "date": "2026-04-14",
+        "message": "JWT continue",
+        "hash": "dba8d152038036c43fa3e75f9cd6fb44b9b49949",
+        "shortHash": "dba8d15",
+        "url": "https://github.com/aichile/innovafam/commit/dba8d152038036c43fa3e75f9cd6fb44b9b49949"
+    },
+    {
+        "version": "0.2.2",
+        "date": "2026-04-14",
+        "message": "JWT token added",
+        "hash": "793d02ac087d468978e5931523cad3edc59fd717",
+        "shortHash": "793d02a",
+        "url": "https://github.com/aichile/innovafam/commit/793d02ac087d468978e5931523cad3edc59fd717"
+    },
+    {
+        "version": "0.2.1",
+        "date": "2026-04-09",
+        "message": "user profile updated",
+        "hash": "d0cebc2e36b99c8d2fffad0406e572165d21e05d",
+        "shortHash": "d0cebc2",
+        "url": "https://github.com/aichile/innovafam/commit/d0cebc2e36b99c8d2fffad0406e572165d21e05d"
+    },
+    {
+        "version": "0.2.0",
+        "date": "2026-04-08",
+        "message": "advance 08 abril",
+        "hash": "0a5bbde7c1d829537476dd0546d2a15cfa19a5c9",
+        "shortHash": "0a5bbde",
+        "url": "https://github.com/aichile/innovafam/commit/0a5bbde7c1d829537476dd0546d2a15cfa19a5c9"
+    },
+    {
+        "version": "0.1.9",
+        "date": "2026-04-03",
+        "message": "v1-users updated cognito integration otp added",
+        "hash": "5732809a39f451fb94a2c1407103a9340e47877e",
+        "shortHash": "5732809",
+        "url": "https://github.com/aichile/innovafam/commit/5732809a39f451fb94a2c1407103a9340e47877e"
+    },
+    {
+        "version": "0.1.8",
+        "date": "2026-03-31",
+        "message": "user_pool_id changed",
+        "hash": "63330985ef660a579694eaeb7bf628ac4e9ec742",
+        "shortHash": "6333098",
+        "url": "https://github.com/aichile/innovafam/commit/63330985ef660a579694eaeb7bf628ac4e9ec742"
+    },
+    {
+        "version": "0.1.7",
+        "date": "2026-03-31",
+        "message": "infra ddb.tf fixed",
+        "hash": "fe9ca61843371eb939b329d4688b907cc19124ea",
+        "shortHash": "fe9ca61",
+        "url": "https://github.com/aichile/innovafam/commit/fe9ca61843371eb939b329d4688b907cc19124ea"
+    },
+    {
+        "version": "0.1.6",
+        "date": "2026-03-31",
+        "message": "merge stage",
+        "hash": "6d550ce01cd5c4d961d56c1c038173b852328361",
+        "shortHash": "6d550ce",
+        "url": "https://github.com/aichile/innovafam/commit/6d550ce01cd5c4d961d56c1c038173b852328361"
+    },
+    {
+        "version": "0.1.5",
+        "date": "2026-03-04",
+        "message": "traducciones y manejo de errores",
+        "hash": "2fd2dcd5b498e8ab375440a9d2bbaebb2efe9db7",
+        "shortHash": "2fd2dcd",
+        "url": "https://github.com/aichile/innovafam/commit/2fd2dcd5b498e8ab375440a9d2bbaebb2efe9db7"
+    },
+    {
+        "version": "0.1.4",
+        "date": "2026-03-04",
+        "message": "no cognito button",
+        "hash": "9e5a231cac2593cfa04f2c66f00bbbda45a273a3",
+        "shortHash": "9e5a231",
+        "url": "https://github.com/aichile/innovafam/commit/9e5a231cac2593cfa04f2c66f00bbbda45a273a3"
+    },
+    {
+        "version": "0.1.3",
+        "date": "2026-03-04",
+        "message": ".gitignore added",
+        "hash": "bc22f02d8d33580d8fba51e4193e3fc654358e49",
+        "shortHash": "bc22f02",
+        "url": "https://github.com/aichile/innovafam/commit/bc22f02d8d33580d8fba51e4193e3fc654358e49"
+    },
+    {
+        "version": "0.1.2",
+        "date": "2026-03-04",
+        "message": ".gitignore para infra",
+        "hash": "e26d779b3ddf7f80aa24daa5075a92b6aab0f311",
+        "shortHash": "e26d779",
+        "url": "https://github.com/aichile/innovafam/commit/e26d779b3ddf7f80aa24daa5075a92b6aab0f311"
+    },
+    {
+        "version": "0.1.1",
+        "date": "2026-03-04",
+        "message": "cognito integration",
+        "hash": "15edfff22493a67efb236fef5b7c663dc5a1f232",
+        "shortHash": "15edfff",
+        "url": "https://github.com/aichile/innovafam/commit/15edfff22493a67efb236fef5b7c663dc5a1f232"
+    },
+    {
+        "version": "0.1.0",
+        "date": "2026-02-27",
+        "message": "stage to vercel",
+        "hash": "e21a1d57a3f17ac0afcee2b28dced4962b1d9e08",
+        "shortHash": "e21a1d5",
+        "url": "https://github.com/aichile/innovafam/commit/e21a1d57a3f17ac0afcee2b28dced4962b1d9e08"
+    },
+    {
+        "version": "0.0.9",
+        "date": "2026-02-27",
+        "message": "Quitar usuario de prueba",
+        "hash": "f3f9eedf6bec72867c252b2d5d476be261ee9c0d",
+        "shortHash": "f3f9eed",
+        "url": "https://github.com/aichile/innovafam/commit/f3f9eedf6bec72867c252b2d5d476be261ee9c0d"
+    },
+    {
+        "version": "0.0.8",
+        "date": "2026-02-27",
+        "message": "Cambio de default email y password",
+        "hash": "1ad6598068fc1cf13081ded102bd1e35705ccd24",
+        "shortHash": "1ad6598",
+        "url": "https://github.com/aichile/innovafam/commit/1ad6598068fc1cf13081ded102bd1e35705ccd24"
+    },
+    {
+        "version": "0.0.7",
+        "date": "2026-02-27",
+        "message": "icons vercel",
+        "hash": "fa033c9f8bcfeabada093553a43e88198cda7b6e",
+        "shortHash": "fa033c9",
+        "url": "https://github.com/aichile/innovafam/commit/fa033c9f8bcfeabada093553a43e88198cda7b6e"
+    },
+    {
+        "version": "0.0.6",
+        "date": "2026-02-27",
+        "message": "vercel test",
+        "hash": "01294ac7d434770b595f3b0d60a42ea4eda0a340",
+        "shortHash": "01294ac",
+        "url": "https://github.com/aichile/innovafam/commit/01294ac7d434770b595f3b0d60a42ea4eda0a340"
+    },
+    {
+        "version": "0.0.5",
+        "date": "2026-02-27",
+        "message": "Update README.md",
+        "hash": "2e8319cbc3b98e2e31ad569ac000f5e02888ca99",
+        "shortHash": "2e8319c",
+        "url": "https://github.com/aichile/innovafam/commit/2e8319cbc3b98e2e31ad569ac000f5e02888ca99"
+    },
+    {
+        "version": "0.0.4",
+        "date": "2026-02-27",
+        "message": "otro",
+        "hash": "a4aaeebae9263bb6c8db49535d3ff020ad0dbacf",
+        "shortHash": "a4aaeeb",
+        "url": "https://github.com/aichile/innovafam/commit/a4aaeebae9263bb6c8db49535d3ff020ad0dbacf"
+    },
+    {
+        "version": "0.0.3",
+        "date": "2026-02-27",
+        "message": "cambio pequeño para activar vercel",
+        "hash": "9cb807f6f68ed31a501e2c5a77052da8caed385e",
+        "shortHash": "9cb807f",
+        "url": "https://github.com/aichile/innovafam/commit/9cb807f6f68ed31a501e2c5a77052da8caed385e"
+    },
+    {
+        "version": "0.0.2",
+        "date": "2026-01-06",
+        "message": "initial backend",
+        "hash": "e78cc878a36583c92505dd57abbfe3a7018d20b5",
+        "shortHash": "e78cc87",
+        "url": "https://github.com/aichile/innovafam/commit/e78cc878a36583c92505dd57abbfe3a7018d20b5"
+    },
+    {
+        "version": "0.0.1",
+        "date": "2025-12-19",
+        "message": "Initial Commit",
+        "hash": "75624e7b617d422aa30e34175f42ccd6d90da517",
+        "shortHash": "75624e7",
+        "url": "https://github.com/aichile/innovafam/commit/75624e7b617d422aa30e34175f42ccd6d90da517"
+    }
+]

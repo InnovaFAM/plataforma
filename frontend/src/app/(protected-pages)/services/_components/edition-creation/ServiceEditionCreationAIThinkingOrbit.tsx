@@ -461,9 +461,6 @@ export default function AIThinkingOrbit({
                         >
                             {t(
                                 'services.creation.createWithAiModal.successMessage',
-                                {
-                                    count: completedCount,
-                                },
                             )}
                         </p>
                         <p

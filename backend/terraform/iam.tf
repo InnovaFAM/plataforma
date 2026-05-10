@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "certificates_role_policy" {
     condition {
         test     = "ForAllValues:StringLike"
         variable = "dynamodb:LeadingKeys"
-        values   = ["CERTS#ROLES", "COLLABS#*"]
+        values   = ["CERTS#ROLES", "FAM#*", "COLLABS#*", "SERVICE#*"]
     }
   }
 

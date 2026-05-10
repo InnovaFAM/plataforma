@@ -9,7 +9,7 @@ import { TbPencil, TbPlus, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand } from 'react-icons/fa6'
 import { ColumnDefTemplate, HeaderContext } from '@tanstack/react-table'
 
-import { TBackOfficeChore } from '../../types'
+import { TBackOfficeChore, TBackOfficeDialogDelete } from '../../types'
 import BackOfficeCreateChoreModal from '../creation-modals/BackOfficeCreateChoreModal'
 import BackOfficeActionColumn from './ActionColumn'
 import { useBackOfficeStore } from '../../_store/backOfficeStore'
@@ -23,12 +23,14 @@ const BackOfficeChoresTable = ({
     data,
     lastEvaluatedKey,
     isLoading,
+    onDelete,
     onFetch,
 }: {
     id: string
     data: TBackOfficeChore[]
     lastEvaluatedKey?: string
     isLoading?: boolean
+    onDelete: (item: TBackOfficeDialogDelete) => void
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
@@ -192,7 +194,13 @@ const BackOfficeChoresTable = ({
                                 setTempChore(row.original)
                                 setModalOpen(true)
                             }}
-                            onDelete={() => {}}
+                            onDelete={() =>
+                                onDelete({
+                                    itemHash: row.original.sk,
+                                    itemName: row.original.name,
+                                    itemType: row.original.pk.split('#')[1],
+                                })
+                            }
                         />
                     </div>
                 ),

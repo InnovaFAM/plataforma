@@ -85,7 +85,7 @@ const BackOfficeCreateClientModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.clients(),
+                queryKey: backOfficeKeys.clients,
             })
             toast.push(
                 <Notification
@@ -121,7 +121,7 @@ const BackOfficeCreateClientModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.clients(),
+                queryKey: backOfficeKeys.clients,
             })
             toast.push(
                 <Notification

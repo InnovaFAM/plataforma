@@ -15,7 +15,7 @@ type ResetPasswordProps = {
 }
 
 export const ResetPassword = ({
-    signInUrl = '/sign-in',
+    signInUrl = '/login',
     onResetPasswordSubmit,
 }: ResetPasswordProps) => {
     const [resetComplete, setResetComplete] = useState(false)

@@ -1,7 +1,10 @@
 import Container from '@/components/shared/Container'
 import classNames from '@/utils/classNames'
 import { APP_NAME } from '@/constants/app.constant'
-import { HEADER_HEIGHT, PAGE_CONTAINER_GUTTER_X } from '@/constants/theme.constant'
+import {
+    HEADER_HEIGHT,
+    PAGE_CONTAINER_GUTTER_X,
+} from '@/constants/theme.constant'
 
 export type FooterPageContainerType = 'gutterless' | 'contained'
 
@@ -15,11 +18,14 @@ const FooterContent = () => {
         <div className="flex items-center justify-between flex-auto w-full">
             <span>
                 Copyright &copy; {`${new Date().getFullYear()}`}
-                <span className="font-semibold">{` ${APP_NAME}`}</span> Derechos reservados.
+                {' - '}
+                <span className="font-semibold">
+                    {` ${APP_NAME}`} v0.9.0
+                </span>{' '}
+                Derechos reservados.
             </span>
             <div className="">
-                {
-                    /*
+                {/*
                     <Link
                     className="text-gray"
                     href="/#"
@@ -35,8 +41,7 @@ const FooterContent = () => {
                 >
                     Privacy & Policy
                 </Link>
-                     */
-                }
+                     */}
             </div>
         </div>
     )
@@ -52,7 +57,7 @@ export default function Footer({
                 `footer flex flex-auto shrink-0 items-center ${PAGE_CONTAINER_GUTTER_X}`,
                 className,
             )}
-            style={{ height: HEADER_HEIGHT}}
+            style={{ height: HEADER_HEIGHT }}
         >
             {pageContainerType === 'contained' ? (
                 <Container>

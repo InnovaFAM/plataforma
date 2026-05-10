@@ -13,8 +13,7 @@ const AxiosBase = axios.create({
 AxiosBase.interceptors.request.use(
     (config) => {
         // TODO
-        config.baseURL =
-            'https://pkdzgs9mbl.execute-api.us-east-1.amazonaws.com/innovafam-v1-stage'
+        config.baseURL = process.env.API_BASE_URL
         return AxiosRequestIntrceptorConfigCallback(config)
     },
     (error) => {

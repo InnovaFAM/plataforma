@@ -2,7 +2,13 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, field_validator
 
-from models.Service import ChoreService, ClientService, DivisionService, Manager
+from models.Service import (
+    ChoreService,
+    ClientService,
+    DivisionService,
+    Manager,
+    RoleServiceShift,
+)
 
 
 class PaginatedServiceResponse(BaseModel):
@@ -42,6 +48,7 @@ class PatchRoleServiceBodyRequest(BaseModel):
     confirmed: int | None = None
     startedAt: str | None = None
     endedAt: str | None = None
+    shift: RoleServiceShift | None = None
 
     @field_validator("sk")
     @classmethod

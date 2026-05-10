@@ -9,7 +9,7 @@ import { TbPencil, TbPlus, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand } from 'react-icons/fa6'
 import { ColumnDefTemplate, HeaderContext } from '@tanstack/react-table'
 
-import { TBackOfficeRole } from '../../types'
+import { TBackOfficeDialogDelete, TBackOfficeRole } from '../../types'
 import BackOfficeCreateRoleModal from '../creation-modals/BackOfficeCreateRoleModal'
 import BackOfficeActionColumn from './ActionColumn'
 import { useBackOfficeStore } from '../../_store/backOfficeStore'
@@ -23,12 +23,14 @@ const BackOfficeRolesTable = ({
     data,
     lastEvaluatedKey,
     isLoading,
+    onDelete,
     onFetch,
 }: {
     id: string
     data: TBackOfficeRole[]
     lastEvaluatedKey?: string
     isLoading?: boolean
+    onDelete: (data: TBackOfficeDialogDelete) => void
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
@@ -149,21 +151,6 @@ const BackOfficeRolesTable = ({
                 ),
             },
             {
-                header: 'Horas x Día',
-                accessorKey: 'hoursPerDay',
-                size: 70,
-            },
-            {
-                header: 'Turno',
-                accessorKey: 'shiftType',
-                size: 70,
-            },
-            {
-                header: 'Horas x Semana',
-                accessorKey: 'weeklyHours',
-                size: 70,
-            },
-            {
                 header: (
                     <div
                         className={classNames(
@@ -194,7 +181,13 @@ const BackOfficeRolesTable = ({
                                 setTempRole(row.original)
                                 setModalOpen(true)
                             }}
-                            onDelete={() => {}}
+                            onDelete={() =>
+                                onDelete({
+                                    itemHash: row.original.sk,
+                                    itemName: row.original.name,
+                                    itemType: row.original.pk.split('#')[1],
+                                })
+                            }
                         />
                     </div>
                 ),

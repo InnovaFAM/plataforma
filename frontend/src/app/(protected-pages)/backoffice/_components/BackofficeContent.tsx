@@ -1,14 +1,6 @@
 'use client'
 import { useState } from 'react'
-import BackOfficeAffix from './BackOfficeAffix'
-import BackOfficeCertificatesTable from './tables/BackOfficeCertificatesTable'
-import BackOfficeRolesTable from './tables/BackOfficeRolesTable'
-import BackOfficeClientsTable from './tables/BackOfficeClientsTable'
-import BackOfficeHolidaysTable from './tables/BackOfficeHolidaysTable'
-import BackOfficeChoresTable from './tables/BackOfficeChoresTable'
-import BackOfficeDivisionTable from './tables/BackOfficeDivisionTable'
-import BackOfficeShiftsTable from './tables/BackOfficeShiftsTable'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { listBackOfficeClients } from '@/server/actions/backoffice/list-clients'
 import { listBackOfficeHolidays } from '@/server/actions/backoffice/list-holidays'
 import { listBackOfficeRoles } from '@/server/actions/backoffice/list-roles'
@@ -18,6 +10,16 @@ import { listBackOfficeDivisions } from '@/server/actions/backoffice/list-divisi
 import { listBackOfficeCertificates } from '@/server/actions/backoffice/list-certificates'
 import { listBackOfficeShifts } from '@/server/actions/backoffice/actions-shifts'
 import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
+import { TBackOfficeDialogDelete } from '../types'
+import BackOfficeAffix from './BackOfficeAffix'
+import BackOfficeCertificatesTable from './tables/BackOfficeCertificatesTable'
+import BackOfficeRolesTable from './tables/BackOfficeRolesTable'
+import BackOfficeClientsTable from './tables/BackOfficeClientsTable'
+import BackOfficeHolidaysTable from './tables/BackOfficeHolidaysTable'
+import BackOfficeChoresTable from './tables/BackOfficeChoresTable'
+import BackOfficeDivisionTable from './tables/BackOfficeDivisionTable'
+import BackOfficeShiftsTable from './tables/BackOfficeShiftsTable'
+import DialogDeleteBackOfficeItem from './DialogDeleteBackOfficeItem'
 
 const NAVIGATION_ELEMENTS = [
     {
@@ -52,6 +54,11 @@ const NAVIGATION_ELEMENTS = [
 
 const BackOfficeContent = () => {
     const { protectedQueryFn } = useProtectedQueryFn()
+    const queryClient = useQueryClient()
+
+    const [onModalOpen, setOnModalOpen] = useState(false)
+    const [deleteData, setDeleteData] =
+        useState<TBackOfficeDialogDelete | null>(null)
     const [rolesToken, setRolesToken] = useState<string | undefined>(undefined)
     const [certificationsToken, setCertificationsToken] = useState<
         string | undefined
@@ -73,14 +80,14 @@ const BackOfficeContent = () => {
     )
 
     const { data: BackOfficeShifts, isLoading: isLoadingShifts } = useQuery({
-        queryKey: backOfficeKeys.shifts(shiftsToken),
+        queryKey: backOfficeKeys.shifts,
         queryFn: async () =>
             protectedQueryFn(() => listBackOfficeShifts(shiftsToken)),
     })
 
     const { data: BackOfficeCertificates, isLoading: isLoadingCertificates } =
         useQuery({
-            queryKey: backOfficeKeys.certifications(certificationsToken),
+            queryKey: backOfficeKeys.certifications,
             queryFn: async () =>
                 protectedQueryFn(() =>
                     listBackOfficeCertificates(certificationsToken),
@@ -88,37 +95,56 @@ const BackOfficeContent = () => {
         })
 
     const { data: BackOfficeChores, isLoading: isLoadingChores } = useQuery({
-        queryKey: backOfficeKeys.chores(choresToken),
+        queryKey: backOfficeKeys.chores,
         queryFn: async () =>
             protectedQueryFn(() => listBackOfficeChores(choresToken)),
     })
 
     const { data: BackOfficeClients, isLoading: isLoadingClients } = useQuery({
-        queryKey: backOfficeKeys.clients(clientsToken),
+        queryKey: backOfficeKeys.clients,
         queryFn: async () =>
             protectedQueryFn(() => listBackOfficeClients(clientsToken)),
     })
 
     const { data: BackOfficeDivisions, isLoading: isLoadingDivisions } =
         useQuery({
-            queryKey: backOfficeKeys.divisions(divisionsToken),
+            queryKey: backOfficeKeys.divisions,
             queryFn: async () =>
                 protectedQueryFn(() => listBackOfficeDivisions(divisionsToken)),
         })
 
     const { data: BackOfficeHolidays, isLoading: isLoadingHolidays } = useQuery(
         {
-            queryKey: backOfficeKeys.holidays(holidaysToken),
+            queryKey: backOfficeKeys.holidays,
             queryFn: async () =>
                 protectedQueryFn(() => listBackOfficeHolidays(holidaysToken)),
         },
     )
 
     const { data: BackOfficeRoles, isLoading: isLoadingRoles } = useQuery({
-        queryKey: backOfficeKeys.roles(rolesToken),
+        queryKey: backOfficeKeys.roles,
         queryFn: async () =>
             protectedQueryFn(() => listBackOfficeRoles(rolesToken)),
     })
+
+    const handleDelete = (data: TBackOfficeDialogDelete) => {
+        setDeleteData(data)
+        setOnModalOpen(true)
+    }
+
+    const invalidateQuery = async () => {
+        if (deleteData?.itemType) {
+            const queryKey = [
+                `backoffice-${deleteData.itemType.toLowerCase()}`,
+            ] as const
+            await queryClient.invalidateQueries({
+                queryKey: queryKey,
+            })
+        }
+
+        setDeleteData(null)
+        setOnModalOpen(false)
+    }
 
     return (
         <div className="relative flex flex-col min-h-screen gap-4 w-full mt-12 px-4 md:px-8">
@@ -126,6 +152,7 @@ const BackOfficeContent = () => {
                 <div className="flex flex-col xl:flex-row gap-8 max-w-full overflow-x-hidden">
                     <div className="flex flex-col gap-12 flex-5 min-w-0">
                         <BackOfficeCertificatesTable
+                            onDelete={handleDelete}
                             data={BackOfficeCertificates?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[0].id}
                             lastEvaluatedKey={
@@ -136,6 +163,7 @@ const BackOfficeContent = () => {
                         />
 
                         <BackOfficeRolesTable
+                            onDelete={handleDelete}
                             data={BackOfficeRoles?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[1].id}
                             lastEvaluatedKey={
@@ -146,6 +174,7 @@ const BackOfficeContent = () => {
                         />
 
                         <BackOfficeClientsTable
+                            onDelete={handleDelete}
                             data={BackOfficeClients?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[2].id}
                             lastEvaluatedKey={
@@ -156,6 +185,7 @@ const BackOfficeContent = () => {
                         />
 
                         <BackOfficeHolidaysTable
+                            onDelete={handleDelete}
                             data={BackOfficeHolidays?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[3].id}
                             lastEvaluatedKey={
@@ -166,6 +196,7 @@ const BackOfficeContent = () => {
                         />
 
                         <BackOfficeChoresTable
+                            onDelete={handleDelete}
                             data={BackOfficeChores?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[4].id}
                             lastEvaluatedKey={
@@ -176,6 +207,7 @@ const BackOfficeContent = () => {
                         />
 
                         <BackOfficeDivisionTable
+                            onDelete={handleDelete}
                             data={BackOfficeDivisions?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[5].id}
                             lastEvaluatedKey={
@@ -185,6 +217,7 @@ const BackOfficeContent = () => {
                             onFetch={setDivisionsToken}
                         />
                         <BackOfficeShiftsTable
+                            onDelete={handleDelete}
                             data={BackOfficeShifts?.data?.items || []}
                             id={NAVIGATION_ELEMENTS[6].id}
                             lastEvaluatedKey={
@@ -199,6 +232,18 @@ const BackOfficeContent = () => {
                     </div>
                 </div>
             </div>
+
+            {onModalOpen && (
+                <DialogDeleteBackOfficeItem
+                    isOpen={onModalOpen}
+                    data={deleteData}
+                    onClose={() => {
+                        setDeleteData(null)
+                        setOnModalOpen(false)
+                    }}
+                    onDeleted={invalidateQuery}
+                />
+            )}
         </div>
     )
 }

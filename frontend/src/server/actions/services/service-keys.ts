@@ -1,5 +1,5 @@
 export const serviceKeys = {
-    listServices: (nextToken?: string) => ['services', nextToken] as const,
+    listServices: (nextToken?: string) => ['list-services', nextToken] as const,
     serviceById: (id: string) => ['service', id] as const,
     rolesByServiceId: (serviceId: string) =>
         ['roles-by-service', serviceId] as const,
@@ -29,6 +29,8 @@ export const serviceKeys = {
             serviceId,
             roleHash,
         ] as const,
+    deleteServiceRole: (serviceId: string, roleHash: string) =>
+        ['delete-role-in-service', serviceId, roleHash] as const,
 }
 
 export const serviceExportKeys = {

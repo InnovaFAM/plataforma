@@ -4,6 +4,12 @@ export type TMatrix = 'Cargo' | 'Faena' | 'Global'
 export type TRelevance = '30' | '60' | '-1'
 export type THolidayType = 'auto' | 'manual'
 
+export type TBackOfficeDialogDelete = {
+    itemHash: string
+    itemName: string
+    itemType: string
+}
+
 export type TBackOfficeCertificate = {
     pk: string
     sk: string
@@ -66,6 +72,7 @@ export type TBackOfficeDivisionUpdate = {
 export type TBackOfficeHoliday = {
     pk: string
     sk: string
+    name: string
     date: string
     type: THolidayType
 }
@@ -75,15 +82,13 @@ export type TBackOfficeHolidayCreate = Omit<TBackOfficeHoliday, 'pk' | 'sk'>
 export type TBackOfficeHolidayUpdate = {
     sk: string
     date?: string
+    name?: string
     type?: THolidayType
 }
 
 export type TBackOfficeRole = {
     pk: string
     sk: string
-    shiftType: string
-    hoursPerDay: number
-    weeklyHours: number
     name: string
 }
 
@@ -91,10 +96,7 @@ export type TBackOfficeRoleCreate = Omit<TBackOfficeRole, 'pk' | 'sk'>
 
 export type TBackOfficeRoleUpdate = {
     sk: string
-    name?: string
-    shiftType?: string
-    hoursPerDay?: number
-    weeklyHours?: number
+    name: string
 }
 
 export type TBackOfficeChore = {

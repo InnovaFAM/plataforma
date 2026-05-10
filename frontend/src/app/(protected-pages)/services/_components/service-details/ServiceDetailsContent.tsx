@@ -11,9 +11,9 @@ import { Dialog } from '@/components/ui'
 import { getServiceById } from '@/server/actions/services/get-service-by-id'
 import { serviceKeys } from '@/server/actions/services/service-keys'
 import { getRolesByServiceId } from '@/server/actions/services/get-roles-by-service-id'
-import ModalEditionCreationRoles from '../edition-creation/ModalEditionCreationRoles'
 import { useServicesStore } from '../../_store/servicesStore'
 import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
+import ModalEditionRoles from '../edition-creation/ModalEditionRoles'
 
 interface ServiceDetailsContentProps {
     serviceId: string
@@ -97,13 +97,9 @@ const ServiceDetailsContent = ({ serviceId }: ServiceDetailsContentProps) => {
                     )}
                 />
             </Dialog>
-            <ModalEditionCreationRoles
+            <ModalEditionRoles
                 onClose={() => setRoleToAdd(false)}
-                roles={
-                    serviceRoles?.filter(
-                        (role) => role.roleName === roleDisplayed,
-                    ) || []
-                }
+                roles={serviceRoles ?? []}
                 isOpen={roleToAdd}
                 temporalRole={null}
             />

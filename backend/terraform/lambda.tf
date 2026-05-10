@@ -244,7 +244,7 @@ module "backoffice" {
   api_gateway_id = aws_apigatewayv2_api.fam_api.id
   aws_env        = var.aws_env
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/backoffice*"
-  role_arn       = aws_iam_role.lambda_default_role.arn
+  role_arn       = aws_iam_role.certificates_role.arn
   authorizer_id  = aws_apigatewayv2_authorizer.authorizer.id
 
   lambda_name = "v1-backoffice"

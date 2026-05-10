@@ -53,20 +53,26 @@ class Service(ServicePayload, CoreBusiness):
     pass
 
 
+class RoleServiceShift(BaseModel):
+    sk: str
+    shiftType: str
+    weeklyHours: Decimal
+    hoursPerDay: Decimal
+
+
 # pk=SERVICES#<SERVICE_CODE> sk=ROLES#<ROLE_NAME>
 class RoleServicePayload(BaseModel):
+    sk: str
     roleName: str
     startedAt: str
     endedAt: str
-    required: int = 0
+    shift: RoleServiceShift
+    required: int = 1
+    proposed: int = 0
+    confirmed: int = 0
 
 
 class RoleService(RoleServicePayload, CoreBusiness):
-    shiftType: str
-    weeklyHours: int
-    hoursPerDay: Decimal
-    proposed: int = 0
-    confirmed: int = 0
     pass
 
 

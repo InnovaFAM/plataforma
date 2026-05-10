@@ -4,7 +4,7 @@
         "add": "Agregar",
         "cancel": "Cancelar",
         "discard": "Descartar",
-        "saveDraft": "Guardar Borrador",
+        "saveDraft": "Guardar Propuesta",
         "publish": "Publicar",
         "goBack": "Volver",
         "next": "Siguiente",
@@ -173,8 +173,8 @@
             "confirmed": "Confirmado",
             "preConfirmed": "Por confirmar",
             "proposal": "Propuesta",
-            "draft": "Boceto",
-            "published": "Publicado"
+            "draft": "Propuesto",
+            "published": "Confirmado"
         },
         "tools": {
             "searchPlaceholder": "Buscar",
@@ -271,7 +271,7 @@
                 "loadingMessage1": "Generando resumen del servicio...",
                 "loadingMessage2": "Creando servicio con IA...",
                 "loadingMessage3": "Leyendo el archivo y extrayendo información relevante...",
-                "successMessage": "¡Servicio creado exitosamente! Se han completado {count} inputs.",
+                "successMessage": "Se han agregado diveros campos al servicio para su revisión.",
                 "validateInfo": "Verifica la información y realiza los ajustes necesarios antes de publicar.",
                 "confirm": "Continuar"
             },

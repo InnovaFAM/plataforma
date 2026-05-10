@@ -2,6 +2,7 @@ from aws_lambda_powertools.event_handler.api_gateway import Response, Router
 
 from aws.ddb import (
     count_collabs_assigned_to_role,
+    delete_item,
     find_items_affected_by_parent_date_change,
     get_all_items,
     get_item,
@@ -33,54 +34,34 @@ def get_roles_in_service(service_code: str):
 def create_role_in_service(service_code: str):
     try:
         body = RoleServicePayload(**router.current_event.json_body)
-        srv_role_payload = body.model_dump(exclude_none=True, exclude=set(["roleName"]))
+        srv_role_payload = body.model_dump(exclude_none=True, exclude=set(["sk"]))
+        srv_role_payload["parentId"] = "ROLES#SERVICES"
 
         # check if roles exist in service
-        if has_role_in_service(f"SERVICE#{service_code}", body.roleName):
+        if has_role_in_service(f"SERVICE#{service_code}", body.sk):
             return error_response(
                 "PostRoleServiceError",
                 f"Role {body.roleName} already exists in service {service_code}",
             )
 
-        # check role exist before
-        if role_json := get_item("FAM#ROLES", body.roleName):
-            role = Role(**role_json)
-            srv_role = RoleService(
-                **srv_role_payload,
-                roleName=role.name,
-                pk=f"SERVICE#{service_code}",
-                sk=role.sk,
-                hoursPerDay=role.hoursPerDay,
-                shiftType=role.shiftType,
-                weeklyHours=role.weeklyHours,
-            )
-            srv_role_json = srv_role.model_dump(
-                exclude_none=True, exclude=set(["pk", "sk"])
-            )
-            _ = put_item(
-                srv_role.pk,
-                srv_role.sk,
-                srv_role_json,
-            )
-            try:
-                if user_sub := router.context.get("user_sub"):
-                    log_activity(
-                        user_sub,
-                        "CREATE_SRV_ROLE",
-                        {
-                            "service_code": service_code,
-                            **srv_role_json,
-                        },
-                    )
-            except Exception as err:
-                logger.warning("LogError", str(err))
-            return Response(
-                status_code=201,
-            )
-        else:
-            return error_response(
-                "PostRoleServiceError", f"Role {body.roleName} not found"
-            )
+        _ = put_item(
+            f"SERVICE#{service_code}",
+            body.sk,
+            srv_role_payload,
+        )
+        try:
+            if user_sub := router.context.get("user_sub"):
+                log_activity(
+                    user_sub,
+                    "CREATE_SRV_ROLE",
+                    {
+                        "serviceCode": service_code,
+                        **srv_role_payload,
+                    },
+                )
+        except Exception as err:
+            logger.warning("LogError", str(err))
+        return Response(status_code=201, body="Role in Service created successfully")
     except Exception as e:
         return error_response("PostRoleServiceError", str(e))
 
@@ -138,8 +119,31 @@ def update_role_in_service(service_code: str):
                 )
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=200,
-        )
+        return Response(status_code=200, body="Role in Service updated successfully")
     except Exception as e:
         return error_response("PatchRoleServiceError", str(e))
+
+
+@router.delete("/<hash>")
+def delete_role_in_service(service_code: str, hash: str):
+    try:
+        if ce := get_item(f"SERVICE#{service_code}", f"ROLES#{hash}"):
+            _ = delete_item(
+                f"SERVICE#{service_code}",
+                f"ROLES#{hash}",
+            )
+            try:
+                if user_sub := router.context.get("user_sub"):
+                    log_activity(user_sub, "DEL_SRV_ROLE", ce)
+            except Exception as err:
+                logger.warning("LogError", str(err))
+            return Response(
+                status_code=204, body="Role in Service deleted successfully"
+            )
+
+        return error_response(
+            "DeleteRoleServiceError",
+            f"No existe el role {hash} en el servicio {service_code}",
+        )
+    except Exception as e:
+        return error_response("DeleteRoleServiceError", str(e))

@@ -7,6 +7,7 @@ import { listBackOfficeClients } from '@/server/actions/backoffice/list-clients'
 import { listBackOfficeChores } from '@/server/actions/backoffice/list-chores'
 import { listBackOfficeDivisions } from '@/server/actions/backoffice/list-divisions'
 import { useEffect } from 'react'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
 
 interface ServiceEditionCreationExtraInformationProps {
     service?: TDetailedService | null
@@ -20,6 +21,7 @@ const ServiceEditionCreationExtraInformation = ({
     service,
     onValueChange,
 }: ServiceEditionCreationExtraInformationProps) => {
+    const { protectedQueryFn } = useProtectedQueryFn()
     const t = useTranslation()
     const priorityOptions = [
         { label: t('services.priority.high'), value: 'alta' },
@@ -28,26 +30,22 @@ const ServiceEditionCreationExtraInformation = ({
     ]
 
     const {
-        data: clients,
+        data: clientsResponse,
         isLoading: isLoadingClients,
         isError: isErrorClients,
     } = useQuery({
-        queryKey: backOfficeKeys.clients(),
-        queryFn: async () => {
-            const response = await listBackOfficeClients(undefined, 500)
-            if (!response.success) {
-                throw new Error(response.error)
-            }
-            return response.data
-        },
+        queryKey: backOfficeKeys.clients,
+        queryFn: async () =>
+            protectedQueryFn(() => listBackOfficeClients(undefined, 500)),
     })
+    const clients = clientsResponse?.data
 
     const {
         data: chores,
         isLoading: isLoadingChores,
         isError: isErrorChores,
     } = useQuery({
-        queryKey: backOfficeKeys.chores(),
+        queryKey: backOfficeKeys.chores,
         queryFn: async () => {
             const response = await listBackOfficeChores(undefined, 500)
             if (!response.success) {
@@ -62,7 +60,7 @@ const ServiceEditionCreationExtraInformation = ({
         isLoading: isLoadingDivisions,
         isError: isErrorDivisions,
     } = useQuery({
-        queryKey: backOfficeKeys.divisions(),
+        queryKey: backOfficeKeys.divisions,
         queryFn: async () => {
             const response = await listBackOfficeDivisions(undefined, 500)
             if (!response.success) {
@@ -139,7 +137,14 @@ const ServiceEditionCreationExtraInformation = ({
                                 label: client.name,
                                 value: client.sk,
                             }))}
-                            value={getClientName(service?.client?.sk || null)}
+                            value={
+                                service?.client?.sk
+                                    ? {
+                                          label: service?.client?.name || '',
+                                          value: service?.client?.sk || '',
+                                      }
+                                    : null
+                            }
                             onChange={(option) =>
                                 onValueChange?.('client', {
                                     ...(clients?.items?.find(

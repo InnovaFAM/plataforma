@@ -114,7 +114,7 @@ const BackOfficeCreateShiftModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.shifts(),
+                queryKey: backOfficeKeys.shifts,
             })
 
             toast.push(
@@ -148,7 +148,7 @@ const BackOfficeCreateShiftModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.shifts(),
+                queryKey: backOfficeKeys.shifts,
             })
 
             toast.push(

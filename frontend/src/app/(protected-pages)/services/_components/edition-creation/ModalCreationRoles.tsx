@@ -10,7 +10,7 @@ import {
 import useTranslation from '@/utils/hooks/useTranslation'
 import { z } from 'zod'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TServiceRole, TServiceRoleTemp } from '../../types'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,6 +18,9 @@ import { backOfficeKeys } from '@/server/actions/backoffice/backoffice-keys'
 import { listBackOfficeRoles } from '@/server/actions/backoffice/list-roles'
 import { useServicesStore } from '../../_store/servicesStore'
 import { getDateFromString } from '../../_utils/getDateFromString'
+import { listBackOfficeShifts } from '@/server/actions/backoffice/actions-shifts'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
+import { TBackOfficeShift } from '@/app/(protected-pages)/backoffice/types'
 
 type ModalCreationRolesProps = {
     roles: TServiceRole[]
@@ -32,8 +35,8 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
     onClose,
     temporalRole,
 }) => {
+    const { protectedQueryFn } = useProtectedQueryFn()
     const t = useTranslation()
-
     const service = useServicesStore((state) => state.tempService)
     const upsertRoleToCreate = useServicesStore(
         (state) => state.upsertRoleToCreate,
@@ -42,21 +45,47 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
         [Date | undefined, Date | undefined]
     >([undefined, undefined])
 
-    const { data: backofficeRoles, isLoading: isLoadingBackofficeRoles } =
-        useQuery({
-            queryKey: backOfficeKeys.roles(),
-            queryFn: async () => {
-                const response = await listBackOfficeRoles(undefined, 500)
-                if (!response.success) {
-                    throw new Error(response.error)
-                }
-                return response.data
-            },
-        })
+    const { data: backofficeRoles, isLoading: isLoadingRoles } = useQuery({
+        queryKey: backOfficeKeys.roles,
+        queryFn: async () => {
+            const response = await listBackOfficeRoles(undefined, 500)
+            if (!response.success) {
+                throw new Error(response.error)
+            }
+            return response.data
+        },
+    })
+
+    const { data: shifts, isLoading: isLoadingShifts } = useQuery({
+        queryKey: backOfficeKeys.shifts,
+        queryFn: async () =>
+            protectedQueryFn(() => listBackOfficeShifts(undefined, 500)),
+        enabled: isOpen,
+    })
+
+    const shiftOptions = useMemo(() => {
+        return shifts?.data?.items.map((shift: TBackOfficeShift) => ({
+            value: shift.sk,
+            label: `${shift.name} - ${shift.type}`,
+        }))
+    }, [shifts])
+
+    const rolesOptions = useMemo(() => {
+        const filtered = backofficeRoles?.items.filter(
+            (role) => !roles.find((r) => r.sk === role.sk),
+        )
+        return filtered?.map((role) => ({
+            label: role.name,
+            value: role.name,
+        }))
+    }, [backofficeRoles, roles])
 
     const isEditing = temporalRole !== null
 
     const onSubmit = async (data: FormValues) => {
+        const selectedShift = shifts?.data?.items.find(
+            (shift: TBackOfficeShift) => shift.sk === data.shiftSk,
+        )
         const startedAt = dateRange[0]?.toISOString() || ''
         const endedAt = dateRange[1]?.toISOString() || ''
         const roleName = data.name ? data.name : temporalRole!.roleName
@@ -69,24 +98,31 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
             required: String(data.required),
             startedAt,
             endedAt,
+            shift: {
+                sk: selectedShift!.sk,
+                hoursPerDay: selectedShift!.data.hoursPerDay,
+                weeklyHours: selectedShift!.data.weeklyHours,
+                shiftType: selectedShift!.name,
+            },
         })
         onClose()
     }
 
-    const getAvailableRoles = () => {
-        const filtered = backofficeRoles?.items.filter(
-            (role) => !roles.find((r) => r.sk === role.sk),
+    const getShiftValue = (value: string) => {
+        if (!value) return null
+        const selectedRole = shifts?.data?.items.find(
+            (shift) => shift.sk === value,
         )
-        return filtered?.map((role) => ({
-            label: role.name,
-            value: role.sk,
-        }))
+        return {
+            label: selectedRole?.name,
+            value: selectedRole?.sk,
+        }
     }
 
     const getRoleValue = (value: string) => {
         if (temporalRole) {
             const selectedRole = backofficeRoles?.items.find(
-                (role) => role.name === temporalRole?.roleName,
+                (role) => role.sk === temporalRole?.sk,
             )
 
             return {
@@ -96,7 +132,7 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
         }
         if (!value) return null
         const selectedRole = backofficeRoles?.items.find(
-            (role) => role.sk === value,
+            (role) => role.name === value,
         )
         return {
             label: selectedRole?.name,
@@ -108,6 +144,7 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
         name: z.string().min(1, t('common.required')),
         dateRange: z.array(z.date() || undefined).min(1, t('common.required')),
         required: z.number().min(1, t('common.required')),
+        shiftSk: z.string().min(1, 'Turno es requerido'),
     })
 
     type FormValues = z.infer<typeof validationSchema>
@@ -134,6 +171,7 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                       : undefined,
             ],
             required: 1,
+            shiftSk: '',
         },
     })
 
@@ -144,6 +182,9 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
 
     useEffect(() => {
         if (isEditing && temporalRole) {
+            const selectedShift = shifts?.data?.items.find(
+                (shift) => shift.sk === temporalRole.shift.sk,
+            )
             const dr: [Date | undefined, Date | undefined] = [
                 temporalRole.startedAt
                     ? getDateFromString(temporalRole.startedAt.split('T')[0])
@@ -159,6 +200,7 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                 required: temporalRole.required
                     ? parseInt(temporalRole.required)
                     : 1,
+                shiftSk: selectedShift ? selectedShift.sk : '',
             })
         } else {
             const dr: [Date | undefined, Date | undefined] = [
@@ -174,9 +216,10 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                 name: '',
                 dateRange: dr,
                 required: 1,
+                shiftSk: '',
             })
         }
-    }, [temporalRole, isOpen, reset, isEditing, service])
+    }, [shifts, temporalRole, isOpen, reset, isEditing, service])
 
     return (
         <Dialog
@@ -206,15 +249,16 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                                     placeholder={t(
                                         'services.common.roleNamePlaceholder',
                                     )}
-                                    options={getAvailableRoles()}
+                                    options={rolesOptions}
                                     onChange={(opt) =>
                                         field.onChange(opt?.value)
                                     }
+                                    isDisabled={isLoadingRoles}
+                                    isLoading={isLoadingRoles}
                                 />
                             )}
                         />
                     </FormItem>
-
                     <FormItem
                         label={t('services.common.requiredPeople')}
                         invalid={!!errors.required}
@@ -235,11 +279,32 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                             )}
                         />
                     </FormItem>
-
+                    <FormItem
+                        label="Turno"
+                        invalid={!!errors.shiftSk}
+                        errorMessage={errors.shiftSk?.message}
+                    >
+                        <Controller
+                            name="shiftSk"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    options={shiftOptions}
+                                    value={getShiftValue(field.value as string)}
+                                    onChange={(opt) =>
+                                        field.onChange(opt?.value || '')
+                                    }
+                                    placeholder="Seleccionar turno"
+                                    isDisabled={isLoadingShifts}
+                                    isLoading={isLoadingShifts}
+                                />
+                            )}
+                        />
+                    </FormItem>
                     <FormItem
                         label={t('services.common.startEndDate')}
-                        invalid={!!errors.dateRange || !!errors.dateRange}
-                        errorMessage={errors.dateRange?.message}
+                        invalid={!!errors.dateRange}
+                        errorMessage={`Rango de fechas erróneas}`}
                     >
                         <div className="flex items-center gap-2">
                             <Controller
@@ -264,14 +329,15 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                                                 Date | null,
                                             ]
                                         }
-                                        onChange={(date) =>
+                                        onChange={(date) => {
+                                            field.onChange(date)
                                             setDateRange(
                                                 date as [
                                                     Date | undefined,
                                                     Date | undefined,
                                                 ],
                                             )
-                                        }
+                                        }}
                                     />
                                 )}
                             />
@@ -283,25 +349,7 @@ const ModalCreationRoles: React.FC<ModalCreationRolesProps> = ({
                     <Button variant="plain" type="button" onClick={handleClose}>
                         {t('common.cancel')}
                     </Button>
-                    <Button
-                        variant="solid"
-                        type="submit"
-                        onClick={() => {
-                            onSubmit({
-                                name:
-                                    backofficeRoles?.items.find(
-                                        (role) =>
-                                            role.sk ===
-                                            control._formValues['name'],
-                                    )?.name || '',
-                                dateRange: [
-                                    dateRange[0] as Date,
-                                    dateRange[1] as Date,
-                                ],
-                                required: control._formValues['required'],
-                            })
-                        }}
-                    >
+                    <Button variant="solid" type="submit">
                         {isEditing ? t('common.save') : t('common.add')}
                     </Button>
                 </div>

@@ -17,7 +17,8 @@ class LambdaContext:
 
 
 # with open("./tests/events/vacation_create.json", "r", encoding="utf-8") as f:
-with open("./tests/events/employee_termination.json", "r", encoding="utf-8") as f:
+# with open("./tests/events/employee_termination.json", "r", encoding="utf-8") as f:
+with open("./tests/events/absence_create.json", "r", encoding="utf-8") as f:
     event = json.load(f)
 
 response = lambda_handler(event, LambdaContext())

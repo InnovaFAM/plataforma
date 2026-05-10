@@ -9,7 +9,7 @@ import { TbPencil, TbPlus, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand } from 'react-icons/fa6'
 import { ColumnDefTemplate, HeaderContext } from '@tanstack/react-table'
 
-import { TBackOfficeCertificate } from '../../types'
+import { TBackOfficeCertificate, TBackOfficeDialogDelete } from '../../types'
 import BackOfficeCreateCertificateModal from '../creation-modals/BackOfficeCreateCertificateModal'
 import BackOfficeActionColumn from './ActionColumn'
 import { useBackOfficeStore } from '../../_store/backOfficeStore'
@@ -25,12 +25,14 @@ const BackOfficeCertificatesTable = ({
     data,
     lastEvaluatedKey,
     isLoading,
+    onDelete,
     onFetch,
 }: {
     id: string
     data: TBackOfficeCertificate[]
     lastEvaluatedKey?: string
     isLoading?: boolean
+    onDelete: (data: TBackOfficeDialogDelete) => void
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
@@ -221,13 +223,19 @@ const BackOfficeCertificatesTable = ({
                                 setTempCertification(row.original)
                                 setModalOpen(true)
                             }}
-                            onDelete={() => {}}
+                            onDelete={() =>
+                                onDelete({
+                                    itemHash: row.original.sk,
+                                    itemName: row.original.name,
+                                    itemType: row.original.pk.split('#')[1],
+                                })
+                            }
                         />
                     </div>
                 ),
             },
         ],
-        [t, editMode, setTempCertification],
+        [t, editMode, setTempCertification, onDelete],
     )
 
     const renderTable = useMemo(

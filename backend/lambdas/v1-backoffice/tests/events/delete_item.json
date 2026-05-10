@@ -1,0 +1,58 @@
+{
+  "version": "2.0",
+  "routeKey": "ANY /backoffice",
+  "rawPath": "/innovafam-v1-stage/backoffice",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, compress, deflate, br",
+    "authorization": "Bearer eyJraWQiOiIwb1dTTzIyWCtjdjljcFo1QjhqODE1YStRRHl3K3luZnkrUDhGcDlvZGljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkNDM4NDQzOC1jMGQxLTcwZmYtZjliMC0yMTRkNjcxZDFiZDAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9vWkEzUHM2ZUgiLCJjbGllbnRfaWQiOiIzdTQ1dGF0MmZqMHEzcGxwMXYzaTYwZDZ1ZyIsIm9yaWdpbl9qdGkiOiJlOTFlNzUzYy1hZjNiLTRiZTQtYjIxYS0xODBlZGMyZTVjYmYiLCJldmVudF9pZCI6IjExYmU4MmY1LTIxOGYtNGYyMy05MDU3LTUxZGFhMjBiZDUxNiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3NzgzNjMzMDksImV4cCI6MTc3ODM5OTMwOSwiaWF0IjoxNzc4MzYzMzA5LCJqdGkiOiJhN2YzYzk4MC03MGZhLTQ2ZDAtYWNjMC1mMjZhYjE2Nzg3YzEiLCJ1c2VybmFtZSI6ImQ0Mzg0NDM4LWMwZDEtNzBmZi1mOWIwLTIxNGQ2NzFkMWJkMCJ9.qJY5j269-UhBkdt3QhpAQnUlE4Ic6S7a3PV2Z1tBHQKqTJ-n0F6FvAi9fTcujJvQJpsklaxZNydkyPTzvDxRLPuczyQXdiI0AHzEFV-uP-MzhJRXjRoiHTd5bQerIIXRd-VM7cW-lK8Kpyl9rAsdLdBYP8Y7RzWiH1SiVlrODB1wAIiwXDLnRBsctHbj_Hpodntb-dgQGuTK3gYUbkFUTJLUHXqinf1pkElKPnXP3-nX6BrPsLvFwi8iDMr8KcLC-ApbXsq-8cqaIFYzsB0J7urIaUX7lpnX4Md65fi_AViFcFlaod-T9LoZZsg1Nath9NNW-l64eN9yD6ph6nmkCQ",
+    "content-length": "74",
+    "content-type": "application/json",
+    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "axios/1.13.2",
+    "x-amzn-trace-id": "Root=1-6a002ee9-5149be550c6708435ff53392",
+    "x-forwarded-for": "181.42.183.226",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "683953625718",
+    "apiId": "pkdzgs9mbl",
+    "authorizer": {
+      "jwt": {
+        "claims": {
+          "auth_time": "1778363309",
+          "client_id": "3u45tat2fj0q3plp1v3i60d6ug",
+          "event_id": "11be82f5-218f-4f23-9057-51daa20bd516",
+          "exp": "1778399309",
+          "iat": "1778363309",
+          "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_oZA3Ps6eH",
+          "jti": "a7f3c980-70fa-46d0-acc0-f26ab16787c1",
+          "origin_jti": "e91e753c-af3b-4be4-b21a-180edc2e5cbf",
+          "scope": "aws.cognito.signin.user.admin",
+          "sub": "d4384438-c0d1-70ff-f9b0-214d671d1bd0",
+          "token_use": "access",
+          "username": "d4384438-c0d1-70ff-f9b0-214d671d1bd0"
+        },
+        "scopes": null
+      }
+    },
+    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "pkdzgs9mbl",
+    "http": {
+      "method": "DELETE",
+      "path": "/innovafam-v1-stage/backoffice",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "181.42.183.226",
+      "userAgent": "axios/1.13.2"
+    },
+    "requestId": "dIxEeiryoAMEPzQ=",
+    "routeKey": "ANY /backoffice",
+    "stage": "innovafam-v1-stage",
+    "time": "10/May/2026:07:08:25 +0000",
+    "timeEpoch": 1778396905060
+  },
+  "body": "{\"itemHash\":\"CLIENTS#TEST RUT\",\"itemName\":\"TEST RUT\",\"itemType\":\"CLIENTS\"}",
+  "isBase64Encoded": false
+}

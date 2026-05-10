@@ -11,11 +11,7 @@ import ServiceEditionCreationPreview from './ServiceEditionCreationPreview'
 import AssignedRolesCalendar from '../AssignedRolesCalendar'
 import { IoArrowBack } from 'react-icons/io5'
 import { useServicesStore } from '../../_store/servicesStore'
-import {
-    TDetailedService,
-    TServiceRole,
-    TServiceRoleCreatePayload,
-} from '../../types'
+import { TDetailedService, TServiceRole } from '../../types'
 import classNames from '@/utils/classNames'
 import { useShallow } from 'zustand/react/shallow'
 import { TbPencil, TbTrash } from 'react-icons/tb'
@@ -33,10 +29,12 @@ import GenericConfirmationModal from '@/components/shared/GenericConfirmationMod
 import { createService } from '@/server/actions/services/create-service'
 import { updateService } from '@/server/actions/services/update-service'
 import { addRoleToService } from '@/server/actions/services/add-role-to-service'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
 
 const MAX_STEP = 2
 
 const CreateEditServiceContent = () => {
+    const { protectedQueryFn } = useProtectedQueryFn()
     const t = useTranslation()
     const router = useRouter()
     const params = useParams()
@@ -91,17 +89,15 @@ const CreateEditServiceContent = () => {
         staleTime: 1,
     })
 
-    const { data: serviceRoles, isLoading: isLoadingServiceRoles } = useQuery({
-        queryKey: serviceKeys.rolesByServiceId(serviceId),
-        queryFn: async () => {
-            const response = await getRolesByServiceId(serviceId)
-            if (!response.success) {
-                throw new Error(response.error)
-            }
-            return response.data
-        },
-        enabled: isEditing,
-    })
+    const { data: serviceRolesResponse, isLoading: isLoadingServiceRoles } =
+        useQuery({
+            queryKey: serviceKeys.rolesByServiceId(serviceId),
+            queryFn: async () =>
+                protectedQueryFn(() => getRolesByServiceId(serviceId)),
+            enabled: isEditing,
+        })
+
+    const serviceRoles = serviceRolesResponse?.data
 
     const createMutation = useMutation({
         mutationFn: async (data: Partial<TDetailedService>) => {
@@ -112,15 +108,8 @@ const CreateEditServiceContent = () => {
 
             await Promise.all(
                 roles.map(async (role) => {
-                    const payload: TServiceRoleCreatePayload = {
-                        roleName: role.sk,
-                        startedAt: role.startedAt,
-                        endedAt: role.endedAt,
-                        required: role.required,
-                    }
-
                     const roleResponse = await addRoleToService(
-                        payload,
+                        role,
                         data?.code || serviceId,
                     )
 
@@ -305,6 +294,7 @@ const CreateEditServiceContent = () => {
                                         isLoadingServiceRoles ||
                                         isLoadingService
                                     }
+                                    isEditing={isEditing}
                                     roles={
                                         isEditing
                                             ? [

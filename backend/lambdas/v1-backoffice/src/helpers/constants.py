@@ -1,5 +1,7 @@
 import os
 
+from models.DeleteDependencyRule import DeleteDependencyRule
+
 ENV = os.getenv("ENV", "stage")
 REGION_NAME = os.getenv("REGION_NAME", "us-east-1")
 

@@ -13,8 +13,8 @@ class HolidayType(str, Enum):
 class HolidayPayload(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     date: str
+    name: str
     type: HolidayType
-    status: bool = True
 
 
 class Holiday(HolidayPayload, Base):

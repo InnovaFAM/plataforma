@@ -79,7 +79,7 @@ const BackOfficeCreateChoreModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.chores(),
+                queryKey: backOfficeKeys.chores,
             })
             toast.push(
                 <Notification
@@ -114,7 +114,7 @@ const BackOfficeCreateChoreModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.chores(),
+                queryKey: backOfficeKeys.chores,
             })
             toast.push(
                 <Notification

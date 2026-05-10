@@ -244,3 +244,10 @@ def log_activity(user_hash: str, action: str, data_payload: Any = None):
     if data_payload:
         item["data"] = data_payload
     _ = activity_table.put_item(Item=item)
+
+
+def delete_item(pk: str, sk: str):
+    try:
+        _ = table.delete_item(Key={"pk": pk, "sk": sk})
+    except Exception as e:
+        raise Exception(f"Error deleting item pk: {pk}, sk: {sk} - {e}")

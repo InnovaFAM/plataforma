@@ -9,7 +9,7 @@ import { TbPencil, TbPlus, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand } from 'react-icons/fa6'
 import { ColumnDefTemplate, HeaderContext } from '@tanstack/react-table'
 
-import { TBackOfficeShift } from '../../types'
+import { TBackOfficeDialogDelete, TBackOfficeShift } from '../../types'
 import BackOfficeCreateShiftModal from '../creation-modals/BackOfficeCreateShiftModal'
 import BackOfficeActionColumn from './ActionColumn'
 import { useBackOfficeStore } from '../../_store/backOfficeStore'
@@ -23,12 +23,14 @@ const BackOfficeShiftsTable = ({
     data,
     lastEvaluatedKey,
     isLoading,
+    onDelete,
     onFetch,
 }: {
     id: string
     data: TBackOfficeShift[]
     lastEvaluatedKey?: string
     isLoading?: boolean
+    onDelete: (item: TBackOfficeDialogDelete) => void
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
@@ -210,7 +212,13 @@ const BackOfficeShiftsTable = ({
                                 setTempShift(row.original)
                                 setModalOpen(true)
                             }}
-                            onDelete={() => {}}
+                            onDelete={() =>
+                                onDelete({
+                                    itemHash: row.original.sk,
+                                    itemName: row.original.name,
+                                    itemType: row.original.pk.split('#')[1],
+                                })
+                            }
                         />
                     </div>
                 ),

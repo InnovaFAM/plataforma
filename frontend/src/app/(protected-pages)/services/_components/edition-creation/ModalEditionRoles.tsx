@@ -12,7 +12,7 @@ import {
 import useTranslation from '@/utils/hooks/useTranslation'
 import { z } from 'zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TServiceRole, TServiceRoleCreatePayload } from '../../types'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,38 +24,66 @@ import { listBackOfficeRoles } from '@/server/actions/backoffice/list-roles'
 import { useServicesStore } from '../../_store/servicesStore'
 import { getDateFromString } from '../../_utils/getDateFromString'
 import dayjs from 'dayjs'
+import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
+import { listBackOfficeShifts } from '@/server/actions/backoffice/actions-shifts'
+import { TBackOfficeShift } from '@/app/(protected-pages)/backoffice/types'
 
-type ModalEditionCreationRolesProps = {
+type ModalEditionRolesProps = {
     roles: TServiceRole[]
     isOpen: boolean
     onClose: () => void
     temporalRole: TServiceRole | null
 }
 
-const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
+const ModalEditionRoles: React.FC<ModalEditionRolesProps> = ({
     roles,
     isOpen,
     onClose,
     temporalRole,
 }) => {
+    const { protectedQueryFn } = useProtectedQueryFn()
     const t = useTranslation()
     const queryClient = useQueryClient()
     const service = useServicesStore((state) => state.tempService)
     const [dateRange, setDateRange] = useState<
         [Date | undefined, Date | undefined]
     >([undefined, undefined])
+    console.log('temporalRole', temporalRole)
 
-    const { data: backofficeRoles, isLoading: isLoadingBackofficeRoles } =
-        useQuery({
-            queryKey: backOfficeKeys.roles(),
-            queryFn: async () => {
-                const response = await listBackOfficeRoles(undefined, 500)
-                if (!response.success) {
-                    throw new Error(response.error)
-                }
-                return response.data
-            },
-        })
+    const { data: backofficeRoles } = useQuery({
+        queryKey: backOfficeKeys.roles,
+        queryFn: async () => {
+            const response = await listBackOfficeRoles(undefined, 500)
+            if (!response.success) {
+                throw new Error(response.error)
+            }
+            return response.data
+        },
+    })
+
+    const { data: shifts, isLoading: isLoadingShifts } = useQuery({
+        queryKey: backOfficeKeys.shifts,
+        queryFn: async () =>
+            protectedQueryFn(() => listBackOfficeShifts(undefined, 500)),
+        enabled: isOpen,
+    })
+
+    const shiftOptions = useMemo(() => {
+        return shifts?.data?.items.map((shift: TBackOfficeShift) => ({
+            value: shift.sk,
+            label: `${shift.name} - ${shift.type}`,
+        }))
+    }, [shifts])
+
+    const rolesOptions = useMemo(() => {
+        const filtered = backofficeRoles?.items.filter(
+            (role) => !roles.find((r) => r.sk === role.sk),
+        )
+        return filtered?.map((role) => ({
+            label: role.name,
+            value: role.name,
+        }))
+    }, [backofficeRoles, roles])
 
     const isEditing = temporalRole !== null
 
@@ -63,14 +91,16 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
         mutationFn: async (payload: Partial<TServiceRole>) => {
             const response = await updateRoleInService(
                 payload,
-                service?.sk || '',
+                service!.sk.split('#')?.[1],
             )
             if (!response.success) throw new Error(response.error)
             return response.data
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: serviceKeys.rolesByServiceId(service?.sk || ''),
+                queryKey: serviceKeys.rolesByServiceId(
+                    service!.sk.split('#')?.[1],
+                ),
             })
             toast.push(
                 <Notification
@@ -130,6 +160,14 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
         const startedAt = dateRange[0]?.toISOString() || ''
         const endedAt = dateRange[1]?.toISOString() || ''
 
+        const selectedRole = backofficeRoles?.items.find(
+            (role) => role.name === data.name,
+        )
+
+        const selectedShift = shifts?.data?.items.find(
+            (shift) => shift.sk === data.shiftSk,
+        )
+
         if (isEditing && temporalRole) {
             const changedFields: Partial<TServiceRole> = {
                 sk: temporalRole.sk,
@@ -154,25 +192,41 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
                 changedFields.endedAt = endedAt
             }
 
+            if (selectedShift?.sk !== temporalRole.shift.sk)
+                changedFields.shift = {
+                    sk: selectedShift?.sk || '',
+                    weeklyHours: Number(selectedShift?.data.weeklyHours) || 0,
+                    hoursPerDay: Number(selectedShift?.data.hoursPerDay) || 0,
+                    shiftType: selectedShift?.data.shiftType || '',
+                }
+
             updateMutation.mutate(changedFields)
         } else {
             createMutation.mutate({
+                sk: selectedRole?.sk || '',
                 roleName: data.name,
                 required: String(data.required),
                 startedAt,
                 endedAt,
+                shift: {
+                    sk: data.shiftSk,
+                    weeklyHours: Number(selectedShift?.data.weeklyHours) || 0,
+                    hoursPerDay: Number(selectedShift?.data.hoursPerDay) || 0,
+                    shiftType: selectedShift?.data.shiftType || '',
+                },
             })
         }
     }
 
-    const getAvailableRoles = () => {
-        const filtered = backofficeRoles?.items.filter(
-            (role) => !roles.find((r) => r.sk === role.sk),
+    const getShiftValue = (value: string) => {
+        if (!value) return null
+        const selectedRole = shifts?.data?.items.find(
+            (shift) => shift.sk === value,
         )
-        return filtered?.map((role) => ({
-            label: role.name,
-            value: role.sk,
-        }))
+        return {
+            label: selectedRole?.name,
+            value: selectedRole?.sk,
+        }
     }
 
     const isPending = updateMutation.isPending || createMutation.isPending
@@ -190,7 +244,7 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
         }
         if (!value) return null
         const selectedRole = backofficeRoles?.items.find(
-            (role) => role.sk === value,
+            (role) => role.name === value,
         )
         return {
             label: selectedRole?.name,
@@ -202,6 +256,7 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
         name: z.string().min(1, t('common.required')),
         dateRange: z.array(z.date() || null).min(1, t('common.required')),
         required: z.number().min(1, t('common.required')),
+        shiftSk: z.string().min(1, 'Turno es requerido'),
     })
 
     type FormValues = z.infer<typeof validationSchema>
@@ -228,6 +283,7 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
                       : undefined,
             ],
             required: 1,
+            shiftSk: '',
         },
     })
 
@@ -238,6 +294,10 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
 
     useEffect(() => {
         if (isEditing && temporalRole) {
+            const selectedShift = shifts?.data?.items.find(
+                (shift) => shift.sk === temporalRole.shift.sk,
+            )
+
             const dr: [Date | undefined, Date | undefined] = [
                 temporalRole.startedAt
                     ? getDateFromString(temporalRole.startedAt)
@@ -253,6 +313,7 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
                 required: temporalRole.required
                     ? parseInt(temporalRole.required)
                     : 1,
+                shiftSk: selectedShift ? selectedShift.sk : '',
             })
         } else {
             const dr: [Date | undefined, Date | undefined] = [
@@ -268,9 +329,10 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
                 name: '',
                 dateRange: dr,
                 required: 1,
+                shiftSk: '',
             })
         }
-    }, [temporalRole, isOpen, reset, isEditing, service])
+    }, [shifts, temporalRole, isOpen, reset, isEditing, service])
 
     return (
         <Dialog
@@ -300,7 +362,7 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
                                     placeholder={t(
                                         'services.common.roleNamePlaceholder',
                                     )}
-                                    options={getAvailableRoles()}
+                                    options={rolesOptions}
                                     onChange={(opt) =>
                                         field.onChange(opt?.value)
                                     }
@@ -330,11 +392,33 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
                             )}
                         />
                     </FormItem>
+                    <FormItem
+                        label="Turno"
+                        invalid={!!errors.shiftSk}
+                        errorMessage={errors.shiftSk?.message}
+                    >
+                        <Controller
+                            name="shiftSk"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    options={shiftOptions}
+                                    value={getShiftValue(field.value as string)}
+                                    onChange={(opt) =>
+                                        field.onChange(opt?.value || '')
+                                    }
+                                    placeholder="Seleccionar turno"
+                                    isDisabled={isLoadingShifts}
+                                    isLoading={isLoadingShifts}
+                                />
+                            )}
+                        />
+                    </FormItem>
 
                     <FormItem
                         label={t('services.common.startEndDate')}
-                        invalid={!!errors.dateRange || !!errors.dateRange}
-                        errorMessage={errors.dateRange?.message}
+                        invalid={!!errors.dateRange}
+                        errorMessage="Error al seleccionar las fechas"
                     >
                         <div className="flex items-center gap-2">
                             <Controller
@@ -392,4 +476,4 @@ const ModalEditionCreationRoles: React.FC<ModalEditionCreationRolesProps> = ({
     )
 }
 
-export default ModalEditionCreationRoles
+export default ModalEditionRoles

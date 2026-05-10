@@ -25,6 +25,13 @@ def decode_key(str_base64: str) -> dict[str, Any]:
     return json.loads(str_dec)
 
 
+def encode_string_key(str_key: str) -> str | None:
+    str_bytes = str_key.encode("utf-8")
+    bytes_base64 = base64.b64encode(str_bytes)
+    str_base64 = bytes_base64.decode("utf-8")
+    return str_base64.replace("=", "")
+
+
 def error_response(name: str, message: str):
     error = {"error": {"name": name, "message": message}}
     logger.error(error)

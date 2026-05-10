@@ -9,7 +9,7 @@ import { TbPencil, TbPlus, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand } from 'react-icons/fa6'
 import { ColumnDefTemplate, HeaderContext } from '@tanstack/react-table'
 
-import { TBackOfficeHoliday } from '../../types'
+import { TBackOfficeDialogDelete, TBackOfficeHoliday } from '../../types'
 import BackOfficeCreateHolidayModal from '../creation-modals/BackOfficeCreateHolidayModal'
 import BackOfficeActionColumn from './ActionColumn'
 import { useBackOfficeStore } from '../../_store/backOfficeStore'
@@ -24,12 +24,14 @@ const BackOfficeHolidaysTable = ({
     data,
     lastEvaluatedKey,
     isLoading,
+    onDelete,
     onFetch,
 }: {
     id: string
     data: TBackOfficeHoliday[]
     lastEvaluatedKey?: string
     isLoading?: boolean
+    onDelete: (data: TBackOfficeDialogDelete) => void
     onFetch?: (token?: string) => void
 }) => {
     const t = useTranslation()
@@ -150,6 +152,15 @@ const BackOfficeHolidaysTable = ({
                 ),
             },
             {
+                header: 'Nombre',
+                accessorKey: 'name',
+                cell: ({ row }) => (
+                    <p className="line-clamp-2 text-ellipsis overflow-hidden font-medium">
+                        {row.original.name || '--'}
+                    </p>
+                ),
+            },
+            {
                 header: t('backOffice.holidaysTable.type'),
                 accessorKey: 'type',
                 cell: ({ row }) => (
@@ -193,7 +204,13 @@ const BackOfficeHolidaysTable = ({
                                 setTempHoliday(row.original)
                                 setModalOpen(true)
                             }}
-                            onDelete={() => {}}
+                            onDelete={() =>
+                                onDelete({
+                                    itemHash: row.original.sk,
+                                    itemName: row.original.date,
+                                    itemType: row.original.pk.split('#')[1],
+                                })
+                            }
                         />
                     </div>
                 ),

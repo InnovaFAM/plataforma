@@ -85,6 +85,38 @@ class BukResponseVacationByID(BaseModel):
     errors: list[str] | None = None
 
 
+class BukAbsence(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="allow")
+    id: int
+    employee_id: int
+    start_date: str
+    end_date: str
+    status: str
+    justification: str | None = None
+    absence_type_code: str
+
+
+class BukPermission(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="allow")
+    id: int
+    employee_id: int
+    start_date: str
+    end_date: str
+    status: str
+    justification: str | None = None
+    permission_type_code: str
+
+
+class BukResponseAbsenceByID(BaseModel):
+    data: BukAbsence
+    errors: list[str] | None = None
+
+
+class BukResponsePermissionByID(BaseModel):
+    data: BukPermission
+    errors: list[str] | None = None
+
+
 class Vacation(BaseModel):
     name: str
     stock: float = 0.0
@@ -94,3 +126,21 @@ class BukResponseCollabVacationBalance(BaseModel):
     model_config: ClassVar[ConfigDict] = ConfigDict(extra="allow")
     employee_id: int
     vacations: list[Vacation]
+
+
+class BukLicence(BaseModel):
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="allow")
+    id: int
+    employee_id: int
+    start_date: str
+    end_date: str
+    status: str
+    licence_type_code: str
+    licence_type: str
+    justification: str | None = None
+    motivo: str | None = None
+
+
+class BukResponseLicenceByID(BaseModel):
+    data: BukLicence
+    errors: list[str] | None = None

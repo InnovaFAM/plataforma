@@ -15,7 +15,7 @@ type ForgotPasswordProps = {
 }
 
 export const ForgotPassword = ({
-    signInUrl = '/sign-in',
+    signInUrl = '/login',
     onForgotPasswordSubmit,
 }: ForgotPasswordProps) => {
     const [emailSent, setEmailSent] = useState(false)

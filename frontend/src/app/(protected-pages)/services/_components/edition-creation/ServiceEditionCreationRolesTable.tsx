@@ -9,24 +9,37 @@ import useTranslation from '@/utils/hooks/useTranslation'
 import { getDayJsDate } from '@/components/ui/TimeInput/utils/getDayJsDate'
 import ModalCreationRoles from './ModalCreationRoles'
 import { useCan } from '@/hooks/useCan'
+import ModalEditionRoles from './ModalEditionRoles'
+import DialogDeleteRoleInService from './DialogDeleteRoleInService'
+import { useServicesStore } from '../../_store/servicesStore'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
 interface ServiceEditionCreationRolesTableProps {
     roles: TServiceRole[]
     isLoading?: boolean
+    isEditing?: boolean
 }
 
 const ServiceEditionCreationRolesTable = ({
     roles,
     isLoading = false,
+    isEditing = false,
 }: ServiceEditionCreationRolesTableProps) => {
     const t = useTranslation()
     const canCreateRole = useCan('services.roles:create')
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    console.log('roles', roles)
+
+    const deleteRoleToCreate = useServicesStore(
+        (state) => state.deleteRoleToCreate,
+    )
+    const [isModalOpen, setIsModalOpen] = useState<string | null>(null)
     const [temporalRole, setTemporalRole] = useState<TServiceRole | null>(null)
 
-    const handleDelete = () => {}
+    const handleClose = () => {
+        setIsModalOpen(null)
+        setTemporalRole(null)
+    }
 
     return (
         <div className="flex flex-col gap-4">
@@ -40,7 +53,11 @@ const ServiceEditionCreationRolesTable = ({
                         variant="default"
                         onClick={() => {
                             setTemporalRole(null)
-                            setIsModalOpen(true)
+                            if (isEditing) {
+                                setIsModalOpen('editing')
+                            } else {
+                                setIsModalOpen('normal')
+                            }
                         }}
                     >
                         {t('common.add')}
@@ -97,12 +114,24 @@ const ServiceEditionCreationRolesTable = ({
                                             className="cursor-pointer hover:text-blue-600"
                                             onClick={() => {
                                                 setTemporalRole(role)
-                                                setIsModalOpen(true)
+                                                if (isEditing) {
+                                                    setIsModalOpen('editing')
+                                                } else {
+                                                    setIsModalOpen('normal')
+                                                }
                                             }}
                                         />
                                         <TbTrash
                                             className="cursor-pointer hover:text-red-600"
-                                            onClick={handleDelete}
+                                            onClick={() => {
+                                                setTemporalRole(role)
+
+                                                if (isEditing) {
+                                                    setIsModalOpen('delete')
+                                                } else {
+                                                    deleteRoleToCreate(role)
+                                                }
+                                            }}
                                         />
                                     </div>
                                 </Td>
@@ -111,28 +140,30 @@ const ServiceEditionCreationRolesTable = ({
                     )}
                 </TBody>
             </Table>
-            {/**
-           *
-           <ModalEditionCreationRoles
-               onClose={() => {
-                   setIsModalOpen(false)
-                   setTemporalRole(null)
-               }}
-               roles={roles}
-               isOpen={isModalOpen}
-               temporalRole={temporalRole}
-           />
-           */}
 
-            <ModalCreationRoles
-                onClose={() => {
-                    setIsModalOpen(false)
-                    setTemporalRole(null)
-                }}
+            <ModalEditionRoles
+                onClose={handleClose}
                 roles={roles}
-                isOpen={isModalOpen}
+                isOpen={isModalOpen === 'editing'}
                 temporalRole={temporalRole}
             />
+
+            <ModalCreationRoles
+                onClose={handleClose}
+                roles={roles}
+                isOpen={isModalOpen === 'normal'}
+                temporalRole={temporalRole}
+            />
+
+            {isModalOpen === 'delete' && (
+                <DialogDeleteRoleInService
+                    isOpen={isModalOpen === 'delete'}
+                    serviceId={temporalRole?.pk.split('#')[1] || ''}
+                    roleHash={temporalRole?.sk.split('#')[1]}
+                    roleName={temporalRole?.roleName || ''}
+                    onClose={handleClose}
+                />
+            )}
         </div>
     )
 }

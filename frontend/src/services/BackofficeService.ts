@@ -14,6 +14,7 @@ import {
     TBackOfficeCertificateUpdate,
     TBackOfficeShiftCreate,
     TBackOfficeShiftUpdate,
+    TBackOfficeDialogDelete,
 } from '@/app/(protected-pages)/backoffice/types'
 import ApiService, { ServerResponse } from './ApiService'
 import { getAccessToken } from '@/utils/getAccessToken'
@@ -75,6 +76,20 @@ export const apiListHolidays = async (
             Authorization: `Bearer ${accessToken}`,
         },
         params: { nextKey, pageSize },
+    })
+}
+
+export const apiDeleteItem = async (
+    data: TBackOfficeDialogDelete,
+): Promise<ServerResponse<void>> => {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: '/backoffice',
+        method: 'delete',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        data,
     })
 }
 

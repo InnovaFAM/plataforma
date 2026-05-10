@@ -102,7 +102,7 @@ const BackOfficeCreateCertificateModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.certifications(),
+                queryKey: backOfficeKeys.certifications,
             })
             toast.push(
                 <Notification
@@ -141,7 +141,7 @@ const BackOfficeCreateCertificateModal = ({
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.certifications(),
+                queryKey: backOfficeKeys.certifications,
             })
             toast.push(
                 <Notification

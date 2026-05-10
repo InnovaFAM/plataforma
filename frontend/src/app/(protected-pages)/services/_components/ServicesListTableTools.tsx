@@ -47,16 +47,18 @@ const ServicesListTableTools = ({ services }: ServicesListTableToolsProps) => {
 
     const statusValues = Array.from(
         new Set(services?.map((service) => service.status)?.filter(Boolean)),
-    )?.map((status) => ({
-        label: status || '',
-        value: status || '',
-        className: '',
-    }))
+    )?.map((status) => {
+        return {
+            label: status || '',
+            value: status || '',
+            className: '',
+        }
+    })
 
     const exportMutation = useMutation({
         mutationKey: serviceExportKeys.services,
         mutationFn: exportServices,
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
             toast.push(
                 <Notification type="success">
                     Recibirás en los próximos minutos el informe de servicios a

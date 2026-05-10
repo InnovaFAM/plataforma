@@ -1,12 +1,9 @@
 export const backOfficeKeys = {
-    clients: (nextToken?: string) => ['backoffice-clients', nextToken] as const,
-    certifications: (nextToken?: string) =>
-        ['backoffice-certifications', nextToken] as const,
-    chores: (nextToken?: string) => ['backoffice-chores', nextToken] as const,
-    divisions: (nextToken?: string) =>
-        ['backoffice-divisions', nextToken] as const,
-    holidays: (nextToken?: string) =>
-        ['backoffice-holidays', nextToken] as const,
-    roles: (nextToken?: string) => ['backoffice-roles', nextToken] as const,
-    shifts: (nextToken?: string) => ['backoffice-shifts', nextToken] as const,
+    clients: ['backoffice-clients'] as const,
+    certifications: ['backoffice-certs'] as const,
+    chores: ['backoffice-chores'] as const,
+    divisions: ['backoffice-divisions'] as const,
+    holidays: ['backoffice-holidays'] as const,
+    roles: ['backoffice-roles'] as const,
+    shifts: ['backoffice-shifts'] as const,
 }

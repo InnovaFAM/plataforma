@@ -184,3 +184,17 @@ export const apiExportService = async (
         },
     })
 }
+
+export const apiDeleteRoleInService = async (
+    serviceId: string,
+    roleHash: string,
+): Promise<ServerResponse<void>> => {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<void>({
+        url: `/services/${serviceId}/roles/${roleHash}`,
+        method: 'delete',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    })
+}

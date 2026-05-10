@@ -1,3 +1,6 @@
+import { TBackOfficeShift, TBackOfficeShiftData } from '../backoffice/types'
+import { TCollabShift } from '../collaborators/types'
+
 export type Collab = {
     name: string
     img: string
@@ -100,9 +103,8 @@ export type TServiceRole = {
     sk: string
     confirmed: string
     required: string
-    hoursPerDay: number
-    shiftType: string
-    weeklyHours: number
+    shift: Pick<TBackOfficeShift, 'sk'> &
+        Pick<TBackOfficeShiftData, 'weeklyHours' | 'hoursPerDay' | 'shiftType'>
     proposed: string
     roleName: string
     startedAt: string
@@ -111,12 +113,12 @@ export type TServiceRole = {
 
 export type TServiceRoleTemp = Pick<
     TServiceRole,
-    'roleName' | 'sk' | 'startedAt' | 'endedAt' | 'required'
+    'roleName' | 'sk' | 'startedAt' | 'endedAt' | 'required' | 'shift'
 >
 
 export type TServiceRoleCreatePayload = Pick<
     TServiceRole,
-    'required' | 'roleName' | 'endedAt' | 'startedAt'
+    'sk' | 'required' | 'roleName' | 'endedAt' | 'startedAt' | 'shift'
 >
 
 export type TServiceRoleAssignment = {

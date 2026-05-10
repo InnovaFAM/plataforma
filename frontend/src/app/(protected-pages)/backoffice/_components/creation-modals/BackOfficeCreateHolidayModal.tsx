@@ -14,6 +14,7 @@ import {
     toast,
     Notification,
     DatePicker,
+    Input,
 } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
 
@@ -26,6 +27,7 @@ import dayjs from 'dayjs'
 
 type FormValues = {
     date: string
+    name: string
     type: string
 }
 
@@ -50,6 +52,7 @@ const BackOfficeCreateHolidayModal = ({
         date: z
             .string()
             .min(1, t('backOffice.holidayModal.validation.dateRequired')),
+        name: z.string().min(1, 'El nombre es requerido'),
         type: z
             .string()
             .min(1, t('backOffice.holidayModal.validation.typeRequired'))
@@ -69,6 +72,7 @@ const BackOfficeCreateHolidayModal = ({
         resolver: zodResolver(validationSchema),
         defaultValues: {
             date: '',
+            name: '',
             type: 'manual',
         },
     })
@@ -85,7 +89,7 @@ const BackOfficeCreateHolidayModal = ({
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.holidays(),
+                queryKey: backOfficeKeys.holidays,
             })
             toast.push(
                 <Notification
@@ -122,7 +126,7 @@ const BackOfficeCreateHolidayModal = ({
         },
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: backOfficeKeys.holidays(),
+                queryKey: backOfficeKeys.holidays,
             })
             toast.push(
                 <Notification
@@ -151,11 +155,13 @@ const BackOfficeCreateHolidayModal = ({
         if (tempHoliday) {
             reset({
                 date: tempHoliday.date || '',
+                name: tempHoliday.name || '',
                 type: tempHoliday.type || 'manual',
             })
         } else {
             reset({
                 date: '',
+                name: '',
                 type: 'manual',
             })
         }
@@ -167,12 +173,14 @@ const BackOfficeCreateHolidayModal = ({
             const payload: TBackOfficeHolidayUpdate = {
                 sk: tempHoliday.sk,
                 date: data.date,
+                name: data.name,
                 type: 'manual',
             }
             updateMutation.mutate(payload)
         } else {
             const payload: TBackOfficeHolidayCreate = {
                 date: data.date,
+                name: data.name,
                 type,
             }
             createMutation.mutate(payload)
@@ -202,6 +210,24 @@ const BackOfficeCreateHolidayModal = ({
                             : t('backOffice.holidayModal.titleCreate')}
                     </h3>
 
+                    <FormItem
+                        label="Nombre"
+                        invalid={Boolean(errors.name)}
+                        errorMessage={errors.name?.message}
+                    >
+                        <Controller
+                            name="name"
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    type="text"
+                                    autoComplete="off"
+                                    placeholder="Nombre del feriado"
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </FormItem>
                     <FormItem
                         label={t('backOffice.holidayModal.fields.date')}
                         invalid={!!errors.date}

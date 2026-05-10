@@ -8,6 +8,7 @@ const { Tr, Th, Td, THead, TBody } = Table
 
 interface ServiceDetailsContractAdminsProps {
     admins: TContractManager[]
+    onAddAdmin?: () => void
     onEdit?: (admin: TContractManager) => void
     onRemove?: (admin: TContractManager) => void
     isLoading?: boolean
@@ -15,6 +16,7 @@ interface ServiceDetailsContractAdminsProps {
 
 const ServiceDetailsContractAdmins = ({
     admins,
+    onAddAdmin,
     onEdit,
     onRemove,
     isLoading = false,
@@ -56,6 +58,11 @@ const ServiceDetailsContractAdmins = ({
                 <h4 className="font-bold">
                     {t('services.details.contractAdmins')}
                 </h4>
+                {onAddAdmin && (
+                    <Button onClick={onAddAdmin} size="sm">
+                        {t('common.add')}
+                    </Button>
+                )}
             </div>
             <Table>
                 <THead>
