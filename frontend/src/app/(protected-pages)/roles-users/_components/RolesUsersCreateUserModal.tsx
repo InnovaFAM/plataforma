@@ -93,15 +93,17 @@ const RolesUsersCreateUserModal = ({
             return response.data
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({
-                queryKey: usersKeys.data,
-            })
+            const userName = tempUser?.name
             toast.push(
                 <Notification
-                    title={`Usuario ${tempUser?.name} creado exitosamente`}
+                    title={`Usuario ${userName ?? ''} creado exitosamente`}
                     type="success"
                 />,
             )
+
+            await queryClient.invalidateQueries({
+                queryKey: usersKeys.data,
+            })
             handleClose()
         },
         onError: (error: Error) => {
@@ -139,9 +141,9 @@ const RolesUsersCreateUserModal = ({
     }
 
     const handleClose = () => {
-        setTempUser(null)
         reset()
         onClose()
+        setTempUser(null)
     }
 
     const roleOptions = availableRoles.map((role) => {

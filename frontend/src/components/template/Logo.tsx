@@ -49,7 +49,7 @@ const Logo = (props: LogoProps) => {
                             type === 'streamline' ? '' : 'hidden',
                             imgClass,
                         )}
-                        src={`${LOGO_SRC_PATH}logo-light-streamline.png`}
+                        src={`${LOGO_SRC_PATH}logo-light-minimize.png`}
                         alt={`${APP_NAME} logo`}
                         width={width}
                         height={height}
