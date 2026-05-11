@@ -15,8 +15,8 @@ locals {
     Terraform = "true"
     Scope     = "fam-api"
   }
-  user_pool_id  = "us-east-1_oZA3Ps6eH"
-  app_client_id = "3u45tat2fj0q3plp1v3i60d6ug"
+  user_pool_id  = one(data.aws_cognito_user_pools.nextjs_app_pool.ids)
+  app_client_id = one(data.aws_cognito_user_pool_clients.nextjs_web_client.client_ids)
   execution_uri = "arn:aws:execute-api:${var.aws_region}:${data.aws_caller_identity.current.account_id}:${aws_apigatewayv2_api.fam_api.id}"
 
   template_prefix = "innovafam-${var.aws_env}"

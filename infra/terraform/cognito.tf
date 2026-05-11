@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "nextjs_app_pool" {
-  name = var.cognito_pool_name
+  name = "${var.cognito_pool_name}-${var.aws_env}"
 
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
@@ -39,7 +39,7 @@ resource "aws_cognito_user_pool" "nextjs_app_pool" {
 }
 
 resource "aws_cognito_user_pool_client" "nextjs_web_client" {
-  name = var.cognito_client_name
+  name = "${var.cognito_client_name}-${var.aws_env}"
   user_pool_id = aws_cognito_user_pool.nextjs_app_pool.id
 
   generate_secret = true
@@ -79,7 +79,7 @@ resource "aws_cognito_user_pool_client" "nextjs_web_client" {
 }
 
 resource "aws_cognito_identity_pool" "nextjs_identity_pool" {
-  identity_pool_name = var.cognito_identity_pool_name
+  identity_pool_name = "${var.cognito_identity_pool_name}-${var.aws_env}"
   allow_unauthenticated_identities = true
 
   cognito_identity_providers {

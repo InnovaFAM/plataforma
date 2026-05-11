@@ -34,7 +34,7 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
   }
 }
 
-/*resource "aws_dynamodb_table" "terraform_locks" {
+resource "aws_dynamodb_table" "terraform_locks" {
   name           = "terraform-locks"
   hash_key       = "LockID"
   billing_mode   = "PAY_PER_REQUEST"
@@ -47,4 +47,5 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
   lifecycle {
     prevent_destroy = true
   }
-}*/
+}
+*/
