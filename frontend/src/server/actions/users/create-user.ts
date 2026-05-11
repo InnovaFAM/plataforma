@@ -1,3 +1,4 @@
+'use server'
 import { TNewUser } from '@/app/(protected-pages)/roles-users/types'
 import { ServerResponse } from '@/services/ApiService'
 import { apiSaveUser } from '@/services/UsersService'

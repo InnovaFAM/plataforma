@@ -59,7 +59,6 @@ export async function apiUpdatePhoneNumber(
 export const apiSaveUser = async (
     data: TNewUser,
 ): Promise<ServerResponse<void>> => {
-    console.log('apiSaveUser', data)
     return ApiService.fetchDataWithAxios<void>({
         url: '/users',
         method: 'post',
