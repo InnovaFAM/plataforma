@@ -26,6 +26,6 @@ def lambda_handler(api_event: Dict):
 
 
 if __name__ == "__main__":
-    with open("./tests/events/normal.json", "r") as f:
+    with open("./tests/events/full.json", "r") as f:
         data = json.load(f)
         lambda_handler(data)
