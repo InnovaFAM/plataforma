@@ -328,6 +328,7 @@ const CreateEditServiceContent = () => {
                     </>
                 ) : (
                     <>
+                        {console.log('HOOOOLA')}
                         <ServiceEditionCreationPreview service={tempService} />
                         <ServiceManagersPreview
                             serviceData={

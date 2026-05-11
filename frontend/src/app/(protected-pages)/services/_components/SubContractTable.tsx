@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import Table from '@/components/ui/Table'
 import {
     useReactTable,
@@ -13,17 +13,17 @@ import useTranslation from '@/utils/hooks/useTranslation'
 import {
     TContractManager,
     TDetailedService,
+    TSubContract,
     TSubContractManager,
 } from '../types'
 import { getDayJsDate } from '@/components/ui/TimeInput/utils/getDayJsDate'
 import classNames from '@/utils/classNames'
-import getSubContractStatusText from '../_utils/getSubContractStatusText'
 import { Button, Skeleton } from '@/components/ui'
-import { TbMinus, TbPencil, TbTrash } from 'react-icons/tb'
+import { TbPencil, TbTrash } from 'react-icons/tb'
 import ModalAddSubContract from './edition-creation/ModalAddSubContract'
 
 interface SubContractTableProps {
-    data: TSubContractManager[]
+    data: TSubContract[]
     onValueChange?: (
         prop: keyof TDetailedService,
         value: TDetailedService[keyof TDetailedService],
@@ -40,7 +40,7 @@ const SubContractTable = ({
     const t = useTranslation()
     const [openModal, setOpenModal] = useState(false)
     const [editingSubContract, setEditingSubContract] =
-        useState<TSubContractManager | null>(null)
+        useState<TSubContract | null>(null)
 
     const handleAddSubContract = () => {
         setEditingSubContract(null)
@@ -48,9 +48,8 @@ const SubContractTable = ({
     }
 
     const handleClose = (
-        updatedSubContracts: TSubContractManager[] | undefined = undefined,
+        updatedSubContracts: TSubContract[] | undefined = undefined,
     ) => {
-        console.log('updatedSubContracts', updatedSubContracts)
         setEditingSubContract(null)
         setOpenModal(false)
 
@@ -88,9 +87,7 @@ const SubContractTable = ({
         )
     }
 
-    const columns = useMemo<
-        ColumnDef<TSubContractManager | TContractManager>[]
-    >(
+    const columns = useMemo<ColumnDef<TSubContract | TSubContractManager>[]>(
         () => [
             {
                 id: 'expander',
@@ -221,19 +218,6 @@ const SubContractTable = ({
                                     : row.original.phoneNumber || '–'}
                             </span>
                         </div>
-                    )
-                },
-            },
-            {
-                header: t('services.details.table.status'),
-                accessorKey: 'status',
-                cell: ({ getValue }) => {
-                    const status = getValue() as TSubContractManager['status']
-
-                    return (
-                        <span className="whitespace-nowrap">
-                            {getSubContractStatusText(status, t)}
-                        </span>
                     )
                 },
             },

@@ -2,9 +2,11 @@
 import classNames from '@/utils/classNames'
 import useTranslation from '@/utils/hooks/useTranslation'
 import AdaptiveCard from '@/components/shared/AdaptiveCard'
-import { TContractManager, TDetailedService } from '../../types'
-import { Tag } from '@/components/ui'
-import getSubContractStatusText from '../../_utils/getSubContractStatusText'
+import {
+    TContractManager,
+    TDetailedService,
+    TSubContractManager,
+} from '../../types'
 import getContractAdminTypeText from '../../_utils/getContractAdminTypeText'
 import dayjs from 'dayjs'
 
@@ -19,12 +21,12 @@ const ServiceManagersPreview = ({
     const { managers = [], submanagers = [] } = serviceData
 
     const renderManagerCard = (
-        admin: TContractManager,
+        admin: TSubContractManager | TContractManager,
         index: number,
         isSubcontract = false,
     ) => {
         const typeColor =
-            admin.type === 'cliente'
+            (admin as TContractManager).type === 'cliente'
                 ? 'bg-blue-100 text-blue-700'
                 : 'bg-emerald-100 text-emerald-700'
 
@@ -41,19 +43,22 @@ const ServiceManagersPreview = ({
                         >
                             {admin.name}
                         </span>
-                        {admin.type && !isSubcontract ? (
+                        {(admin as TContractManager).type && !isSubcontract ? (
                             <span
                                 className={classNames(
                                     'text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase',
                                     typeColor,
                                 )}
                             >
-                                {getContractAdminTypeText(admin.type, t)}
+                                {getContractAdminTypeText(
+                                    (admin as TContractManager).type,
+                                    t,
+                                )}
                             </span>
                         ) : null}
                     </div>
                     <span className="text-sm text-gray-500 truncate">
-                        {admin.role}
+                        {(admin as TContractManager).role}
                     </span>
                     <div className="flex flex-col mt-1 text-xs text-gray-400">
                         <span className="truncate">{admin.email}</span>
@@ -94,25 +99,6 @@ const ServiceManagersPreview = ({
                                 key={index}
                                 className="flex flex-col gap-3 p-4 rounded-xl border border-gray-200 shadow-sm bg-white"
                             >
-                                <div className="flex flex-wrap justify-between items-center gap-2">
-                                    <h6 className="font-bold text-gray-800 text-lg">
-                                        {sub.companyName}
-                                    </h6>
-                                    <Tag
-                                        className={classNames(
-                                            'text-xs px-2 py-1 rounded-md font-medium tracking-wide',
-                                            sub.status === 'active'
-                                                ? 'bg-green-400 text-black'
-                                                : 'bg-red-400 text-black',
-                                        )}
-                                    >
-                                        {getSubContractStatusText(
-                                            sub.status,
-                                            t,
-                                        )}
-                                    </Tag>
-                                </div>
-
                                 <div className="text-sm text-gray-500 flex gap-4">
                                     <span>
                                         <strong>

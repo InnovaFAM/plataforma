@@ -13,20 +13,20 @@ import { useEffect, useState } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TbMinus } from 'react-icons/tb'
-import { TContractManager, TSubContractManager } from '../../types'
+import { TSubContract, TSubContractManager } from '../../types'
 import useTranslation from '@/utils/hooks/useTranslation'
 
 type TModalAddSubContract = {
     open: boolean
-    data: TSubContractManager[]
-    editingSubContract: TSubContractManager | null
-    onClose: (updatedSubContracts?: TSubContractManager[]) => void
+    data: TSubContract[]
+    editingSubContract: TSubContract | null
+    onClose: (updatedSubContracts?: TSubContract[]) => void
 }
 
 type ContractManagerDraft = {
     name: string
     email: string
-    phone: string
+    phoneNumber: string
 }
 
 const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
@@ -41,15 +41,15 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
         useState<ContractManagerDraft>({
             name: '',
             email: '',
-            phone: '',
+            phoneNumber: '',
         })
 
     const handleAddContractManager = () => {
         const name = contractManagerDraft.name.trim()
         const email = contractManagerDraft.email.trim()
-        const phone = contractManagerDraft.phone.trim()
+        const phoneNumber = contractManagerDraft.phoneNumber.trim()
 
-        if (!name || !email || !phone) return
+        if (!name || !email || !phoneNumber) return
 
         const currentManagers = getValues('contractManagers') ?? []
 
@@ -62,7 +62,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
         appendContractManager({
             name,
             email,
-            phone,
+            phoneNumber,
         })
 
         clearErrors('contractManagers')
@@ -70,7 +70,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
         setContractManagerDraft({
             name: '',
             email: '',
-            phone: '',
+            phoneNumber: '',
         })
     }
 
@@ -101,7 +101,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                                 'services.creation.subContractModal.validation.managerEmailInvalid',
                             ),
                         ),
-                    phone: z.string().optional(),
+                    phoneNumber: z.string().optional(),
                 }),
             )
             .min(
@@ -162,14 +162,14 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
             : undefined
 
     const onSubmit = (values: FormValues) => {
-        const updatedSubContract: TSubContractManager = {
+        const updatedSubContract: TSubContract = {
             companyName: values.companyName,
-            contractManagers: values.contractManagers as TContractManager[],
+            contractManagers: values.contractManagers as TSubContractManager[],
             startDate: values.startDate,
             endDate: values.endDate,
         }
 
-        let updatedSubContracts: TSubContractManager[]
+        let updatedSubContracts: TSubContract[]
         if (editingSubContract) {
             updatedSubContracts = data.map((subContract) =>
                 subContract === editingSubContract
@@ -196,7 +196,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
     }, [editingSubContract, reset])
 
     const handleClose = (
-        updatedSubContracts: TSubContractManager[] | undefined = undefined,
+        updatedSubContracts: TSubContract[] | undefined = undefined,
     ) => {
         reset()
         onClose(updatedSubContracts)
@@ -344,7 +344,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                                                     </div>
 
                                                     <div className="text-sm text-gray-500">
-                                                        {manager.phone}
+                                                        {manager.phoneNumber}
                                                     </div>
                                                 </div>
 
@@ -410,12 +410,12 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
 
                             <FormItem label="Número">
                                 <Input
-                                    value={contractManagerDraft.phone}
+                                    value={contractManagerDraft.phoneNumber}
                                     placeholder="Ej: +56 9 1234 5678"
                                     onChange={(event) =>
                                         setContractManagerDraft((current) => ({
                                             ...current,
-                                            phone: event.target.value,
+                                            phoneNumber: event.target.value,
                                         }))
                                     }
                                 />
@@ -428,7 +428,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                                 disabled={
                                     !contractManagerDraft.name.trim() ||
                                     !contractManagerDraft.email.trim() ||
-                                    !contractManagerDraft.phone.trim()
+                                    !contractManagerDraft.phoneNumber.trim()
                                 }
                             >
                                 Agregar ADC

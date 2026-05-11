@@ -64,8 +64,13 @@ export type TContractManager = {
     img?: string
 }
 
-export type TSubContractManager = {
-    contractManagers: Pick<TContractManager, 'name' | 'phoneNumber' | 'email'>[]
+export type TSubContractManager = Pick<
+    TContractManager,
+    'name' | 'email' | 'phoneNumber'
+>
+
+export type TSubContract = {
+    contractManagers: TSubContractManager[]
     companyName: string
     startDate: string
     endDate: string
@@ -94,7 +99,7 @@ export type TService = {
 
 export type TDetailedService = TService & {
     contractNumber: string
-    submanagers: TSubContractManager[]
+    submanagers: TSubContract[]
 }
 
 export type TServiceRole = {
