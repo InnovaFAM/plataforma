@@ -11,7 +11,7 @@ resource "aws_s3_bucket_cors_configuration" "innovafam_cors" {
     allowed_headers = ["*"]
     allowed_methods = ["PUT", "POST", "GET"]
 
-    allowed_origins = ["*"]
+    allowed_origins = ["https://siges.innovafam.cl"]
     max_age_seconds = 3000
   }
 }
