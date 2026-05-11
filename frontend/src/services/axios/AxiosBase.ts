@@ -9,7 +9,6 @@ const AxiosBase = axios.create({
     baseURL: appConfig.apiPrefix,
     withCredentials: true,
 })
-console.log('API_BASE_URL', process.env.API_BASE_URL)
 AxiosBase.interceptors.request.use(
     (config) => {
         config.baseURL = process.env.API_BASE_URL

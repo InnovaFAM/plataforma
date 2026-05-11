@@ -48,7 +48,6 @@ const ModalEditionRoles: React.FC<ModalEditionRolesProps> = ({
     const [dateRange, setDateRange] = useState<
         [Date | undefined, Date | undefined]
     >([undefined, undefined])
-    console.log('temporalRole', temporalRole)
 
     const { data: backofficeRoles } = useQuery({
         queryKey: backOfficeKeys.roles,

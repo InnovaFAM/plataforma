@@ -6,7 +6,7 @@ import boto3
 from utils import generate_unique_hash
 
 dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
-table = dynamodb.Table("CoreBusiness_stage")
+table = dynamodb.Table("CoreBusiness_prod")
 
 
 def read_csv(file_path: str):
@@ -22,7 +22,6 @@ def write_to_dynamodb(rows):
         item = {
             "pk": "FAM#CERTS",
             "sk": f"CERTS#{hash}",
-            "status": True,
             "updatedAt": datetime.now().isoformat(),
             **row,
         }

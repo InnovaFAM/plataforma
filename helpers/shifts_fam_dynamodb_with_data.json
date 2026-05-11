@@ -5,7 +5,6 @@
     "name": "7x7",
     "type": "Día",
     "distribution": "07:00 a 19:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "7x7",
@@ -18,7 +17,6 @@
     "name": "7x7",
     "type": "Noche",
     "distribution": "19:00 a 07:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "7x7",
@@ -31,7 +29,6 @@
     "name": "7x7",
     "type": "Día",
     "distribution": "08:00 a 20:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "7x7",
@@ -44,7 +41,6 @@
     "name": "7x7",
     "type": "Noche",
     "distribution": "20:00 a 08:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "7x7",
@@ -57,7 +53,6 @@
     "name": "14x14",
     "type": "Día",
     "distribution": "07:00 a 19:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "14x14",
@@ -70,7 +65,6 @@
     "name": "14x14",
     "type": "Noche",
     "distribution": "19:00 a 07:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "14x14",
@@ -83,7 +77,6 @@
     "name": "14x14",
     "type": "Día",
     "distribution": "08:00 a 20:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "14x14",
@@ -96,7 +89,6 @@
     "name": "14x14",
     "type": "Noche",
     "distribution": "20:00 a 08:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "14x14",
@@ -109,7 +101,6 @@
     "name": "10x10",
     "type": "Día",
     "distribution": "07:00 a 19:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "10x10",
@@ -122,7 +113,6 @@
     "name": "10x10",
     "type": "Noche",
     "distribution": "19:00 a 07:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "10x10",
@@ -135,7 +125,6 @@
     "name": "10x10",
     "type": "Día",
     "distribution": "08:00 a 20:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "10x10",
@@ -148,7 +137,6 @@
     "name": "10x10",
     "type": "Noche",
     "distribution": "20:00 a 08:00",
-    "status": true,
     "data": {
       "hoursPerDay": 12,
       "shiftType": "10x10",
@@ -161,7 +149,6 @@
     "name": "4x3",
     "type": "Día",
     "distribution": "1 a 3° día de 07 a 19hrs y 4° 07 a 15hrs",
-    "status": true,
     "data": {
       "hoursPerDay": 11,
       "shiftType": "4x3",
@@ -174,7 +161,6 @@
     "name": "4x3",
     "type": "Día",
     "distribution": "1 a 3° día de 08 a 20hrs y 4° 08 a 16hrs",
-    "status": true,
     "data": {
       "hoursPerDay": 11,
       "shiftType": "4x3",
@@ -187,7 +173,6 @@
     "name": "5x2 Oficina",
     "type": "Día",
     "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 15:30",
-    "status": true,
     "data": {
       "hoursPerDay": 9,
       "shiftType": "5x2 Oficina",
@@ -200,7 +185,6 @@
     "name": "5x2 Terreno",
     "type": "Día",
     "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 17:00",
-    "status": true,
     "data": {
       "hoursPerDay": 9.3,
       "shiftType": "5x2 Terreno",
@@ -213,7 +197,6 @@
     "name": "8x6",
     "type": "Día",
     "distribution": "08:00 a 19:00",
-    "status": true,
     "data": {
       "hoursPerDay": 11,
       "shiftType": "8x6",
@@ -226,7 +209,6 @@
     "name": "8x6",
     "type": "Noche",
     "distribution": "20:00 a 07:00",
-    "status": true,
     "data": {
       "hoursPerDay": 11,
       "shiftType": "8x6",
@@ -239,7 +221,6 @@
     "name": "6x1",
     "type": "Día",
     "distribution": "Lunes a Viernes 08:00 a 17:00; Sábado 08:00 a 13:00",
-    "status": true,
     "data": {
       "hoursPerDay": 8.33,
       "shiftType": "6x1",
@@ -252,7 +233,6 @@
     "name": "5x2 Teletrabajo Oficina",
     "type": "Día",
     "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 15:30",
-    "status": true,
     "data": {
       "hoursPerDay": 9,
       "shiftType": "5x2 Teletrabajo Oficina",
@@ -265,7 +245,6 @@
     "name": "5x2 Teletrabajo Terreno",
     "type": "Día",
     "distribution": "Lunes a Jueves 08:30 a 18:00; Viernes 08:30 a 17:00",
-    "status": true,
     "data": {
       "hoursPerDay": 9.3,
       "shiftType": "5x2 Teletrabajo Terreno",

@@ -25,6 +25,8 @@ import { useCurrentUserAccess } from '@/utils/hooks/useCurrentUserAccess'
 import GeneralPageLoader from './components/GeneralPageLoader'
 import { useAccessStore } from './stores/accessStore'
 
+import { Analytics } from '@vercel/analytics/next'
+
 interface PostLoginLayoutProps extends CommonProps {
     layoutType: LayoutType
 }
@@ -89,6 +91,7 @@ const PostLoginLayout = ({ children }: CommonProps) => {
             layoutType={route?.meta?.layout ? route?.meta?.layout : layoutType}
         >
             <PageContainer {...route?.meta}>{children}</PageContainer>
+            <Analytics />
         </Layout>
     )
 }

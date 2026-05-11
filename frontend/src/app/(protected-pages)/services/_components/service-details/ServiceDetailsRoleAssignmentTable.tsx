@@ -291,7 +291,6 @@ const ServiceDetailsRoleAssignmentTable = ({
                 size: 70,
                 cell: (props) => {
                     const row = props.row.original
-                    console.log(row)
                     return (
                         <div className="flex flex-col items-start">
                             <span className="text-sm text-black font-bold mb-1">

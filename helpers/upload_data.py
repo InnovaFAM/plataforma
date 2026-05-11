@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 from utils import convert_floats_to_decimal
 
-TABLE_NAME = "CoreBusiness_stage"
+TABLE_NAME = "CoreBusiness_prod"
 
 FILE = "/Users/patcornejo/Projects/innovafam/helpers/shifts_fam_dynamodb_with_data.json"
 with open(FILE) as f:

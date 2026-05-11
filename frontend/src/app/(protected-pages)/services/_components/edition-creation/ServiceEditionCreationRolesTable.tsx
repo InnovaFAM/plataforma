@@ -28,7 +28,6 @@ const ServiceEditionCreationRolesTable = ({
 }: ServiceEditionCreationRolesTableProps) => {
     const t = useTranslation()
     const canCreateRole = useCan('services.roles:create')
-    console.log('roles', roles)
 
     const deleteRoleToCreate = useServicesStore(
         (state) => state.deleteRoleToCreate,
