@@ -1,0 +1,61 @@
+{
+  "version": "2.0",
+  "routeKey": "ANY /analytics/{proxy+}",
+  "rawPath": "/innovafam-v1-prod/analytics/home",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, compress, deflate, br",
+    "authorization": "Bearer eyJraWQiOiIrQjdlY0o3YzdhRjl0RVRpTzhYdDZoYlpDOFwvaUVMZ0xoVFpPaHJUa1Jlcz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3NDE4MDQ5OC0xMDgxLTcwMzItNTlhMy02ODA2NTIyYTBiYzUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV8zQUppdUE3RVIiLCJjbGllbnRfaWQiOiI2amJzOWt2NzFhZDZjbzhzdXZibnJrNnRlciIsIm9yaWdpbl9qdGkiOiI1ZDljYmQyMy0zYmM0LTRjMzQtYjU1Mi01N2IwNWI4MGNmZWYiLCJldmVudF9pZCI6IjBiYjdhYWE5LTA4ZGUtNDJlMC05MzBmLTJhMmJiZmUwODlkMSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3Nzg0NzA0NTIsImV4cCI6MTc3ODUwNjQ1MiwiaWF0IjoxNzc4NDcwNDUyLCJqdGkiOiJhNzIwNzgyOC00ODhhLTQ1ZGMtYTIzNy04ZGYzYjNkOTdiYzgiLCJ1c2VybmFtZSI6Ijc0MTgwNDk4LTEwODEtNzAzMi01OWEzLTY4MDY1MjJhMGJjNSJ9.P4WJRDzUEJXXkw8Tf7FRUe0O1X6QSXmIbIOUktEZhAlRI-h2kJwyRNrU4DP8H4GPPHt8BW_owd_5ouo4qk0bYROvj1bgQ1pfeZcc8zun16ALv1X7psBNRK8kFy09-fUrAq8mGGGYtD9KpssbqONhn-VunHHv605FBF5oH4p8W_2IZvFJI_Blwfwc4eSSN2rT28NJN4zT1n5TihGtLDN_hURNhK25UOANZXpcuBL8Ya96yEuTMfPrGBh5oe-WB0Utroz1zcjoWcnrRUfwq_BXOofWmNewhRxYUBW_ybYBjVWx8BTzoz8-J8XTPJK3CpfOCjbxTc7Xs1yvEXCqfubH-Q",
+    "content-length": "0",
+    "host": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "axios/1.13.2",
+    "x-amzn-trace-id": "Root=1-6a014e65-0d8b84b11a04081345f5fe96",
+    "x-forwarded-for": "54.236.76.28",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https",
+    "x-invocation-id": "gru1::wc7pz-1778470501060-3e64d7158c64",
+    "x-vercel-id": "gru1::wc7pz-1778470501060-3e64d7158c64"
+  },
+  "requestContext": {
+    "accountId": "376218549266",
+    "apiId": "zq2gf2yyyg",
+    "authorizer": {
+      "jwt": {
+        "claims": {
+          "auth_time": "1778470452",
+          "client_id": "6jbs9kv71ad6co8suvbnrk6ter",
+          "event_id": "0bb7aaa9-08de-42e0-930f-2a2bbfe089d1",
+          "exp": "1778506452",
+          "iat": "1778470452",
+          "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_3AJiuA7ER",
+          "jti": "a7207828-488a-45dc-a237-8df3b3d97bc8",
+          "origin_jti": "5d9cbd23-3bc4-4c34-b552-57b05b80cfef",
+          "scope": "aws.cognito.signin.user.admin",
+          "sub": "74180498-1081-7032-59a3-6806522a0bc5",
+          "token_use": "access",
+          "username": "74180498-1081-7032-59a3-6806522a0bc5"
+        },
+        "scopes": null
+      }
+    },
+    "domainName": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "zq2gf2yyyg",
+    "http": {
+      "method": "GET",
+      "path": "/innovafam-v1-prod/analytics/home",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "54.236.76.28",
+      "userAgent": "axios/1.13.2"
+    },
+    "requestId": "dLkv5jhnoAMEZ6g=",
+    "routeKey": "ANY /analytics/{proxy+}",
+    "stage": "innovafam-v1-prod",
+    "time": "11/May/2026:03:35:01 +0000",
+    "timeEpoch": 1778470501311
+  },
+  "pathParameters": {
+    "proxy": "home"
+  },
+  "isBase64Encoded": false
+}

@@ -134,7 +134,7 @@ def get_user_notifications(user_id: str):
 
 
 @app.post("/users")
-def create_new_user():
+def post():
     try:
         body = UserPayload(**app.current_event.json_body)
         user = get_items_by_email(pk, body.email)
@@ -147,7 +147,9 @@ def create_new_user():
                     log_activity(user_sub, "CREATE_USER", new_user)
             except Exception as err:
                 logger.warning("LogError", str(err))
-            return Response(status_code=201, body="User created successfully")
+            return Response(
+                status_code=201,
+            )
         else:
             return error_response("PostUserError", "User already exists")
     except Exception as e:
@@ -155,7 +157,7 @@ def create_new_user():
 
 
 @app.patch("/users")
-def update_user():
+def update():
     try:
         body = PatchUserBodyRequest(**app.current_event.json_body)
         item = body.model_dump(exclude_none=True, exclude={"sk"})
@@ -170,7 +172,9 @@ def update_user():
                 log_activity(user_sub, "CREATE_USER", user)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(status_code=200, body="User updated successfully")
+        return Response(
+            status_code=200,
+        )
     except Exception as e:
         return error_response("PatchUserError", str(e))
 

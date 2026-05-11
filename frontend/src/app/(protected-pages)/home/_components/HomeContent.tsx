@@ -261,36 +261,37 @@ const HomeContent: React.FC<THomeContentProps> = ({ data }) => {
                                 </p>
                             </div>
                         </div>
-
-                        <GanttChart
-                            columnName="Servicios activos"
-                            viewMode={ViewMode.Month}
-                            tasks={
-                                data?.services.map((service) => ({
-                                    id: service.code,
-                                    name: service.code,
-                                    start: new Date(
-                                        service.startDate || Date.now(),
-                                    ),
-                                    end: new Date(
-                                        service.endDate || Date.now(),
-                                    ),
-                                    type: 'task',
-                                    progress: getServiceProgression(
-                                        service.startDate,
-                                        service.endDate,
-                                    ),
-                                    hideChildren: false,
-                                    displayOrder: data?.services.length + 1,
-                                    barVariant: service.status,
-                                })) || []
-                            }
-                            locale="es"
-                            colorsMap={colorsMap}
-                            onClick={(task) => console.log(task)}
-                            listCellWidth="160px"
-                            columnWidth={100}
-                        />
+                        {(data?.services || []).length > 0 && (
+                            <GanttChart
+                                columnName="Servicios activos"
+                                viewMode={ViewMode.Month}
+                                tasks={
+                                    data?.services.map((service) => ({
+                                        id: service.code,
+                                        name: service.code,
+                                        start: new Date(
+                                            service.startDate || Date.now(),
+                                        ),
+                                        end: new Date(
+                                            service.endDate || Date.now(),
+                                        ),
+                                        type: 'task',
+                                        progress: getServiceProgression(
+                                            service.startDate,
+                                            service.endDate,
+                                        ),
+                                        hideChildren: false,
+                                        displayOrder: data?.services.length + 1,
+                                        barVariant: service.status,
+                                    })) || []
+                                }
+                                locale="es"
+                                colorsMap={colorsMap}
+                                onClick={(task) => console.log(task)}
+                                listCellWidth="160px"
+                                columnWidth={100}
+                            />
+                        )}
                     </div>
                 </Card>
 

@@ -22,7 +22,7 @@ def lambda_handler(api_event: Dict):
 
 
 if __name__ == "__main__":
-    with open("./tests/events/hh/get_detail_services.json", "r") as f:
+    with open("./tests/events/home.json", "r") as f:
         # with open("./tests/events/hh/get_projection.json", "r") as f:
         # with open("./tests/events/projects/get_projects.json", "r") as f:
         # with open("./tests/events/get_projects_month.json", "r") as f:

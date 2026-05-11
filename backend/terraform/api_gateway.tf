@@ -5,7 +5,7 @@ resource "aws_apigatewayv2_api" "fam_api" {
 
   cors_configuration {
     max_age        = 86400
-    allow_origins = ["http://localhost:3000", "https://plataforma-innovafam.vercel.app"]
+    allow_origins = ["http://localhost:3000"]
     allow_methods = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     allow_headers = ["content-type", "authorization"]
   allow_credentials = true

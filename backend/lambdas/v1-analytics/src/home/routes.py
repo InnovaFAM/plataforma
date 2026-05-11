@@ -34,9 +34,7 @@ def get_home():
         return json.dumps(payload, default=decimal_default)
 
     except Exception as error:
-        logger.exception("HH projection error")
-
         return error_response(
-            "Error loading HH projection",
+            "Error loading Home data",
             str(error),
         )

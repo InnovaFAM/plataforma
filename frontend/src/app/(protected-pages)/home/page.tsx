@@ -18,7 +18,6 @@ const Page = () => {
     if (error) {
         return <>Error al cargar la página inicial - {error}</>
     }
-
     return (
         <>
             {isLoading ? (
