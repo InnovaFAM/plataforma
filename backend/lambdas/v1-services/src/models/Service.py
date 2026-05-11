@@ -24,23 +24,20 @@ class DivisionService(BaseModel):
     number: str
 
 
-class Manager(BaseModel):
+class ManagerBase(BaseModel):
     name: str
     email: str
     phoneNumber: str
+
+
+class Manager(ManagerBase):
     role: str | None = None
     type: Literal["cliente", "fam"] | None = None
 
 
-class SubContractManager(BaseModel):
-    name: str
-    email: str
-    phone: str
-
-
 class SubContract(BaseModel):
     companyName: str
-    contractManagers: list[SubContractManager]
+    contractManagers: list[ManagerBase]
     startDate: str
     endDate: str
 

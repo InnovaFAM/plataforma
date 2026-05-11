@@ -10,12 +10,7 @@ import {
 import { HiOutlinePlusCircle, HiOutlineMinusCircle } from 'react-icons/hi'
 import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
 import useTranslation from '@/utils/hooks/useTranslation'
-import {
-    TContractManager,
-    TDetailedService,
-    TSubContract,
-    TSubContractManager,
-} from '../types'
+import { TDetailedService, TSubContract, TSubContractManager } from '../types'
 import { getDayJsDate } from '@/components/ui/TimeInput/utils/getDayJsDate'
 import classNames from '@/utils/classNames'
 import { Button, Skeleton } from '@/components/ui'

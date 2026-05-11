@@ -8,13 +8,14 @@ import {
 } from '@/components/ui'
 
 import { z } from 'zod'
-import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { TbMinus } from 'react-icons/tb'
 import { TSubContract, TSubContractManager } from '../../types'
 import useTranslation from '@/utils/hooks/useTranslation'
+import { getDateFromString } from '../../_utils/getDateFromString'
+import { useServicesStore } from '../../_store/servicesStore'
+import { isValidEmail } from '../../_utils/isValidEmail'
 
 type TModalAddSubContract = {
     open: boolean
@@ -36,6 +37,11 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
     onClose,
 }) => {
     const t = useTranslation()
+    const { tempService } = useServicesStore()
+
+    const [dateRange, setDateRange] = useState<
+        [Date | undefined, Date | undefined]
+    >([undefined, undefined])
 
     const [contractManagerDraft, setContractManagerDraft] =
         useState<ContractManagerDraft>({
@@ -62,7 +68,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
         appendContractManager({
             name,
             email,
-            phoneNumber,
+            phoneNumber: `+${phoneNumber}`,
         })
 
         clearErrors('contractManagers')
@@ -94,14 +100,12 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                                 'services.creation.subContractModal.validation.managerNameRequired',
                             ),
                         ),
-                    email: z
-                        .string()
-                        .email(
-                            t(
-                                'services.creation.subContractModal.validation.managerEmailInvalid',
-                            ),
+                    email: z.email(
+                        t(
+                            'services.creation.subContractModal.validation.managerEmailInvalid',
                         ),
-                    phoneNumber: z.string().optional(),
+                    ),
+                    phoneNumber: z.string('El número es inválido'),
                 }),
             )
             .min(
@@ -110,22 +114,7 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                     'services.creation.subContractModal.validation.contractManagersRequired',
                 ),
             ),
-        startDate: z
-            .string()
-            .min(
-                1,
-                t(
-                    'services.creation.subContractModal.validation.datesRequired',
-                ),
-            ),
-        endDate: z
-            .string()
-            .min(
-                1,
-                t(
-                    'services.creation.subContractModal.validation.datesRequired',
-                ),
-            ),
+        dateRange: z.array(z.date() || undefined).min(1, t('common.required')),
     })
 
     type FormValues = z.infer<typeof validationSchema>
@@ -142,8 +131,18 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
         defaultValues: {
             companyName: '',
             contractManagers: [],
-            startDate: '',
-            endDate: '',
+            dateRange: [
+                editingSubContract?.startDate
+                    ? getDateFromString(editingSubContract.startDate)
+                    : tempService?.startDate
+                      ? getDateFromString(tempService?.startDate)
+                      : undefined,
+                editingSubContract?.endDate
+                    ? getDateFromString(editingSubContract.endDate)
+                    : tempService?.endDate
+                      ? getDateFromString(tempService?.endDate)
+                      : undefined,
+            ],
         },
     })
 
@@ -162,11 +161,13 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
             : undefined
 
     const onSubmit = (values: FormValues) => {
+        const startedAt = dateRange[0]?.toISOString() || ''
+        const endedAt = dateRange[1]?.toISOString() || ''
         const updatedSubContract: TSubContract = {
             companyName: values.companyName,
             contractManagers: values.contractManagers as TSubContractManager[],
-            startDate: values.startDate,
-            endDate: values.endDate,
+            startDate: startedAt,
+            endDate: endedAt,
         }
 
         let updatedSubContracts: TSubContract[]
@@ -184,16 +185,37 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
 
     useEffect(() => {
         if (editingSubContract) {
-            reset(editingSubContract)
+            const dr: [Date | undefined, Date | undefined] = [
+                editingSubContract.startDate
+                    ? getDateFromString(editingSubContract.startDate)
+                    : undefined,
+                editingSubContract.endDate
+                    ? getDateFromString(editingSubContract.endDate)
+                    : undefined,
+            ]
+            setDateRange(dr)
+            reset({
+                companyName: editingSubContract.companyName,
+                contractManagers: editingSubContract.contractManagers,
+                dateRange: dr,
+            })
         } else {
+            const dr: [Date | undefined, Date | undefined] = [
+                tempService?.startDate
+                    ? getDateFromString(tempService?.startDate)
+                    : undefined,
+                tempService?.endDate
+                    ? getDateFromString(tempService?.endDate)
+                    : undefined,
+            ]
+            setDateRange(dr)
             reset({
                 companyName: '',
                 contractManagers: [],
-                startDate: '',
-                endDate: '',
+                dateRange: dr,
             })
         }
-    }, [editingSubContract, reset])
+    }, [editingSubContract, reset, tempService])
 
     const handleClose = (
         updatedSubContracts: TSubContract[] | undefined = undefined,
@@ -242,74 +264,47 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                                 )}
                             />
                         </FormItem>
-
                         <FormItem
-                            label={t(
-                                'services.creation.subContractModal.datesLabel',
-                            )}
-                            invalid={!!errors.startDate || !!errors.endDate}
-                            errorMessage={
-                                errors.startDate?.message ||
-                                errors.endDate?.message
-                            }
+                            label="dateRange"
+                            invalid={!!errors.dateRange}
+                            errorMessage={`Rango de fechas erróneas}`}
                         >
                             <div className="flex items-center gap-2">
                                 <Controller
-                                    name="startDate"
+                                    name="dateRange"
                                     control={control}
                                     render={({ field }) => (
-                                        <DatePicker
-                                            {...field}
+                                        <DatePicker.DatePickerRange
+                                            placeholder="Selecciona el rango de fechas"
+                                            minDate={
+                                                tempService?.startDate
+                                                    ? new Date(
+                                                          tempService?.startDate,
+                                                      )
+                                                    : undefined
+                                            }
+                                            maxDate={
+                                                tempService?.endDate
+                                                    ? new Date(
+                                                          tempService?.endDate,
+                                                      )
+                                                    : undefined
+                                            }
                                             value={
-                                                field.value
-                                                    ? dayjs(
-                                                          field.value,
-                                                      ).toDate()
-                                                    : null
+                                                dateRange as [
+                                                    Date | null,
+                                                    Date | null,
+                                                ]
                                             }
-                                            onChange={(date) =>
-                                                field.onChange(
-                                                    date
-                                                        ? dayjs(date).format(
-                                                              'YYYY-MM-DD',
-                                                          )
-                                                        : '',
+                                            onChange={(date) => {
+                                                field.onChange(date)
+                                                setDateRange(
+                                                    date as [
+                                                        Date | undefined,
+                                                        Date | undefined,
+                                                    ],
                                                 )
-                                            }
-                                            placeholder={t(
-                                                'services.creation.subContractModal.startDatePlaceholder',
-                                            )}
-                                        />
-                                    )}
-                                />
-
-                                <TbMinus />
-
-                                <Controller
-                                    name="endDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <DatePicker
-                                            {...field}
-                                            value={
-                                                field.value
-                                                    ? dayjs(
-                                                          field.value,
-                                                      ).toDate()
-                                                    : null
-                                            }
-                                            onChange={(date) =>
-                                                field.onChange(
-                                                    date
-                                                        ? dayjs(date).format(
-                                                              'YYYY-MM-DD',
-                                                          )
-                                                        : '',
-                                                )
-                                            }
-                                            placeholder={t(
-                                                'services.creation.subContractModal.endDatePlaceholder',
-                                            )}
+                                            }}
                                         />
                                     )}
                                 />
@@ -411,13 +406,21 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                             <FormItem label="Número">
                                 <Input
                                     value={contractManagerDraft.phoneNumber}
-                                    placeholder="Ej: +56 9 1234 5678"
-                                    onChange={(event) =>
+                                    placeholder="ej 569 1234 5678"
+                                    type="tel"
+                                    pattern="[0-9]*"
+                                    maxLength={11}
+                                    minLength={11}
+                                    onChange={(event) => {
                                         setContractManagerDraft((current) => ({
                                             ...current,
-                                            phoneNumber: event.target.value,
+                                            phoneNumber:
+                                                event.target.value.replace(
+                                                    /[^0-9]/g,
+                                                    '',
+                                                ),
                                         }))
-                                    }
+                                    }}
                                 />
                             </FormItem>
 
@@ -428,7 +431,8 @@ const ModalAddSubContract: React.FC<TModalAddSubContract> = ({
                                 disabled={
                                     !contractManagerDraft.name.trim() ||
                                     !contractManagerDraft.email.trim() ||
-                                    !contractManagerDraft.phoneNumber.trim()
+                                    !contractManagerDraft.phoneNumber.trim() ||
+                                    !isValidEmail(contractManagerDraft.email)
                                 }
                             >
                                 Agregar ADC
