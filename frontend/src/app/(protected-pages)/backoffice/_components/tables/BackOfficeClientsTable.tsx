@@ -277,6 +277,7 @@ const BackOfficeClientsTable = ({
                         !inputVisible ? 'border-none bg-gray-50' : '',
                     )}
                     size="xs"
+                    disabled={data.length === 0}
                     icon={
                         inputVisible ? (
                             <TbX className="text-sm" />
@@ -303,6 +304,7 @@ const BackOfficeClientsTable = ({
                     variant="plain"
                     shape="circle"
                     size="xs"
+                    disabled={data.length === 0}
                     icon={editMode ? <TbX /> : <TbPencil />}
                     onClick={() => setEditMode(!editMode)}
                 />

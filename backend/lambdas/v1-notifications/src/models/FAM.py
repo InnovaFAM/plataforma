@@ -14,6 +14,9 @@ NotificationType = Literal[
     "MAX_HH_SUPERATED",
     "COLLAB_VACATION_APPROVED",
     "COLLAB_TERMINATION",
+    "COLLAB_ABSENCE",
+    "COLLAB_LICENCE",
+    "COLLAB_PERSMISSION",
     "CERTIFICATE_EXPIRATION",
     "CERTIFICATE_EXPIRATION_PLUS",
 ]
@@ -28,6 +31,9 @@ TEMPLATE_BY_NOTIFICATION_TYPE: dict[NotificationType, str] = {
     "SERVICE_TERMINATION_10": f"innovafam-{ENV}-service-termination-10",
     "SERVICE_TERMINATED": f"innovafam-{ENV}-service-terminated",
     "MAX_HH_SUPERATED": f"innovafam-{ENV}-max-hh-superated",
+    "COLLAB_ABSENCE": f"innovafam-{ENV}-collab-absence",
+    "COLLAB_LICENCE": f"innovafam-{ENV}-collab-licence",
+    "COLLAB_PERSMISSION": f"innovafam-{ENV}-collab-permission",
     "CERTIFICATE_EXPIRATION": f"innovafam-{ENV}-certificate-expiration",
     "CERTIFICATE_EXPIRATION_PLUS": f"innovafam-{ENV}-certificate-expiration-plus",
 }

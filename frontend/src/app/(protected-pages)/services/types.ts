@@ -65,11 +65,10 @@ export type TContractManager = {
 }
 
 export type TSubContractManager = {
-    contractManagers: TContractManager[]
+    contractManagers: Pick<TContractManager, 'name' | 'phoneNumber' | 'email'>[]
     companyName: string
     startDate: string
     endDate: string
-    status: string
     [key: string]: unknown
 }
 

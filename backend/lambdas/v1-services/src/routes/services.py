@@ -110,9 +110,7 @@ def create_service():
                 log_activity(user_sub, "CREATE_SERVICE", service)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=201,
-        )
+        return Response(status_code=201, body="service created successfully")
     except Exception as e:
         return error_response("PostServiceError", str(e))
 
@@ -142,6 +140,7 @@ def update_service():
             logger.warning("LogError", str(err))
         return Response(
             status_code=200,
+            body="service updated successfully",
         )
     except Exception as e:
         return error_response("PatchServiceError", str(e))

@@ -32,6 +32,19 @@ class Manager(BaseModel):
     type: Literal["cliente", "fam"] | None = None
 
 
+class SubContractManager(BaseModel):
+    name: str
+    email: str
+    phone: str
+
+
+class SubContract(BaseModel):
+    companyName: str
+    contractManagers: list[SubContractManager]
+    startDate: str
+    endDate: str
+
+
 class ServicePayload(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     name: str
@@ -40,7 +53,7 @@ class ServicePayload(BaseModel):
     startDate: str
     endDate: str
     managers: list[Manager]
-    submanagers: list[Manager]
+    submanagers: list[SubContract]
     priority: Literal["alta", "media", "baja"]
     chore: ChoreService
     division: DivisionService

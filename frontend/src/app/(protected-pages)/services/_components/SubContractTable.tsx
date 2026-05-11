@@ -7,7 +7,6 @@ import {
     getExpandedRowModel,
     flexRender,
 } from '@tanstack/react-table'
-import { z } from 'zod'
 import { HiOutlinePlusCircle, HiOutlineMinusCircle } from 'react-icons/hi'
 import type { ColumnDef, ExpandedState } from '@tanstack/react-table'
 import useTranslation from '@/utils/hooks/useTranslation'
@@ -19,20 +18,9 @@ import {
 import { getDayJsDate } from '@/components/ui/TimeInput/utils/getDayJsDate'
 import classNames from '@/utils/classNames'
 import getSubContractStatusText from '../_utils/getSubContractStatusText'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-    Button,
-    DatePicker,
-    Dialog,
-    Form,
-    FormItem,
-    Input,
-    Select,
-    Skeleton,
-} from '@/components/ui'
+import { Button, Skeleton } from '@/components/ui'
 import { TbMinus, TbPencil, TbTrash } from 'react-icons/tb'
-import dayjs from 'dayjs'
+import ModalAddSubContract from './edition-creation/ModalAddSubContract'
 
 interface SubContractTableProps {
     data: TSubContractManager[]
@@ -50,178 +38,26 @@ const SubContractTable = ({
     isLoading = false,
 }: SubContractTableProps) => {
     const t = useTranslation()
-    const [open, setOpen] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     const [editingSubContract, setEditingSubContract] =
         useState<TSubContractManager | null>(null)
 
-    const validationSchema = z.object({
-        companyName: z
-            .string()
-            .min(
-                1,
-                t(
-                    'services.creation.subContractModal.validation.companyNameRequired',
-                ),
-            ),
-        contractManagers: z
-            .array(
-                z.object({
-                    name: z
-                        .string()
-                        .min(
-                            1,
-                            t(
-                                'services.creation.subContractModal.validation.managerNameRequired',
-                            ),
-                        ),
-                    email: z
-                        .string()
-                        .email(
-                            t(
-                                'services.creation.subContractModal.validation.managerEmailInvalid',
-                            ),
-                        ),
-                    role: z
-                        .string()
-                        .min(
-                            1,
-                            t(
-                                'services.creation.subContractModal.validation.managerRoleRequired',
-                            ),
-                        ),
-                    phone: z.string().optional(),
-                }),
-            )
-            .min(
-                1,
-                t(
-                    'services.creation.subContractModal.validation.contractManagersRequired',
-                ),
-            ),
-        startDate: z
-            .string()
-            .min(
-                1,
-                t(
-                    'services.creation.subContractModal.validation.datesRequired',
-                ),
-            ),
-        endDate: z
-            .string()
-            .min(
-                1,
-                t(
-                    'services.creation.subContractModal.validation.datesRequired',
-                ),
-            ),
-        status: z.string(),
-    })
-
-    type FormValues = z.infer<typeof validationSchema>
-
-    const {
-        handleSubmit,
-        control,
-        reset,
-        formState: { errors },
-    } = useForm<FormValues>({
-        resolver: zodResolver(validationSchema),
-        defaultValues: {
-            companyName: '',
-            contractManagers: [
-                {
-                    name: 'Admin 1',
-                    email: 'admin1@example.com',
-                    role: 'Administrador de Subcontrato 1',
-                    phone: '',
-                },
-                {
-                    name: 'Admin 2',
-                    email: 'admin2@example.com',
-                    role: 'Administrador de Subcontrato 2',
-                    phone: '',
-                },
-            ],
-            startDate: '',
-            endDate: '',
-            status: 'active',
-        },
-    })
-
-    useEffect(() => {
-        if (editingSubContract) {
-            reset(editingSubContract)
-        } else {
-            reset({
-                companyName: '',
-                contractManagers: [
-                    {
-                        name: 'Admin 1',
-                        email: 'admin1@example.com',
-                        role: 'Administrador de Subcontrato 1',
-                        phone: '',
-                    },
-                    {
-                        name: 'Admin 2',
-                        email: 'admin2@example.com',
-                        role: 'Administrador de Subcontrato 2',
-                        phone: '',
-                    },
-                ],
-                startDate: '',
-                endDate: '',
-                status: 'active',
-            })
-        }
-    }, [editingSubContract, reset])
-
-    const handleClose = () => {
-        setEditingSubContract(null)
-        reset()
-        setOpen(false)
-    }
-
     const handleAddSubContract = () => {
         setEditingSubContract(null)
-        setOpen(true)
+        setOpenModal(true)
     }
 
-    const onSubmit = (values: FormValues) => {
-        const updatedSubContract: TSubContractManager = {
-            companyName: values.companyName,
-            contractManagers: values.contractManagers as TContractManager[],
-            startDate: values.startDate,
-            endDate: values.endDate,
-            status: values.status,
-        }
+    const handleClose = (
+        updatedSubContracts: TSubContractManager[] | undefined = undefined,
+    ) => {
+        console.log('updatedSubContracts', updatedSubContracts)
+        setEditingSubContract(null)
+        setOpenModal(false)
 
-        let updatedSubContracts: TSubContractManager[]
-        if (editingSubContract) {
-            updatedSubContracts = data.map((subContract) =>
-                subContract === editingSubContract
-                    ? updatedSubContract
-                    : subContract,
-            )
-        } else {
-            updatedSubContracts = [...data, updatedSubContract]
+        if (updatedSubContracts) {
+            onValueChange?.('submanagers', updatedSubContracts)
         }
-
-        onValueChange?.('submanagers', updatedSubContracts)
-        handleClose()
     }
-
-    const statusOptions = [
-        {
-            value: 'active',
-            label: t('services.creation.subContractModal.statusOptions.active'),
-        },
-        {
-            value: 'inactive',
-            label: t(
-                'services.creation.subContractModal.statusOptions.inactive',
-            ),
-        },
-    ]
 
     const ActionColumn = ({
         onEdit,
@@ -503,7 +339,7 @@ const SubContractTable = ({
                                                     setEditingSubContract(
                                                         row.original,
                                                     )
-                                                    setOpen(true)
+                                                    setOpenModal(true)
                                                 }
                                             }}
                                             onRemove={() => {
@@ -531,179 +367,12 @@ const SubContractTable = ({
                     })}
                 </TBody>
             </Table>
-            <Dialog
-                isOpen={open}
+            <ModalAddSubContract
+                open={openModal}
                 onClose={handleClose}
-                onRequestClose={handleClose}
-            >
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <h2 className="text-lg font-bold mb-6">
-                        {editingSubContract
-                            ? t('services.creation.editSubContract')
-                            : t('services.creation.addSubContract')}
-                    </h2>
-
-                    <div className="flex flex-col">
-                        <FormItem
-                            label={t(
-                                'services.creation.subContractModal.companyNameLabel',
-                            )}
-                            invalid={!!errors.companyName}
-                            errorMessage={errors.companyName?.message}
-                        >
-                            <Controller
-                                name="companyName"
-                                control={control}
-                                render={({ field }) => (
-                                    <Input
-                                        {...field}
-                                        placeholder={t(
-                                            'services.creation.subContractModal.companyNamePlaceholder',
-                                        )}
-                                    />
-                                )}
-                            />
-                        </FormItem>
-                        <FormItem
-                            label={t(
-                                'services.creation.subContractModal.contractManagersLabel',
-                            )}
-                            invalid={!!errors.contractManagers}
-                            errorMessage={errors.contractManagers?.message}
-                        >
-                            <Controller
-                                name="contractManagers"
-                                control={control}
-                                render={({ field }) => (
-                                    <Select
-                                        isMulti
-                                        {...field}
-                                        value={field.value.map((manager) => ({
-                                            value: manager.email,
-                                            label: manager.name,
-                                        }))}
-                                        onChange={(opts) =>
-                                            field.onChange(
-                                                opts.map((opt) => ({
-                                                    name: opt.label,
-                                                })),
-                                            )
-                                        }
-                                        placeholder={t(
-                                            'services.creation.subContractModal.contractManagersPlaceholder',
-                                        )}
-                                    />
-                                )}
-                            />
-                        </FormItem>
-                        <FormItem
-                            label={t(
-                                'services.creation.subContractModal.datesLabel',
-                            )}
-                            invalid={!!errors.startDate || !!errors.endDate}
-                            errorMessage={
-                                errors.startDate?.message ||
-                                errors.endDate?.message
-                            }
-                        >
-                            <div className="flex items-center gap-2">
-                                <Controller
-                                    name="startDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <DatePicker
-                                            {...field}
-                                            value={
-                                                field.value
-                                                    ? dayjs(
-                                                          field.value,
-                                                      ).toDate()
-                                                    : null
-                                            }
-                                            onChange={(date) =>
-                                                field.onChange(
-                                                    dayjs(date).format(
-                                                        'YYYY-MM-DD',
-                                                    ),
-                                                )
-                                            }
-                                            placeholder={t(
-                                                'services.creation.subContractModal.startDatePlaceholder',
-                                            )}
-                                        />
-                                    )}
-                                />
-                                <TbMinus />
-                                <Controller
-                                    name="endDate"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <DatePicker
-                                            {...field}
-                                            value={
-                                                field.value
-                                                    ? dayjs(
-                                                          field.value,
-                                                      ).toDate()
-                                                    : null
-                                            }
-                                            onChange={(date) =>
-                                                field.onChange(
-                                                    dayjs(date).format(
-                                                        'YYYY-MM-DD',
-                                                    ),
-                                                )
-                                            }
-                                            placeholder={t(
-                                                'services.creation.subContractModal.endDatePlaceholder',
-                                            )}
-                                        />
-                                    )}
-                                />
-                            </div>
-                        </FormItem>
-                        <FormItem
-                            label={t(
-                                'services.creation.subContractModal.statusLabel',
-                            )}
-                            invalid={!!errors.status}
-                            errorMessage={errors.status?.message}
-                            className="flex-1"
-                        >
-                            <Controller
-                                name="status"
-                                control={control}
-                                render={({ field }) => (
-                                    <Select
-                                        options={statusOptions}
-                                        value={statusOptions.find(
-                                            (opt) => opt.value === field.value,
-                                        )}
-                                        onChange={(opt) =>
-                                            field.onChange(opt?.value)
-                                        }
-                                    />
-                                )}
-                            />
-                        </FormItem>
-                    </div>
-
-                    <div className="flex justify-end gap-2 mt-8">
-                        <Button
-                            type="button"
-                            variant="plain"
-                            onClick={handleClose}
-                        >
-                            {t('common.cancel')}
-                        </Button>
-                        <Button type="submit">
-                            {editingSubContract
-                                ? t('common.save')
-                                : t('common.add')}
-                        </Button>
-                    </div>
-                </Form>
-            </Dialog>
+                editingSubContract={editingSubContract}
+                data={data}
+            />
         </>
     )
 }

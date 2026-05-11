@@ -295,6 +295,7 @@ const BackOfficeChoresTable = ({
                     className={classNames(
                         !inputVisible ? 'border-none bg-gray-50' : '',
                     )}
+                    disabled={data.length === 0}
                     size="xs"
                     icon={
                         inputVisible ? (
@@ -322,6 +323,7 @@ const BackOfficeChoresTable = ({
                     variant="plain"
                     shape="circle"
                     size="xs"
+                    disabled={data.length === 0}
                     icon={editMode ? <TbX /> : <TbPencil />}
                     onClick={() => setEditMode((prev) => !prev)}
                 />

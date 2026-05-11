@@ -307,6 +307,7 @@ const BackOfficeDivisionTable = ({
                             <TbSearch className="text-sm" />
                         )
                     }
+                    disabled={data.length === 0}
                     onClick={() => {
                         setSearchValue('')
                         setInputVisible((prev) => !prev)
@@ -326,6 +327,7 @@ const BackOfficeDivisionTable = ({
                     variant="plain"
                     shape="circle"
                     size="xs"
+                    disabled={data.length === 0}
                     icon={editMode ? <TbX /> : <TbPencil />}
                     onClick={() => setEditMode((prev) => !prev)}
                 />
