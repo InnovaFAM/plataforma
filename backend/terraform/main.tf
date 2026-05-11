@@ -91,21 +91,21 @@ locals {
     COLLAB_ABSENCE = {
       subject = "Colaborador {{collaboratorName}} actualizó ausencia"
       title   = "Actualización de ausencia"
-      body    = "El colaborador {{collaboratorName}} ha actualizado su ausencia en la empresa desde {{startDate}} hasta {{endDate}}."
+      body    = "El colaborador {{collaboratorName}} ha actualizado su ausencia en la empresa desde {{startDate}} hasta {{endDate}}. Motivo: {{reason}}"
       action  = "Ver colaborador"
     }
 
     COLLAB_PERMISSION = {
       subject = "Colaborador {{collaboratorName}} actualizó permiso"
       title   = "Actualización de permiso"
-      body    = "El colaborador {{collaboratorName}} ha actualizado su permiso en la empresa desde {{startDate}} hasta {{endDate}}."
+      body    = "El colaborador {{collaboratorName}} ha actualizado su permiso en la empresa desde {{startDate}} hasta {{endDate}}. Motivo: {{reason}}"
       action  = "Ver colaborador"
     }
 
     COLLAB_LICENCE = {
       subject = "Colaborador {{collaboratorName}} actualizó licencia"
       title   = "Actualización de licencia"
-      body    = "Se ha actualizado la licecnia del colaborador {{collaboratorName}} desde {{startDate}} hasta {{endDate}}. Motivo: {{reason}}"
+      body    = "Se ha actualizado la licencia del colaborador {{collaboratorName}} desde {{startDate}} hasta {{endDate}}. Motivo: {{reason}}"
       action  = "Ver colaborador"
     }
 

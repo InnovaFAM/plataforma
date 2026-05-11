@@ -188,9 +188,18 @@ def absences(
                         "reason": f"{buk_absence.status} - {buk_absence.absence_type_code} - {buk_absence.justification}",
                     },
                 )
+                _ = send_notification(
+                    "COLLAB_ABSENCE",
+                    {
+                        "collaboratorName": buk_absence.employee_id,
+                        "startDate": buk_absence.start_date,
+                        "endDate": buk_absence.end_date,
+                        "reason": f"{buk_absence.status} - {buk_absence.absence_type_code} - {buk_absence.justification}",
+                    },
+                )
                 logger.info(f"absence {absence_event.absence_id} added")
             case _:
-                pass
+                logger.warning(f"absence {absence_event.absence_id} status not handled")
 
     else:
         logger.warning(f"absence {absence_event.absence_id} not found in buk")
@@ -231,6 +240,15 @@ def permissions(
                         "endedAt": buk_permission.end_date,
                         "parentId": "FAM#TIMEOFFS",
                         "entityId": f"TIMEOFF#{permission_event.permission_id}",
+                        "reason": f"{buk_permission.status} - {buk_permission.permission_type_code} - {buk_permission.justification}",
+                    },
+                )
+                _ = send_notification(
+                    "COLLAB_PERMISSION",
+                    {
+                        "collaboratorName": buk_permission.employee_id,
+                        "startDate": buk_permission.start_date,
+                        "endDate": buk_permission.end_date,
                         "reason": f"{buk_permission.status} - {buk_permission.permission_type_code} - {buk_permission.justification}",
                     },
                 )
@@ -276,6 +294,16 @@ def licences(
                         "endedAt": buk_licence.end_date,
                         "parentId": "FAM#TIMEOFFS",
                         "entityId": f"TIMEOFF#{licence_event.licence_id}",
+                        "reason": f"{buk_licence.status} - {buk_licence.licence_type} - {buk_licence.licence_type_code}",
+                    },
+                )
+
+                _ = send_notification(
+                    "COLLAB_LICENCE",
+                    {
+                        "collaboratorName": buk_licence.employee_id,
+                        "startDate": buk_licence.start_date,
+                        "endDate": buk_licence.end_date,
                         "reason": f"{buk_licence.status} - {buk_licence.licence_type} - {buk_licence.licence_type_code}",
                     },
                 )
