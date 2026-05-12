@@ -43,9 +43,7 @@ def post():
                 log_activity(user_sub, "CREATE_CERTIFICATE", certificate)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=201,
-        )
+        return Response(status_code=201, body="Certificado created successfully")
     except Exception as e:
         return error_response("PostCertificateError", str(e))
 
@@ -64,8 +62,6 @@ def patch():
                 log_activity(user_sub, "UPDATE_CERTIFICATE", certificate)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=200,
-        )
+        return Response(status_code=200, body="Certificado updated successfully")
     except Exception as e:
         return error_response("PatchCertificateError", str(e))

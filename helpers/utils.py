@@ -25,3 +25,10 @@ def convert_floats_to_decimal(value):
         return [convert_floats_to_decimal(item) for item in value]
 
     return value
+
+
+def encode_string_key(str_key: str) -> str | None:
+    str_bytes = str_key.encode("utf-8")
+    bytes_base64 = base64.b64encode(str_bytes)
+    str_base64 = bytes_base64.decode("utf-8")
+    return str_base64.replace("=", "")

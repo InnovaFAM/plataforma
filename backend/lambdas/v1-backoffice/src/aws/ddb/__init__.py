@@ -115,23 +115,15 @@ def exists_item_by_condition(pk: str, search: dict[str, Any] | None = None) -> b
     }
 
     if search:
-        attributes_search = (
-            {f"#{encode_string_key(k)}": k for k in search.keys()} if search else {}
-        )
         filter_expression = " and ".join(
-            [
-                f"#{encode_string_key(k)} = :{encode_string_key(k)}"
-                for k in search.keys()
-            ]
+            [f"{k} = :{encode_string_key(k)}" for k in search.keys()]
         )
         query_kwargs["FilterExpression"] = filter_expression
         query_kwargs["ExpressionAttributeValues"] = {
             f":{encode_string_key(k)}": v for k, v in search.items()
         }
-        query_kwargs["ExpressionAttributeNames"] = attributes_search
 
     response = table.query(**query_kwargs)
-
     return response.get("Count", 0) > 0
 
 
@@ -144,17 +136,13 @@ def exists_item_by_index(pk: str, search: dict[str, Any] | None = None) -> bool:
     }
 
     if search:
-        attributes_search = (
-            {f"#{encode_string_key(k)}": k for k in search.keys()} if search else {}
-        )
         filter_expression = " and ".join(
-            [f"#{encode_string_key(k)} = :{k}" for k in search.keys()]
+            [f"{k} = :{encode_string_key(k)}" for k in search.keys()]
         )
         query_kwargs["FilterExpression"] = filter_expression
         query_kwargs["ExpressionAttributeValues"] = {
-            f":{k}": v for k, v in search.items()
+            f":{encode_string_key(k)}": v for k, v in search.items()
         }
-        query_kwargs["ExpressionAttributeNames"] = attributes_search
 
     response = table.query(**query_kwargs)
 

@@ -41,9 +41,7 @@ def post():
                 log_activity(user_sub, "CREATE_ROLE", role)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=201,
-        )
+        return Response(status_code=201, body="Role created successfully")
     except Exception as e:
         return error_response("PostRoleError", str(e))
 
@@ -61,8 +59,6 @@ def patch():
                 log_activity(user_sub, "UPDATE_ROLE", role)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=200,
-        )
+        return Response(status_code=200, body="Role updated successfully")
     except Exception as e:
         return error_response("PatchCertificateError", str(e))

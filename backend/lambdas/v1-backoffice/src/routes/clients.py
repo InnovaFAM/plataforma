@@ -48,9 +48,7 @@ def post():
         except Exception as err:
             logger.warning("LogError", str(err))
 
-        return Response(
-            status_code=201,
-        )
+        return Response(status_code=201, body="Client created successfully")
     except Exception as e:
         return error_response("PostClientError", str(e))
 
@@ -66,8 +64,6 @@ def patch():
                 log_activity(user_sub, "UPDATE_CLIENT", client)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=200,
-        )
+        return Response(status_code=200, body="Client updated successfully")
     except Exception as e:
         return error_response("PatchClientError", str(e))

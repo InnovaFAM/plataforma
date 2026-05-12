@@ -41,9 +41,7 @@ def post():
                 log_activity(user_sub, "CREATE_SHIFT", chore)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=201,
-        )
+        return Response(status_code=201, body="shift created successfully")
     except Exception as e:
         return error_response("PostShiftError", str(e))
 
@@ -61,8 +59,6 @@ def patch():
                 log_activity(user_sub, "UPDATE_SHIFT", shift)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=200,
-        )
+        return Response(status_code=200, body="Shift updated successfully")
     except Exception as e:
         return error_response("PatchShiftError", str(e))

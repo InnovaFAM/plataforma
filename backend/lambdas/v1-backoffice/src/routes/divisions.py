@@ -41,9 +41,7 @@ def post():
                 log_activity(user_sub, "CREATE_DIVISION", division)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=201,
-        )
+        return Response(status_code=201, body="Division created successfully")
     except Exception as e:
         return error_response("PostDivisionError", str(e))
 
@@ -61,8 +59,6 @@ def patch():
                 log_activity(user_sub, "UPDATE_DIVISION", division)
         except Exception as err:
             logger.warning("LogError", str(err))
-        return Response(
-            status_code=200,
-        )
+        return Response(status_code=200, body="Division updated successfully")
     except Exception as e:
         return error_response("PatchDivisionError", str(e))
