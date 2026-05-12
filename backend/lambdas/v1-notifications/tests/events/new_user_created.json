@@ -1,0 +1,9 @@
+{
+  "type": "NEW_USER_CREATED",
+  "createdAt": "2026-05-05T09:26:05+0000",
+  "payload": {
+    "firstName": "Patricio Cornejo",
+    "email": "soporte@innovafam.cl",
+    "platformName": "SIGES InnovaFAM"
+  }
+}

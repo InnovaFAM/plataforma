@@ -10,6 +10,17 @@ from models.FAM import Event
 def lambda_handler(event: dict[str, Any], context):
     try:
         notification = Event.model_validate(event)
+
+        if notification.type == "NEW_USER_CREATED":
+            _ = send_notification_email(
+                notification_type=notification.type,
+                to_email=notification.payload["email"],
+                template_data={
+                    **notification.payload,
+                },
+            )
+            return
+
         system_roles = get_all_items("FAM#SYSTEMROLES", ["notifications", "sk"])
         for role in system_roles:
             if notification.type in role.get("notifications", []):

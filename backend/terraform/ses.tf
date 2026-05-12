@@ -72,3 +72,18 @@ ${each.value.action}:
 Este correo fue generado automáticamente por {{appName}}.
 TEXT
 }
+
+resource "aws_ses_template" "new_user_created" {
+  name    = local.new_user_created_template_name
+  subject = "Bienvenido a {{platformName}}"
+
+  html = templatefile("${path.module}/templates/new_user_created.html", {
+    platform_name = var.platform_name
+    app_url       = var.app_url
+  })
+
+  text = templatefile("${path.module}/templates/new_user_created.txt", {
+    platform_name = var.platform_name
+    app_url       = var.app_url
+  })
+}

@@ -5,6 +5,9 @@ REGION_NAME = os.getenv("REGION_NAME", "us-east-1")
 
 TABLE_NAME = os.getenv("TABLE_NAME", f"CoreBusiness_{ENV}")
 ACTIVITY_TABLE_NAME = os.getenv("ACTIVITY_TABLE_NAME", f"AuditLogs_{ENV}")
+NOTIFICATION_FUNCTION_NAME = os.getenv(
+    "NOTIFICATION_FUNCTION_NAME", f"innovafam-v1-notifications-{ENV}"
+)
 
 
 USER_POOL_ID = os.getenv("COGNITO_USER_POOL_ID")

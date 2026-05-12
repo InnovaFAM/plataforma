@@ -1,0 +1,16 @@
+Bienvenido a ${platform_name}
+
+Hola {{firstName}},
+
+Tu cuenta ha sido creada correctamente.
+
+Desde ahora podrás ingresar a la plataforma para revisar la información, notificaciones y acciones disponibles para tu perfil.
+
+Correo registrado: {{email}}
+
+Ingresa aquí:
+${app_url}
+
+Si no esperabas este correo, puedes ignorarlo o contactar al administrador de la plataforma.
+
+Este es un correo automático. Por favor no respondas a este mensaje.

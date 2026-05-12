@@ -130,6 +130,14 @@ data "aws_iam_policy_document" "users_role_policy" {
       data.aws_cognito_user_pool.nextjs_app_pool.arn
     ]
   }
+
+
+
+    statement {
+      effect = "Allow"
+      actions = ["lambda:InvokeFunction"]
+      resources = [module.notifications.lambda_arn]
+    }
 }
 
 resource "aws_iam_role_policy" "users_role_policy" {

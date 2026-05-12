@@ -19,3 +19,13 @@ variable "project_name" {
   type        = string
   default     = "innovafam"
 }
+
+variable "platform_name" {
+  type    = string
+  default = "SIGES InnovaFAM"
+}
+
+variable "app_url" {
+  type = string
+  default = "https://siges.innovafam.cl"
+}

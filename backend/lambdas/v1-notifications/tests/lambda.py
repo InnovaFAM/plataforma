@@ -21,6 +21,7 @@ def lambda_handler(api_event: dict[str, Any]):
 
 
 if __name__ == "__main__":
-    with open("./tests/events/service_confirmed.json", "r") as f:
+    # with open("./tests/events/service_confirmed.json", "r") as f:
+    with open("./tests/events/new_user_created.json", "r") as f:
         data = json.load(f)
         lambda_handler(data)

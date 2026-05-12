@@ -14,6 +14,7 @@ from aws.ddb import (
     query_users_by_parent_id,
     update_item,
 )
+from aws.lbda import send_notification
 from constants import ACTIVITY_TABLE_NAME
 from logger import logger
 from models.General import PatchUserBodyRequest
@@ -147,8 +148,18 @@ def post():
                     log_activity(user_sub, "CREATE_USER", new_user)
             except Exception as err:
                 logger.warning("LogError", str(err))
+
+            try:
+                _ = send_notification(
+                    {
+                        "firstName": body.name,
+                        "email": body.email,
+                    }
+                )
+            except Exception as err:
+                logger.warning("NotificationError", str(err))
             return Response(
-                status_code=201,
+                status_code=201, body=f"User {new_user['name']} created successfully"
             )
         else:
             return error_response("PostUserError", "User already exists")

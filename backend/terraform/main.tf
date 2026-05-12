@@ -22,6 +22,9 @@ locals {
 
   template_prefix = "innovafam-${var.aws_env}"
 
+  new_user_created_template_name = "${var.project_name}-${var.aws_env}-new-user-created"
+  new_user_created_template_arn = "arn:aws:ses:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:template/${local.new_user_created_template_name}"
+
   ses_identity_arn = "arn:aws:ses:${var.aws_region}:${data.aws_caller_identity.current.account_id}:identity/${var.from_email}"
 
   notification_templates = {

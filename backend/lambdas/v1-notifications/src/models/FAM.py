@@ -19,6 +19,7 @@ NotificationType = Literal[
     "COLLAB_PERSMISSION",
     "CERTIFICATE_EXPIRATION",
     "CERTIFICATE_EXPIRATION_PLUS",
+    "NEW_USER_CREATED",
 ]
 
 TEMPLATE_BY_NOTIFICATION_TYPE: dict[NotificationType, str] = {
@@ -36,6 +37,7 @@ TEMPLATE_BY_NOTIFICATION_TYPE: dict[NotificationType, str] = {
     "COLLAB_PERSMISSION": f"innovafam-{ENV}-collab-permission",
     "CERTIFICATE_EXPIRATION": f"innovafam-{ENV}-certificate-expiration",
     "CERTIFICATE_EXPIRATION_PLUS": f"innovafam-{ENV}-certificate-expiration-plus",
+    "NEW_USER_CREATED": f"innovafam-{ENV}-new-user-created",
 }
 
 
