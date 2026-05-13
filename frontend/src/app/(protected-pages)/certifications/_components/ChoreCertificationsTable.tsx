@@ -14,7 +14,7 @@ import {
 } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
 import { TbPencil, TbX } from 'react-icons/tb'
-import { FaRegSave } from 'react-icons/fa'
+import { FaExpand, FaRegSave } from 'react-icons/fa'
 import dayjs from 'dayjs'
 import { TCertificate, TChoreCertificationsResponse } from '../types'
 import { useCertificationsMatrixStore } from '../_store/certificationsStore'
@@ -24,6 +24,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { certificationKeys } from '@/server/actions/certifications/certification-keys'
 import useCurrentSession from '@/utils/hooks/useCurrentSession'
 import { useCan } from '@/hooks/useCan'
+import classNames from 'classnames'
 
 interface ChoreCertificationsTableProps {
     data?: TChoreCertificationsResponse
@@ -42,6 +43,7 @@ const ChoreCertificationsTable = ({
     const queryClient = useQueryClient()
     const { session } = useCurrentSession()
 
+    const [tableViewMode, setTableViewMode] = useState<'page' | 'modal'>('page')
     const [editMode, setEditMode] = useState(false)
     const [pageIndex, setPageIndex] = useState(1)
     const [pageSize, setPageSize] = useState(10)
@@ -237,8 +239,132 @@ const ChoreCertificationsTable = ({
         return certificates.slice(start, start + pageSize)
     }, [certificates, pageIndex, pageSize])
 
+    const renderTable = useMemo(
+        () => (
+            <DataTable
+                enableColumnVirtualization
+                columns={columns}
+                data={pagedData}
+                loading={isLoadingData}
+                pageSizes={[5, 10, 20]}
+                bodyMaxHeight={tableViewMode === 'modal' ? undefined : 300}
+                pagingData={{
+                    total: certificates.length,
+                    pageIndex,
+                    pageSize,
+                }}
+                onPaginationChange={(page) => setPageIndex(page)}
+                onSelectChange={(size) => {
+                    setPageSize(size)
+                    setPageIndex(1)
+                }}
+            />
+        ),
+        [
+            pagedData,
+            certificates.length,
+            columns,
+            isLoadingData,
+            pageIndex,
+            pageSize,
+            tableViewMode,
+        ],
+    )
+
+    const toolsRow = (
+        <div className="flex justify-end gap-2">
+            {isLoading ? (
+                <Spinner size={24} />
+            ) : editMode ? (
+                <>
+                    <Tooltip title={t('common.discard')}>
+                        <Button
+                            variant="plain"
+                            shape="circle"
+                            size="xs"
+                            icon={<TbX />}
+                            onClick={() => setIsDiscardDialogOpen(true)}
+                        />
+                    </Tooltip>
+                    <Tooltip title={t('common.save')}>
+                        <Button
+                            variant="plain"
+                            shape="circle"
+                            size="xs"
+                            icon={<FaRegSave />}
+                            disabled={!hasChanges}
+                            onClick={handleSave}
+                        />
+                    </Tooltip>
+                </>
+            ) : (
+                <>
+                    <Button
+                        variant="plain"
+                        shape="circle"
+                        size="xs"
+                        icon={<TbPencil />}
+                        onClick={handleEnterEditMode}
+                    />
+                    <Button
+                        className={classNames(
+                            tableViewMode === 'modal' ? 'hidden' : '',
+                        )}
+                        variant="plain"
+                        shape="circle"
+                        size="xs"
+                        icon={<FaExpand />}
+                        onClick={() => {
+                            setPageSize(20)
+                            setTableViewMode((prev) =>
+                                prev === 'page' ? 'modal' : 'page',
+                            )
+                        }}
+                    />
+                </>
+            )}
+        </div>
+    )
+
     return (
         <>
+            <AdaptiveCard
+                className="mt-2"
+                footer={{
+                    className:
+                        'bg-gray-50 dark:bg-gray-700 pb-2 pt-2 rounded-b-2xl flex justify-end gap-2',
+                    content: (
+                        <div className="flex gap-2 items-center">
+                            {canEdit && toolsRow}
+                        </div>
+                    ),
+                }}
+            >
+                {renderTable}
+            </AdaptiveCard>
+            <Dialog
+                className="min-w-[90vw]"
+                contentClassName="h-[80vh] flex flex-col"
+                isOpen={tableViewMode === 'modal'}
+                onClose={() => {
+                    setPageSize(10)
+                    setTableViewMode('page')
+                }}
+                onRequestClose={() => {
+                    setPageSize(10)
+                    setTableViewMode('page')
+                }}
+            >
+                <div className="flex flex-col h-full">
+                    <h4 className="heading-text text-xl font-bold mb-2">
+                        Matriz de Faena / Certificaciones
+                    </h4>
+                    <div className="bg-gray-50 dark:bg-gray-700 mt-8 py-2 rounded-t-2xl flex justify-end gap-2 px-4 shrink-0">
+                        {toolsRow}
+                    </div>
+                    <div className="flex-1 overflow-auto">{renderTable}</div>
+                </div>
+            </Dialog>
             <Dialog
                 isOpen={isDiscardDialogOpen}
                 onClose={() => setIsDiscardDialogOpen(false)}
@@ -268,80 +394,6 @@ const ChoreCertificationsTable = ({
                     </div>
                 </div>
             </Dialog>
-            <AdaptiveCard
-                className="mt-2"
-                footer={{
-                    className:
-                        'bg-gray-50 dark:bg-gray-700 pb-2 pt-2 rounded-b-2xl flex justify-end gap-2',
-                    content: (
-                        <div className="flex gap-2 items-center">
-                            {canEdit && (
-                                <>
-                                    {isLoading ? (
-                                        <Spinner size={24} />
-                                    ) : editMode ? (
-                                        <>
-                                            <Tooltip
-                                                title={t('common.discard')}
-                                            >
-                                                <Button
-                                                    variant="plain"
-                                                    shape="circle"
-                                                    size="xs"
-                                                    icon={<TbX />}
-                                                    onClick={() =>
-                                                        setIsDiscardDialogOpen(
-                                                            true,
-                                                        )
-                                                    }
-                                                />
-                                            </Tooltip>
-                                            <Tooltip title={t('common.save')}>
-                                                <Button
-                                                    variant="plain"
-                                                    shape="circle"
-                                                    size="xs"
-                                                    icon={<FaRegSave />}
-                                                    disabled={!hasChanges}
-                                                    onClick={handleSave}
-                                                />
-                                            </Tooltip>
-                                        </>
-                                    ) : (
-                                        <Button
-                                            variant="plain"
-                                            shape="circle"
-                                            size="xs"
-                                            icon={<TbPencil />}
-                                            onClick={handleEnterEditMode}
-                                        />
-                                    )}
-                                </>
-                            )}
-                        </div>
-                    ),
-                }}
-            >
-                <DataTable
-                    enableColumnVirtualization
-                    columns={columns}
-                    data={pagedData}
-                    loading={isLoadingData}
-                    pageSizes={[5, 10, 20]}
-                    bodyMaxHeight={300}
-                    bodyMinHeight={300}
-                    pagingData={{
-                        total: certificates.length,
-                        pageIndex,
-                        pageSize,
-                    }}
-                    onPaginationChange={(page) => setPageIndex(page)}
-                    onSelectChange={(size) => {
-                        setPageSize(size)
-                        setPageIndex(1)
-                    }}
-                />
-            </AdaptiveCard>
         </>
     )
 }
