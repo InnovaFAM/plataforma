@@ -61,9 +61,7 @@ def export_services():
     try:
         if user_sub := router.context.get("user_sub"):
             invoke_export_services(user_sub)
-            return Response(
-                status_code=202,
-            )
+            return Response(status_code=202, body="Export services successfully")
         return error_response("ExportServicesError", "User sub not found")
     except (Exception, ValueError) as e:
         return error_response("ExportServicesError", str(e))
@@ -74,9 +72,7 @@ def export_service_by_code(service_code: str):
     try:
         if user_sub := router.context.get("user_sub"):
             invoke_export_services(user_sub, service_code)
-            return Response(
-                status_code=202,
-            )
+            return Response(status_code=202, body="Export service successfully")
         return error_response("ExportServiceError", "User sub not found")
     except (Exception, ValueError) as e:
         return error_response("ExportServiceError", str(e))

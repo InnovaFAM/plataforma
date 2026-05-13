@@ -5,7 +5,7 @@ import { apiListCollaborators } from '@/services/CollaboratorsService'
 
 export const listCollaborators = async (
     nextToken?: string,
-    pageSize: number = 100,
+    pageSize: number = 500,
 ): Promise<ServerResponse<TCollaboratorsList>> => {
     return await apiListCollaborators(nextToken, pageSize)
 }

@@ -51,20 +51,22 @@ def find_items_affected_by_parent_date_change(
         KeyConditionExpression=Key("parentId").eq(parentId),
     )
 
-    affected_items = []
+    affected_items: list[dict[str, Any]] = []
     for item in response.get("Items", []):
         startedAt = item.get("startedAt")
         endedAt = item.get("endedAt")
 
-        if startedAt and endedAt:
-            # Si new_startedAt está dentro del rango del item
-            started_at_affected = startedAt <= new_startedAt <= endedAt
-            # Si new_endedAt está dentro del rango del item
-            ended_at_affected = startedAt <= new_endedAt <= endedAt
+        if not startedAt or not endedAt:
+            continue
 
-            # Si cualquiera de las dos fechas cae dentro, el item está afectado
-            if started_at_affected or ended_at_affected:
-                affected_items.append(item)
+        if not isinstance(startedAt, str):
+            continue
+
+        if not isinstance(endedAt, str):
+            continue
+
+        if startedAt <= new_endedAt and endedAt >= new_startedAt:
+            affected_items.append(item)
 
     return affected_items
 
@@ -100,19 +102,6 @@ def get_all_items(pk: str, names: list[str] | None = None) -> list[dict[str, Any
             break
 
     return all_items
-
-
-def get_role_by_name(
-    name: str,
-) -> Role | None:
-    query_kwargs: dict[str, Any] = {
-        "KeyConditionExpression": Key("pk").eq("FAM#ROLES"),
-        "FilterExpression": Key("name").eq(name),
-    }
-
-    response = table.query(**query_kwargs)
-    if items := response.get("Items", []):
-        return Role(**items[0])
 
 
 def get_paginated_items(
@@ -244,10 +233,3 @@ def log_activity(user_hash: str, action: str, data_payload: Any = None):
     if data_payload:
         item["data"] = data_payload
     _ = activity_table.put_item(Item=item)
-
-
-def delete_item(pk: str, sk: str):
-    try:
-        _ = table.delete_item(Key={"pk": pk, "sk": sk})
-    except Exception as e:
-        raise Exception(f"Error deleting item pk: {pk}, sk: {sk} - {e}")
