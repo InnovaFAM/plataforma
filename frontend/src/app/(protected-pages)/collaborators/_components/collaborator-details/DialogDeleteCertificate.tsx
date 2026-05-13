@@ -4,10 +4,11 @@ import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import Dialog from '@/components/ui/Dialog'
 import type { MouseEvent } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
 import { deleteCertificate } from '@/server/actions/collaborators/save-collaborator-certificate'
 import { toast, Notification } from '@/components/ui'
+import { collaboratorKeys } from '@/server/actions/collaborators/collaborator-keys'
 
 type DialogDeleteCertificateProps = {
     isOpen: boolean
@@ -26,6 +27,7 @@ const DialogDeleteCertificate = ({
     onClose,
     onDeleted,
 }: DialogDeleteCertificateProps) => {
+    const queryClient = useQueryClient()
     const { protectedQueryFn } = useProtectedQueryFn()
     const [isDeleting, setIsDeleting] = useState(false)
 
@@ -38,20 +40,33 @@ const DialogDeleteCertificate = ({
     const deleteMutation = useMutation({
         mutationFn: () =>
             protectedQueryFn(() =>
-                deleteCertificate(collaboratorId, certificateSk || ''),
+                deleteCertificate(
+                    collaboratorId,
+                    certificateSk?.split('#')[1] || '',
+                ),
             ),
         onSuccess: () => {
             onDeleted?.(certificateSk!)
             onClose()
         },
-        onError: (error) => {
+        onError: async (error) => {
             toast.push(
-                <Notification title="Error al borrar certificado" type="danger">
+                <Notification
+                    closable
+                    title="Error al borrar certificado"
+                    type="danger"
+                >
                     {error instanceof Error
                         ? error.message
                         : 'No fue posible eliminar el certificado.'}
                 </Notification>,
             )
+
+            await queryClient.invalidateQueries({
+                queryKey: collaboratorKeys.singleCollaborator(collaboratorId),
+            })
+
+            setIsDeleting(false)
         },
     })
 

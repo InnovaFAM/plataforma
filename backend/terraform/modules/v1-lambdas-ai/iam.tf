@@ -50,6 +50,18 @@ data "aws_iam_policy_document" "connections_policy" {
     actions   = ["bedrock:InvokeModel", "bedrock:Converse"]
     resources = ["*"]
   }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "aws-marketplace:ViewSubscriptions",
+      "aws-marketplace:Subscribe",
+      "aws-marketplace:Unsubscribe"
+    ]
+
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role_policy" "connections_policy" {

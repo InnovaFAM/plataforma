@@ -665,7 +665,7 @@ const CollaboratorCertificatesCompliance = ({
             />
             <DialogDeleteCertificate
                 isOpen={deleteDialogIsOpen && Boolean(selectedCertificate)}
-                collaboratorId={data.sk}
+                collaboratorId={data.sk?.split('#')[1]}
                 certificateSk={selectedCertificate?.sk}
                 certificateName={selectedCertificate?.name}
                 onClose={handleModalClose}
