@@ -7,6 +7,7 @@ from pyrut import validate_rut
 
 from models.ddb.Certificate import Matrix
 from models.ddb.Holiday import HolidayType
+from models.ddb.Shift import ShiftData
 
 
 class PaginatedResponse(BaseModel):
@@ -118,6 +119,7 @@ class PatchShiftBodyRequest(BaseModel):
     name: str | None = None
     type: str | None = None
     distribution: str | None = None
+    data: ShiftData | None = None
     status: bool | None = None
 
     @field_validator("sk")

@@ -80,7 +80,7 @@ const BackOfficeCreateShiftModal = ({
             weeklyHours: z
                 .number('Horas semanales es requerido')
                 .positive('Horas semanales debe ser mayor a 0')
-                .max(42, 'Horas semanales no puede superar 42'),
+                .max(48, 'Horas semanales no puede superar 42'),
         }),
     })
 
@@ -179,8 +179,8 @@ const BackOfficeCreateShiftModal = ({
                 distribution: tempShift.distribution || '',
                 type: tempShift.type == 'Día' ? ShiftType.Día : ShiftType.Noche,
                 data: {
-                    hoursPerDay: tempShift.data?.hoursPerDay || 0,
-                    weeklyHours: tempShift.data?.weeklyHours || 0,
+                    hoursPerDay: Number(tempShift.data?.hoursPerDay) || 0,
+                    weeklyHours: Number(tempShift.data?.weeklyHours) || 0,
                 },
             })
         } else {
@@ -339,9 +339,17 @@ const BackOfficeCreateShiftModal = ({
                                         type="number"
                                         min={1}
                                         max={24}
-                                        step="0.5"
+                                        step="0.1"
                                         placeholder="Ej: 8"
                                         disabled={isPending}
+                                        onChange={(e) => {
+                                            const value = e.target.value
+                                            field.onChange(
+                                                value === ''
+                                                    ? undefined
+                                                    : Number(value),
+                                            )
+                                        }}
                                     />
                                 )}
                             />
@@ -360,10 +368,18 @@ const BackOfficeCreateShiftModal = ({
                                         {...field}
                                         type="number"
                                         min={1}
-                                        max={40}
-                                        step="0.5"
+                                        max={48}
+                                        step="0.1"
                                         placeholder="Ej: 40"
                                         disabled={isPending}
+                                        onChange={(e) => {
+                                            const value = e.target.value
+                                            field.onChange(
+                                                value === ''
+                                                    ? undefined
+                                                    : Number(value),
+                                            )
+                                        }}
                                     />
                                 )}
                             />
@@ -387,7 +403,7 @@ const BackOfficeCreateShiftModal = ({
                         loading={isPending}
                         disabled={isPending}
                     >
-                        {t('common.save')}
+                        {isEditing ? 'Actualizar' : t('common.save')}
                     </Button>
                 </div>
             </Form>

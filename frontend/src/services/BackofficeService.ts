@@ -313,12 +313,18 @@ export const apiCreateShift = async (
 ): Promise<ServerResponse<void>> => {
     const accessToken = await getAccessToken()
     return ApiService.fetchDataWithAxios<void>({
-        url: '/backoffice/chores',
+        url: '/backoffice/shifts',
         method: 'post',
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
-        data,
+        data: {
+            ...data,
+            data: {
+                ...data.data,
+                shiftType: data.name,
+            },
+        },
     })
 }
 
@@ -327,11 +333,17 @@ export const apiUpdateShift = async (
 ): Promise<ServerResponse<void>> => {
     const accessToken = await getAccessToken()
     return ApiService.fetchDataWithAxios<void>({
-        url: '/backoffice/chores',
+        url: '/backoffice/shifts',
         method: 'patch',
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
-        data,
+        data: {
+            ...data,
+            data: {
+                ...data.data,
+                shiftType: data.name,
+            },
+        },
     })
 }
