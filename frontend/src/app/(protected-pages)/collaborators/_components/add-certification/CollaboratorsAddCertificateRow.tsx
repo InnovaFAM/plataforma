@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
     TbFileTypePdf,
     TbPhoto,
@@ -14,7 +14,10 @@ import { useCollaboratorsStore } from '../../_store/collaboratorsStore'
 import { TCertificateRow, TCollaboratorCertificate } from '../../types'
 import { getUploadUrl } from '@/server/actions/collaborators/get-upload-url'
 import { checkCertificateStatus } from '@/server/actions/collaborators/check-certificate-status'
-import { certificateKeys } from '@/server/actions/collaborators/collaborator-keys'
+import {
+    certificateKeys,
+    collaboratorKeys,
+} from '@/server/actions/collaborators/collaborator-keys'
 import { Button, DatePicker, Input, Notification, toast } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
 import { FaRegSave } from 'react-icons/fa'
@@ -112,6 +115,7 @@ const CollaboratorsAddCertificationCertificateRow = ({
     collaboratorId,
 }: Props) => {
     const t = useTranslation()
+    const queryClient = useQueryClient()
     const updateRow = useCollaboratorsStore((s) => s.updateCertificateRow)
     const removeRow = useCollaboratorsStore((s) => s.removeCertificateRow)
     const setSelectedCertificate = useCollaboratorsStore(
@@ -313,7 +317,7 @@ const CollaboratorsAddCertificationCertificateRow = ({
 
             return response.data
         },
-        onSuccess: () => {
+        onSuccess: async () => {
             updateRow(row.tempId, {
                 isSaved: true,
                 hasChanges: false,
@@ -326,6 +330,10 @@ const CollaboratorsAddCertificationCertificateRow = ({
                     type="success"
                 />,
             )
+
+            await queryClient.invalidateQueries({
+                queryKey: collaboratorKeys.singleCollaborator(collaboratorId),
+            })
         },
         onError: (err: Error) => {
             toast.push(

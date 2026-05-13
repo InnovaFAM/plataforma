@@ -156,9 +156,7 @@ const CollaboratorsAddCertificationContent = ({ collaboratorId }: Props) => {
                             )
                         }
                         onClick={() => {
-                            if (allSaved) {
-                                router.push(`/collaborators/${collaboratorId}`)
-                            }
+                            handleDiscard()
                         }}
                     >
                         {allSaved ? 'Salir' : t('common.cancel')}

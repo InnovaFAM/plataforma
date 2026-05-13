@@ -45,11 +45,14 @@ const DialogDeleteCertificate = ({
                     certificateSk?.split('#')[1] || '',
                 ),
             ),
-        onSuccess: () => {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: collaboratorKeys.singleCollaborator(collaboratorId),
+            })
             onDeleted?.(certificateSk!)
             onClose()
         },
-        onError: async (error) => {
+        onError: (error) => {
             toast.push(
                 <Notification
                     closable
@@ -61,10 +64,6 @@ const DialogDeleteCertificate = ({
                         : 'No fue posible eliminar el certificado.'}
                 </Notification>,
             )
-
-            await queryClient.invalidateQueries({
-                queryKey: collaboratorKeys.singleCollaborator(collaboratorId),
-            })
 
             setIsDeleting(false)
         },
