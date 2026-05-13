@@ -155,9 +155,13 @@ const CollaboratorsAddCertificationContent = ({ collaboratorId }: Props) => {
                                     : 'text-red-400 hover:bg-red-50 hover:text-red-500 hover:border-red-500',
                             )
                         }
-                        onClick={handleDiscard}
+                        onClick={() => {
+                            if (allSaved) {
+                                router.push(`/collaborators/${collaboratorId}`)
+                            }
+                        }}
                     >
-                        {t('common.cancel')}
+                        {allSaved ? 'Salir' : t('common.cancel')}
                     </Button>
 
                     {!allRowsProcessed && (
