@@ -13,6 +13,7 @@ import Loading from '../../[slug]/loading'
 import CollaboratorDetailsShift from './CollaboratorDetailsShift'
 import CollaboratorCertificatesCompliance from './CollaboratorCertificatesCompliance'
 import { useProtectedQueryFn } from '@/hooks/useProtectedQueryFn'
+import { TCollaboratorEntity } from '../../types'
 
 interface CollaboratorDetailsContentProps {
     collaboratorId: string
@@ -28,11 +29,13 @@ const CollaboratorDetailsContent = ({
         queryKey: collaboratorKeys.singleCollaborator(collaboratorId),
         queryFn: async () =>
             protectedQueryFn(() => getCollaboratorById(collaboratorId)),
+        enabled: collaboratorId !== undefined,
     })
 
     if (isLoading || isFetching) return <Loading />
 
-    const collaboratorData = data?.data
+    const collaboratorData =
+        data?.data || (data as unknown as TCollaboratorEntity)
 
     return (
         <>

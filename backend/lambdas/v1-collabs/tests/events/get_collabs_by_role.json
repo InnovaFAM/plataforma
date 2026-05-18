@@ -1,61 +1,61 @@
 {
   "version": "2.0",
   "routeKey": "ANY /collabs/{proxy+}",
-  "rawPath": "/innovafam-v1-stage/collabs/by/role",
+  "rawPath": "/innovafam-v1-prod/collabs/by/role",
   "rawQueryString": "",
   "headers": {
     "accept": "application/json, text/plain, */*",
     "accept-encoding": "gzip, compress, deflate, br",
-    "authorization": "Bearer eyJraWQiOiIwb1dTTzIyWCtjdjljcFo1QjhqODE1YStRRHl3K3luZnkrUDhGcDlvZGljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJkNDM4NDQzOC1jMGQxLTcwZmYtZjliMC0yMTRkNjcxZDFiZDAiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9vWkEzUHM2ZUgiLCJjbGllbnRfaWQiOiIzdTQ1dGF0MmZqMHEzcGxwMXYzaTYwZDZ1ZyIsIm9yaWdpbl9qdGkiOiI3MDdkNTZhYS00NWE0LTQ0NTQtODY2Yi0wZDdlMjk3ZDFjYmMiLCJldmVudF9pZCI6ImQ0Y2RmMDU3LTFjZDctNGI5YS1hOTk0LTQ3MjM3YmQ4ODI0OSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3NzgxODE5NTYsImV4cCI6MTc3ODIxNzk1NiwiaWF0IjoxNzc4MTgxOTU2LCJqdGkiOiI1ZWViNDFlOS0yYzYxLTQwNDMtYmI1Ni04OWNkZjdkM2Q3OWQiLCJ1c2VybmFtZSI6ImQ0Mzg0NDM4LWMwZDEtNzBmZi1mOWIwLTIxNGQ2NzFkMWJkMCJ9.Me_U7_-AHj3ZW-ncJzLd2ycouzVufUhm57gGdy4vlA39dUjU0SoyY5Mxyo3Trtv4XI315s9ii7xEvdx-D40CDcG4vw1P8n5fOivz96Vibj6SEnp-L91STb0FiIwudltJ3dnkjVlXEa_Mtvq1JZVYed8Op2lYirXTle5NBJoS1i34s-iZlYDHXHSsqgCDf-ix-dX3Mo3-1l6dI-xmifdBJp3GqvVnnulnzufvSqgmIQj-cfo_a_R5qP0oUQEmuqw-cx-_r1laTkoqiN15E6jRinAUtHx3_D9fBwncD44PI6-eLgr2qTrVdmMBJBHSJnY1huvtHaKq-fg0_FaJzowMfw",
-    "content-length": "232",
+    "authorization": "Bearer eyJraWQiOiIrQjdlY0o3YzdhRjl0RVRpTzhYdDZoYlpDOFwvaUVMZ0xoVFpPaHJUa1Jlcz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3NDE4MDQ5OC0xMDgxLTcwMzItNTlhMy02ODA2NTIyYTBiYzUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV8zQUppdUE3RVIiLCJjbGllbnRfaWQiOiI2amJzOWt2NzFhZDZjbzhzdXZibnJrNnRlciIsIm9yaWdpbl9qdGkiOiI2N2YzZjI5Ni04YjIxLTRhYTAtOTA4OC01ZDc4NDgzY2VhN2EiLCJldmVudF9pZCI6IjFkYTI5NzAzLTY5ZGMtNDg3NC1hNjA3LTUxY2U1YTA4ZDIxOCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3Nzg4NzY3MTEsImV4cCI6MTc3ODkxMjcxMSwiaWF0IjoxNzc4ODc2NzExLCJqdGkiOiJiN2E5NmI5NS01MWU1LTQzZDctYWU1OS02MmVhODA2ZDQ2ZmEiLCJ1c2VybmFtZSI6Ijc0MTgwNDk4LTEwODEtNzAzMi01OWEzLTY4MDY1MjJhMGJjNSJ9.aUznV6TtX6muicSeTLEatXKc2HwcRG_x4h5hKFkTadIeTh6H5lf2pZgDOo1zyHE-obLFipFcP9GBOwyJi9QCEhgMa5rpLWWFD-TvTJvM4-lTM9PV673fOsHin44ajWJxtq9AiHsfMfDmnO60ZjvjgyMw5WVbcoP4euRVd45HkjrOhcy5yaP5VuXiKcxODHfl3ZktUlhtzVN5GtLG8SlHGJsP3uj_Qur9KYQYVMh5zGllq66cGDi6sI_ATdE0dGV0R_a-VrD6jev290LeqtQQqh6HzhmT6pdNafE2yXQcTkhG8aHutl9KaFS1jGgNZt_bZdOVxGQTWXHFBqMLgRfbXA",
+    "content-length": "330",
     "content-type": "application/json",
-    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "host": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
     "user-agent": "axios/1.13.2",
-    "x-amzn-trace-id": "Root=1-69fd0ada-70d2539f098970227e8de49f",
+    "x-amzn-trace-id": "Root=1-6a07814c-6215c59278d8d85a2602d488",
     "x-forwarded-for": "181.190.36.166",
     "x-forwarded-port": "443",
     "x-forwarded-proto": "https"
   },
   "requestContext": {
-    "accountId": "683953625718",
-    "apiId": "pkdzgs9mbl",
+    "accountId": "376218549266",
+    "apiId": "zq2gf2yyyg",
     "authorizer": {
       "jwt": {
         "claims": {
-          "auth_time": "1778181956",
-          "client_id": "3u45tat2fj0q3plp1v3i60d6ug",
-          "event_id": "d4cdf057-1cd7-4b9a-a994-47237bd88249",
-          "exp": "1778217956",
-          "iat": "1778181956",
-          "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_oZA3Ps6eH",
-          "jti": "5eeb41e9-2c61-4043-bb56-89cdf7d3d79d",
-          "origin_jti": "707d56aa-45a4-4454-866b-0d7e297d1cbc",
+          "auth_time": "1778876711",
+          "client_id": "6jbs9kv71ad6co8suvbnrk6ter",
+          "event_id": "1da29703-69dc-4874-a607-51ce5a08d218",
+          "exp": "1778912711",
+          "iat": "1778876711",
+          "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_3AJiuA7ER",
+          "jti": "b7a96b95-51e5-43d7-ae59-62ea806d46fa",
+          "origin_jti": "67f3f296-8b21-4aa0-9088-5d78483cea7a",
           "scope": "aws.cognito.signin.user.admin",
-          "sub": "d4384438-c0d1-70ff-f9b0-214d671d1bd0",
+          "sub": "74180498-1081-7032-59a3-6806522a0bc5",
           "token_use": "access",
-          "username": "d4384438-c0d1-70ff-f9b0-214d671d1bd0"
+          "username": "74180498-1081-7032-59a3-6806522a0bc5"
         },
         "scopes": null
       }
     },
-    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
-    "domainPrefix": "pkdzgs9mbl",
+    "domainName": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "zq2gf2yyyg",
     "http": {
       "method": "POST",
-      "path": "/innovafam-v1-stage/collabs/by/role",
+      "path": "/innovafam-v1-prod/collabs/by/role",
       "protocol": "HTTP/1.1",
       "sourceIp": "181.190.36.166",
       "userAgent": "axios/1.13.2"
     },
-    "requestId": "dA6iMhAjIAMEVIg=",
+    "requestId": "dbEkEipPoAMEa4A=",
     "routeKey": "ANY /collabs/{proxy+}",
-    "stage": "innovafam-v1-stage",
-    "time": "07/May/2026:21:57:46 +0000",
-    "timeEpoch": 1778191066441
+    "stage": "innovafam-v1-prod",
+    "time": "15/May/2026:20:25:48 +0000",
+    "timeEpoch": 1778876748877
   },
   "pathParameters": {
     "proxy": "by/role"
   },
-  "body": "{\"confirmed\":\"2\",\"endedAt\":\"2026-09-29\",\"pk\":\"SERVICE#SV-1001\",\"proposed\":\"1\",\"required\":\"3\",\"roleName\":\"Ingeniero Trainee\",\"startedAt\":\"2026-08-29\",\"weeklyHours\":\"42\",\"shiftType\":\"5x2\",\"hoursPerDay\":\"8.4\",\"sk\":\"ROLES#FsMG3fnXcBAA\"}",
+  "body": "{\"endedAt\":\"2026-07-29T04:00:00.000Z\",\"proposed\":\"0\",\"startedAt\":\"2026-07-12T04:00:00.000Z\",\"confirmed\":\"0\",\"required\":\"15\",\"parentId\":\"ROLES#SERVICES\",\"shift\":{\"sk\":\"SHIFTS#gBOHRtQk8b5O\",\"weeklyHours\":\"42\",\"shiftType\":\"14x14\",\"hoursPerDay\":\"12\"},\"pk\":\"SERVICE#RIP-SP\",\"roleName\":\"Técnico Mecánico M1\",\"sk\":\"ROLES#59ZsUSpbLBaK\"}",
   "isBase64Encoded": false
 }

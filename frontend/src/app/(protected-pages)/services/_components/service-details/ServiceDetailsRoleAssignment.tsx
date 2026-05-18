@@ -15,6 +15,7 @@ const ServiceDetailsRoleAssignment = ({
     selectedRole,
 }: ServiceDetailsRoleAssignmentProps) => {
     const t = useTranslation()
+    const [isAddingCollab, setIsAddingCollab] = React.useState(false)
 
     const Card = (
         title: string,
@@ -67,12 +68,16 @@ const ServiceDetailsRoleAssignment = ({
                     'bg-yellow-200',
                 )}
             </div>
-            <div className="flex-none">
-                <ServiceDetailsRoleAssignmentTableTools />
+            <div className="flex-none mb-4">
+                <ServiceDetailsRoleAssignmentTableTools
+                    setIsAddingCollab={setIsAddingCollab}
+                    selectedRole={selectedRole}
+                />
             </div>
             <div className="flex-1 overflow-y-auto min-h-0">
                 <ServiceDetailsRoleAssignmentTable
                     fixedPagination
+                    isAddingCollab={isAddingCollab}
                     selectedRole={selectedRole}
                 />
             </div>

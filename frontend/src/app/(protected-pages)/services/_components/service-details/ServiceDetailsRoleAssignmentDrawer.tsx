@@ -343,6 +343,7 @@ const ServiceDetailsRoleAssignmentDrawer = ({
                                 </label>
                                 <DatePicker.DatePickerRange
                                     placeholder="Selecciona el rango de fechas"
+                                    locale="es"
                                     minDate={
                                         serviceRole?.startedAt
                                             ? new Date(serviceRole?.startedAt)
@@ -353,8 +354,15 @@ const ServiceDetailsRoleAssignmentDrawer = ({
                                             ? new Date(serviceRole?.endedAt)
                                             : undefined
                                     }
+                                    size="sm"
+                                    openPickerOnClear
                                     value={
                                         dateRange as [Date | null, Date | null]
+                                    }
+                                    defaultMonth={
+                                        serviceRole?.startedAt
+                                            ? new Date(serviceRole?.startedAt)
+                                            : undefined
                                     }
                                     onChange={handleRangePickerChange}
                                 />

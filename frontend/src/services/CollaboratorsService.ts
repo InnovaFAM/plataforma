@@ -115,11 +115,26 @@ export async function apiDeleteCertificate(
     })
 }
 
+export async function apiGetCollaboratorByRole(
+    collaboratorId: string,
+    data: TServiceRole,
+): Promise<ServerResponse<TCollabsByRole>> {
+    const accessToken = await getAccessToken()
+    return ApiService.fetchDataWithAxios<TCollabsByRole>({
+        url: `/collabs/${collaboratorId}/role`,
+        method: 'post',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+        data,
+    })
+}
+
 export async function apiGetCollaboratorsByRole(
     data: TServiceRole,
-): Promise<ServerResponse<FullResponse<TCollabsByRole[]>>> {
+): Promise<ServerResponse<FullResponse<TCollabsByRole>>> {
     const accessToken = await getAccessToken()
-    return ApiService.fetchDataWithAxios<FullResponse<TCollabsByRole[]>>({
+    return ApiService.fetchDataWithAxios<FullResponse<TCollabsByRole>>({
         url: `/collabs/by/role`,
         method: 'post',
         headers: {

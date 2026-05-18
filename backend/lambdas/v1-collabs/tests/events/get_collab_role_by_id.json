@@ -1,0 +1,40 @@
+{
+  "version": "2.0",
+  "routeKey": "ANY /collabs/{proxy+}",
+  "rawPath": "/innovafam-v1-stage/collabs/19638/role",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "*/*",
+    "accept-encoding": "deflate, gzip",
+    "content-length": "0",
+    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "HoppscotchKernel/0.2.0",
+    "x-amzn-trace-id": "Root=1-69b8c97a-4af1bed2726764aa2feb50f7",
+    "x-forwarded-for": "190.196.173.15",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "683953625718",
+    "apiId": "pkdzgs9mbl",
+    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "pkdzgs9mbl",
+    "http": {
+      "method": "POST",
+      "path": "/innovafam-v1-stage/collabs/19638/role",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "190.196.173.15",
+      "userAgent": "HoppscotchKernel/0.2.0"
+    },
+    "requestId": "aWRrOgXpIAMEclQ=",
+    "routeKey": "ANY /collabs/{proxy+}",
+    "stage": "innovafam-v1-stage",
+    "time": "17/Mar/2026:03:24:42 +0000",
+    "timeEpoch": 1773717882664
+  },
+  "pathParameters": {
+    "proxy": "19638"
+  },
+  "body": "{\"endedAt\":\"2026-07-29T04:00:00.000Z\",\"proposed\":\"0\",\"startedAt\":\"2026-07-12T04:00:00.000Z\",\"confirmed\":\"0\",\"required\":\"15\",\"parentId\":\"ROLES#SERVICES\",\"shift\":{\"sk\":\"SHIFTS#gBOHRtQk8b5O\",\"weeklyHours\":\"42\",\"shiftType\":\"14x14\",\"hoursPerDay\":\"12\"},\"pk\":\"SERVICE#RIP-SP\",\"roleName\":\"Técnico Mecánico M1\",\"sk\":\"ROLES#59ZsUSpbLBaK\"}",
+  "isBase64Encoded": false
+}

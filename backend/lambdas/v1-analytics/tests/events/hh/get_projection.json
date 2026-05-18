@@ -1,43 +1,63 @@
 {
   "version": "2.0",
-  "routeKey": "ANY /analytics",
-  "rawPath": "/innovafam-v1-stage/analytics/hh/projection",
-  "rawQueryString": "",
+  "routeKey": "ANY /analytics/{proxy+}",
+  "rawPath": "/innovafam-v1-prod/analytics/hh/projection",
+  "rawQueryString": "month=2026-05&horizonMonths=12",
   "headers": {
-    "accept": "*/*",
-    "accept-encoding": "gzip, deflate, br",
-    "cache-control": "no-cache",
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, compress, deflate, br",
+    "authorization": "Bearer eyJraWQiOiIrQjdlY0o3YzdhRjl0RVRpTzhYdDZoYlpDOFwvaUVMZ0xoVFpPaHJUa1Jlcz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3NDE4MDQ5OC0xMDgxLTcwMzItNTlhMy02ODA2NTIyYTBiYzUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV8zQUppdUE3RVIiLCJjbGllbnRfaWQiOiI2amJzOWt2NzFhZDZjbzhzdXZibnJrNnRlciIsIm9yaWdpbl9qdGkiOiJkZmM5NjM0Yi0xYzgwLTRiODYtYTlmNi1lNDc5YzU1ZjJkZGUiLCJldmVudF9pZCI6IjYyNjQwODY2LTUxODEtNDA3Yi1hYWEyLTA5Y2NlYjRiYTI0OCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3Nzg3ODcwMTIsImV4cCI6MTc3ODgyMzAxMiwiaWF0IjoxNzc4Nzg3MDEyLCJqdGkiOiJhZWIyOWViNi01MTQyLTQwNTAtODZmZC0wY2FmOGQxODlmYjMiLCJ1c2VybmFtZSI6Ijc0MTgwNDk4LTEwODEtNzAzMi01OWEzLTY4MDY1MjJhMGJjNSJ9.ZEvYoyEKRXqxan-yl68imo0VtauchJ5Z1_YJXhIAI1cC8Lg7u17WTCfmsp08o86jiNhXZQSjciK5yND_lNQyf8eP2KT9ME6eWekiA91_LjpxaN7aHUID6d2F9c06uUJomcFc-4cmXJamA5WjAYEvYcxkUD97pQu0lgKhTX-KLXi7LQW4zCu3QaKKcjO9hh08vULQodBz-C71VSkBGSp7SQpOxG0Yi4eunTcdXYvjVMymNp1j8Qa8XOyf3n_f51Zei-srMQFT3rcq4Yv5DbIkYge8E8RMLwkdp7FxX57gUIIyO8uX2mLfjIWE2WovUQyp7_SQikoqQSNytSLSwdx45w",
     "content-length": "0",
-    "host": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
-    "postman-token": "06eab685-c5a4-49ff-8dc2-e22e42884c5f",
-    "user-agent": "PostmanRuntime/7.51.0",
-    "x-amzn-trace-id": "Root=1-6965c8e6-1784f3457b1b1f6b62caa0d2",
-    "x-forwarded-for": "181.42.17.179",
+    "host": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "axios/1.13.2",
+    "x-amzn-trace-id": "Root=1-6a0622d6-5e4d414c64aa447172c7b307",
+    "x-forwarded-for": "181.190.36.166",
     "x-forwarded-port": "443",
     "x-forwarded-proto": "https"
   },
   "queryStringParameters": {
-    "month": "2026-04",
     "horizonMonths": "12",
-    "services": "SV-1001,SV-1002"
+    "month": "2026-05"
   },
   "requestContext": {
-    "accountId": "683953625718",
-    "apiId": "pkdzgs9mbl",
-    "domainName": "pkdzgs9mbl.execute-api.us-east-1.amazonaws.com",
-    "domainPrefix": "pkdzgs9mbl",
+    "accountId": "376218549266",
+    "apiId": "zq2gf2yyyg",
+    "authorizer": {
+      "jwt": {
+        "claims": {
+          "auth_time": "1778787012",
+          "client_id": "6jbs9kv71ad6co8suvbnrk6ter",
+          "event_id": "62640866-5181-407b-aaa2-09cceb4ba248",
+          "exp": "1778823012",
+          "iat": "1778787012",
+          "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_3AJiuA7ER",
+          "jti": "aeb29eb6-5142-4050-86fd-0caf8d189fb3",
+          "origin_jti": "dfc9634b-1c80-4b86-a9f6-e479c55f2dde",
+          "scope": "aws.cognito.signin.user.admin",
+          "sub": "74180498-1081-7032-59a3-6806522a0bc5",
+          "token_use": "access",
+          "username": "74180498-1081-7032-59a3-6806522a0bc5"
+        },
+        "scopes": null
+      }
+    },
+    "domainName": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "zq2gf2yyyg",
     "http": {
       "method": "GET",
-      "path": "/innovafam-v1-stage/analytics/hh/projection",
+      "path": "/innovafam-v1-prod/analytics/hh/projection",
       "protocol": "HTTP/1.1",
-      "sourceIp": "181.42.17.179",
-      "userAgent": "PostmanRuntime/7.51.0"
+      "sourceIp": "181.190.36.166",
+      "userAgent": "axios/1.13.2"
     },
-    "requestId": "XGxUJhfRoAMEVVA=",
-    "routeKey": "ANY /analytics",
-    "stage": "innovafam-v1-stage",
-    "time": "13/Jan/2026:04:24:06 +0000",
-    "timeEpoch": 1768278246974
+    "requestId": "dXphhinlIAMEMVg=",
+    "routeKey": "ANY /analytics/{proxy+}",
+    "stage": "innovafam-v1-prod",
+    "time": "14/May/2026:19:30:30 +0000",
+    "timeEpoch": 1778787030129
+  },
+  "pathParameters": {
+    "proxy": "hh/projection"
   },
   "isBase64Encoded": false
 }

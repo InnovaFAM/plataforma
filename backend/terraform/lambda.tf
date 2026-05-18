@@ -172,6 +172,7 @@ module "checks" {
   aws_env        = var.aws_env
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/checks*"
   role_arn       = aws_iam_role.lambda_default_role.arn
+  timeout        = 12
 
   lambda_name = "v1-checks"
   route_keys   = ["ANY /checks/{proxy+}", "ANY /checks"]
@@ -196,6 +197,7 @@ module "certificates" {
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/certificates*"
   role_arn       = aws_iam_role.certificates_role.arn
   authorizer_id  = aws_apigatewayv2_authorizer.authorizer.id
+  timeout        = 30
 
   lambda_name = "v1-certificates"
   route_keys   = ["ANY /certificates/{proxy+}", "ANY /certificates"]
@@ -221,7 +223,7 @@ module "analytics" {
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/analytics*"
   role_arn       = aws_iam_role.lambda_default_role.arn
   authorizer_id  = aws_apigatewayv2_authorizer.authorizer.id
-  timeout        = 25
+  timeout        = 30
 
   lambda_name = "v1-analytics"
   route_keys   = ["ANY /analytics/{proxy+}", "ANY /analytics"]
@@ -246,6 +248,7 @@ module "backoffice" {
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/backoffice*"
   role_arn       = aws_iam_role.certificates_role.arn
   authorizer_id  = aws_apigatewayv2_authorizer.authorizer.id
+  timeout        = 30
 
   lambda_name = "v1-backoffice"
   route_keys   = ["ANY /backoffice/{proxy+}", "ANY /backoffice"]
@@ -269,6 +272,7 @@ module "users" {
   aws_env        = var.aws_env
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/users*"
   role_arn       = aws_iam_role.users_role.arn
+  timeout        = 30
 
   lambda_name = "v1-users"
   route_keys   = ["OPTIONS /users", "OPTIONS /users/{proxy+}", "ANY /users/{proxy+}", "ANY /users"]
@@ -294,6 +298,7 @@ module "services" {
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/services*"
   role_arn       = aws_iam_role.certificates_role.arn
   authorizer_id  = aws_apigatewayv2_authorizer.authorizer.id
+  timeout        = 30
 
   lambda_name = "v1-services"
   route_keys   = ["ANY /services/{proxy+}", "ANY /services"]
@@ -318,6 +323,7 @@ module "collabs" {
   execution_arn  = "${local.execution_uri}/${aws_apigatewayv2_stage.fam_api_v1.name}/*/collabs*"
   role_arn       = aws_iam_role.certificates_role.arn
   authorizer_id  = aws_apigatewayv2_authorizer.authorizer.id
+  timeout        = 30
 
   lambda_name = "v1-collabs"
   route_keys   = ["ANY /collabs/{proxy+}", "ANY /collabs"]

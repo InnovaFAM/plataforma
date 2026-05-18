@@ -3,18 +3,10 @@ import Link from 'next/link'
 import Card from '@/components/ui/Card'
 import type { IconType } from 'react-icons'
 import {
-    TbAlertTriangle,
     TbArrowRight,
-    TbBell,
-    TbCalendarStats,
     TbCertificate,
     TbClipboardList,
-    TbClockHour4,
-    TbFileCertificate,
-    TbLayoutDashboard,
-    TbLock,
     TbReportAnalytics,
-    TbShieldCheck,
     TbUsers,
 } from 'react-icons/tb'
 import useCurrentSession from '@/utils/hooks/useCurrentSession'
@@ -27,23 +19,6 @@ type QuickAction = {
     description: string
     href: string
     icon: IconType
-}
-
-type RecentSection = {
-    title: string
-    description: string
-    href: string
-    icon: IconType
-    meta: string
-}
-
-type SystemNotification = {
-    title: string
-    description: string
-    href: string
-    icon: IconType
-    tone: 'warning' | 'info' | 'success' | 'danger'
-    time: string
 }
 
 const quickActions: QuickAction[] = [
@@ -68,78 +43,10 @@ const quickActions: QuickAction[] = [
     {
         title: 'Reporte HH',
         description: 'Consultar horas hombre y ausencias.',
-        href: '/hh-reports',
+        href: '/analytics/hh-reports',
         icon: TbReportAnalytics,
     },
 ]
-
-const recentSections: RecentSection[] = [
-    {
-        title: 'Proyectos',
-        description: 'Revisión de servicios y cobertura operacional.',
-        href: '/projects',
-        icon: TbLayoutDashboard,
-        meta: 'Última visita hace 12 min',
-    },
-    {
-        title: 'Matrices de Certificaciones',
-        description: 'Validación de requisitos por cargo.',
-        href: '/certification-matrix',
-        icon: TbShieldCheck,
-        meta: 'Última visita hoy',
-    },
-    {
-        title: 'Reportes HH',
-        description: 'Control de horas, ausencias y distribución.',
-        href: '/hh-reports',
-        icon: TbCalendarStats,
-        meta: 'Última visita ayer',
-    },
-]
-
-const notifications: SystemNotification[] = [
-    {
-        title: 'Roles sin cobertura',
-        description:
-            'Hay 7 cargos requeridos que aún no tienen colaboradores confirmados.',
-        href: '/services',
-        icon: TbAlertTriangle,
-        tone: 'warning',
-        time: 'Hace 8 min',
-    },
-    {
-        title: 'Certificaciones próximas a vencer',
-        description:
-            '12 colaboradores tienen certificaciones con vencimiento dentro de los próximos 30 días.',
-        href: '/certifications',
-        icon: TbFileCertificate,
-        tone: 'danger',
-        time: 'Hace 25 min',
-    },
-    {
-        title: 'Nuevas notificaciones del sistema',
-        description:
-            'Se recibieron actualizaciones asociadas a proyectos y asignaciones recientes.',
-        href: '/notifications',
-        icon: TbBell,
-        tone: 'info',
-        time: 'Hoy',
-    },
-]
-
-const toneClasses: Record<SystemNotification['tone'], string> = {
-    warning: 'bg-amber-50 text-amber-700 ring-amber-200',
-    danger: 'bg-red-50 text-red-700 ring-red-200',
-    info: 'bg-blue-50 text-blue-700 ring-blue-200',
-    success: 'bg-emerald-50 text-emerald-700 ring-emerald-200',
-}
-
-const iconToneClasses: Record<SystemNotification['tone'], string> = {
-    warning: 'bg-amber-100 text-amber-700',
-    danger: 'bg-red-100 text-red-700',
-    info: 'bg-blue-100 text-blue-700',
-    success: 'bg-emerald-100 text-emerald-700',
-}
 
 const colorsMap = {
     publicado: '#10b981',

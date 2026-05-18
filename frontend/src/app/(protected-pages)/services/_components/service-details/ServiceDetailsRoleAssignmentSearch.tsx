@@ -28,7 +28,7 @@ const ServiceDetailsRoleAssignmentSearch = (
 
     return (
         <Input
-            className="col-span-3"
+            className="col-span-2"
             placeholder={t('services.tools.searchPlaceholder')}
             suffix={<TbSearch className="text-lg" />}
             onChange={handleInputChange}

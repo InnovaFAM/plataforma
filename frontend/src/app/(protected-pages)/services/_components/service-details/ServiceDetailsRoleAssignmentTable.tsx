@@ -15,9 +15,6 @@ import getUserAvailabilityColor from '../../_utils/getUserAvailabilityColor'
 import getUserAnnexesColor from '../../_utils/getUserAnnexesColor'
 import getUserAnnexesText from '../../_utils/getUserAnnexesText'
 import getUserAssignmentStatusColor from '../../_utils/getUserAssignmentStatusColor'
-import { useQuery } from '@tanstack/react-query'
-import { getCollaboratorsByRole } from '@/server/actions/collaborators/get-collabs-by-role'
-import { collaboratorsKeys } from '@/server/actions/collaborators/collaborator-keys'
 import { TCollabsByRole } from '@/app/(protected-pages)/collaborators/types'
 import { useServicesStore } from '../../_store/servicesStore'
 import TableEmptyState from '@/components/shared/TableEmptyState'
@@ -28,23 +25,18 @@ import ClearanceCheckbox from './ClearanceCheckbox'
 import { Progress } from '@/components/ui'
 import useAppendQueryParams from '@/utils/hooks/useAppendQueryParams'
 import { useCan } from '@/hooks/useCan'
+import { useCollabsByRole } from '@/hooks/useCollabsByRole'
 
 type ServiceDetailsRoleAssignmentTableProps = {
+    isAddingCollab: boolean
     fixedPagination?: boolean
     selectedRole?: TServiceRole
-    // searchValue?: string
-    // pageIndex?: number
-    // pageSize?: number
-    // filters?: Filter
 }
 
 const ServiceDetailsRoleAssignmentTable = ({
+    isAddingCollab,
     fixedPagination,
     selectedRole,
-    // pageIndex = 1,
-    // pageSize = 10,
-    // searchValue = '',
-    // filters,
 }: ServiceDetailsRoleAssignmentTableProps) => {
     const t = useTranslation()
     const canAssignCollab = useCan('services.roles.collabs:assign')
@@ -80,22 +72,8 @@ const ServiceDetailsRoleAssignmentTable = ({
         setIsAssignmentDrawerOpen(false)
     }
 
-    const { data: usersList, isLoading: isLoadingUsers } = useQuery({
-        queryKey: collaboratorsKeys.byRole(
-            selectedRole?.roleName || 'default-role',
-        ),
-        queryFn: async () => {
-            if (selectedRole) {
-                const response = await getCollaboratorsByRole(selectedRole)
-                if (!response.success) {
-                    throw new Error(response.error)
-                }
-                return response.data
-            }
-
-            throw Error('Role not selected')
-        },
-    })
+    const { data: usersList, isLoading: isLoadingUsers } =
+        useCollabsByRole(selectedRole)
 
     useEffect(() => {
         setPageIndex(1)
@@ -335,7 +313,7 @@ const ServiceDetailsRoleAssignmentTable = ({
         <div className="relative h-full overflow-hidden">
             <div
                 className={`
-                h-full transition-all duration-300
+                h-full transition-all duration-300 overflow-y-scroll
                 ${isAssignmentDrawerOpen ? 'pr-[420px]' : 'pr-0'}
             `}
             >
@@ -347,12 +325,11 @@ const ServiceDetailsRoleAssignmentTable = ({
                     customNoDataIcon={<TableEmptyState />}
                     skeletonAvatarColumns={[0]}
                     skeletonAvatarProps={{ width: 28, height: 28 }}
-                    loading={isLoadingUsers}
+                    loading={isLoadingUsers || isAddingCollab}
                     pagingData={{
                         total:
                             usersList?.items.filter((user) => filterUsers(user))
                                 .length || 0,
-                        //total: usersList?.items?.length || 0,
                         pageIndex,
                         pageSize,
                     }}

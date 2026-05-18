@@ -1,8 +1,7 @@
 import json
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
 from time import perf_counter
-from typing import Any
 
 from aws_lambda_powertools.event_handler import Response, content_types
 
@@ -93,3 +92,20 @@ def timed(label: str, fn, *args, **kwargs):
     )
 
     return result
+
+
+def parse_iso_date_or_datetime(value: str) -> date:
+    """
+    Accepts:
+    - 2026-02-01
+    - 2026-02-01T03:00:00.000Z
+    - 2026-02-01T03:00:00.000+00:00
+
+    Returns date.
+    """
+
+    if "T" not in value:
+        return date.fromisoformat(value)
+
+    normalized = value.replace("Z", "+00:00")
+    return datetime.fromisoformat(normalized).date()

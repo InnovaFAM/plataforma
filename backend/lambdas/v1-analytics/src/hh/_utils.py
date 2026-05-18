@@ -3,7 +3,12 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
 
-from utils import month_range, overlaps_period, split_query_param
+from utils import (
+    month_range,
+    overlaps_period,
+    parse_iso_date_or_datetime,
+    split_query_param,
+)
 
 
 def parse_projection_query_params(event) -> dict[str, Any]:
@@ -33,10 +38,10 @@ def intersect_period(
     start_b: str,
     end_b: str,
 ) -> tuple[date, date] | None:
-    a_start = date.fromisoformat(start_a)
-    a_end = date.fromisoformat(end_a)
-    b_start = date.fromisoformat(start_b)
-    b_end = date.fromisoformat(end_b)
+    a_start = parse_iso_date_or_datetime(start_a)
+    a_end = parse_iso_date_or_datetime(end_a)
+    b_start = parse_iso_date_or_datetime(start_b)
+    b_end = parse_iso_date_or_datetime(end_b)
 
     start = max(a_start, b_start)
     end = min(a_end, b_end)
@@ -121,8 +126,8 @@ def calculate_person_hours_for_period_detail(
         return 0.0
 
     hours_per_day = float(hours_per_day)
-    start = date.fromisoformat(period_start)
-    end = date.fromisoformat(period_end)
+    start = parse_iso_date_or_datetime(period_start)
+    end = parse_iso_date_or_datetime(period_end)
 
     total_days = calendar_days_between(start, end)
     shift_type_normalized = shift_type.strip().lower()
@@ -163,6 +168,7 @@ def calculate_role_person_hours_in_month(role: dict[str, Any], month: str) -> fl
 
     role_start = role.get("startedAt") or "9999-12-31"
     role_end = role.get("endedAt") or "9999-12-31"
+    print("AWUI", role_start, role_end)
 
     period = intersect_period(role_start, role_end, month_start, month_end)
     if not period:
