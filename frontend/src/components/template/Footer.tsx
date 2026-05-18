@@ -20,7 +20,7 @@ const FooterContent = () => {
                 Copyright &copy; {`${new Date().getFullYear()}`}
                 {' - '}
                 <span className="font-semibold">
-                    {` ${APP_NAME}`} v0.9.23
+                    {` ${APP_NAME}`} v0.9.31
                 </span>{' '}
                 Derechos reservados.
             </span>

@@ -11,9 +11,11 @@ import {
     Tooltip,
     toast,
     Notification,
+    InputGroup,
+    Input,
 } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
-import { TbPencil, TbX } from 'react-icons/tb'
+import { TbPencil, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand, FaRegSave } from 'react-icons/fa'
 import dayjs from 'dayjs'
 import { TCertificate, TRoleCertificationsResponse } from '../types'
@@ -41,6 +43,8 @@ const RoleCertificationsTable = ({
     const queryClient = useQueryClient()
     const { session } = useCurrentSession()
 
+    const [searchValue, setSearchValue] = useState('')
+    const [inputVisible, setInputVisible] = useState(false)
     const [tableViewMode, setTableViewMode] = useState<'page' | 'modal'>('page')
     const [editMode, setEditMode] = useState(false)
     const [pageIndex, setPageIndex] = useState(1)
@@ -175,7 +179,13 @@ const RoleCertificationsTable = ({
         [failedKeys],
     )
 
-    const roles = useMemo(() => data?.roles ?? [], [data?.roles])
+    const filteredRoles = useMemo(() => {
+        if (!searchValue) return data?.roles || []
+        return data?.roles.filter((role) =>
+            role.name?.toLowerCase().includes(searchValue.toLowerCase()),
+        )
+    }, [data?.roles, searchValue])
+
     const certificates = useMemo(
         () => data?.certificates ?? [],
         [data?.certificates],
@@ -192,7 +202,7 @@ const RoleCertificationsTable = ({
                     </span>
                 ),
             },
-            ...(roles.map((role) => ({
+            ...(filteredRoles?.map((role) => ({
                 header: (
                     <Tooltip title={role.name}>
                         <span className="text-ellipsis line-clamp-2">
@@ -230,7 +240,15 @@ const RoleCertificationsTable = ({
                 },
             })) as unknown as ColumnDef<TCertificate>[]),
         ],
-        [t, editMode, isLoading, roles, isChecked, isFailed, toggleEntry],
+        [
+            t,
+            editMode,
+            isLoading,
+            filteredRoles,
+            isChecked,
+            isFailed,
+            toggleEntry,
+        ],
     )
 
     const pagedData = useMemo(() => {
@@ -298,6 +316,70 @@ const RoleCertificationsTable = ({
                 </>
             ) : (
                 <>
+                    <InputGroup
+                        className={classNames(
+                            'mr-2',
+                            !inputVisible ? 'outline-none border-none' : '',
+                        )}
+                    >
+                        <Input
+                            id="roles-search-input"
+                            placeholder={t('common.search')}
+                            size="xs"
+                            className={classNames(
+                                'text-xs transition-all duration-300',
+                                inputVisible
+                                    ? 'w-48 opacity-100'
+                                    : 'w-0 opacity-0 pointer-events-none',
+                            )}
+                            tabIndex={inputVisible ? 0 : -1}
+                            value={searchValue}
+                            onChange={(e) => {
+                                setSearchValue(e.target.value)
+                            }}
+                            suffix={
+                                <Button
+                                    className={classNames(
+                                        !searchValue ? 'hidden' : '',
+                                    )}
+                                    size="xs"
+                                    variant="plain"
+                                    shape="circle"
+                                    icon={<TbX className="text-xs" />}
+                                    onClick={() => {
+                                        setSearchValue('')
+                                    }}
+                                    tabIndex={-1}
+                                />
+                            }
+                        />
+                        <Button
+                            className={classNames(
+                                !inputVisible ? 'border-none bg-gray-50' : '',
+                            )}
+                            disabled={data?.roles.length === 0}
+                            size="xs"
+                            icon={
+                                inputVisible ? (
+                                    <TbX className="text-sm" />
+                                ) : (
+                                    <TbSearch className="text-sm" />
+                                )
+                            }
+                            onClick={() => {
+                                setSearchValue('')
+                                setInputVisible((prev) => !prev)
+                                if (!inputVisible) {
+                                    setTimeout(() => {
+                                        const input = document.querySelector(
+                                            `#roles-search-input`,
+                                        ) as HTMLInputElement
+                                        input?.focus()
+                                    }, 300)
+                                }
+                            }}
+                        />
+                    </InputGroup>
                     <Button
                         variant="plain"
                         shape="circle"

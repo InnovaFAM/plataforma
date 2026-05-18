@@ -1,5 +1,6 @@
 'use client'
 
+import dayjs from 'dayjs'
 import { useMemo, useState, useCallback } from 'react'
 import AdaptiveCard from '@/components/shared/AdaptiveCard'
 import DataTable, { ColumnDef } from '@/components/shared/DataTable'
@@ -11,18 +12,19 @@ import {
     Tooltip,
     toast,
     Notification,
+    InputGroup,
+    Input,
 } from '@/components/ui'
 import useTranslation from '@/utils/hooks/useTranslation'
-import { TbPencil, TbX } from 'react-icons/tb'
+import useCurrentSession from '@/utils/hooks/useCurrentSession'
+import { TbPencil, TbSearch, TbX } from 'react-icons/tb'
 import { FaExpand, FaRegSave } from 'react-icons/fa'
-import dayjs from 'dayjs'
 import { TCertificate, TChoreCertificationsResponse } from '../types'
 import { useCertificationsMatrixStore } from '../_store/certificationsStore'
 import { addChoreToMatrix } from '@/server/actions/certifications/add-chore-to-matrix'
 import { removeChoreFromMatrix } from '@/server/actions/certifications/remove-chore-from-matrix'
 import { useQueryClient } from '@tanstack/react-query'
 import { certificationKeys } from '@/server/actions/certifications/certification-keys'
-import useCurrentSession from '@/utils/hooks/useCurrentSession'
 import { useCan } from '@/hooks/useCan'
 import classNames from 'classnames'
 
@@ -43,6 +45,8 @@ const ChoreCertificationsTable = ({
     const queryClient = useQueryClient()
     const { session } = useCurrentSession()
 
+    const [searchValue, setSearchValue] = useState('')
+    const [inputVisible, setInputVisible] = useState(false)
     const [tableViewMode, setTableViewMode] = useState<'page' | 'modal'>('page')
     const [editMode, setEditMode] = useState(false)
     const [pageIndex, setPageIndex] = useState(1)
@@ -176,7 +180,13 @@ const ChoreCertificationsTable = ({
         [failedKeys],
     )
 
-    const chores = useMemo(() => data?.chores ?? [], [data?.chores])
+    const filteredChores = useMemo(() => {
+        if (!searchValue) return data?.chores || []
+        return data?.chores.filter((role) =>
+            role.name?.toLowerCase().includes(searchValue.toLowerCase()),
+        )
+    }, [data?.chores, searchValue])
+
     const certificates = useMemo(
         () => data?.certificates ?? [],
         [data?.certificates],
@@ -193,7 +203,7 @@ const ChoreCertificationsTable = ({
                     </span>
                 ),
             },
-            ...(chores.map((chore) => ({
+            ...(filteredChores?.map((chore) => ({
                 header: (
                     <Tooltip title={chore.name}>
                         <span className="text-ellipsis line-clamp-2">
@@ -231,7 +241,15 @@ const ChoreCertificationsTable = ({
                 },
             })) as unknown as ColumnDef<TCertificate>[]),
         ],
-        [t, editMode, isLoading, chores, isChecked, isFailed, toggleEntry],
+        [
+            t,
+            editMode,
+            isLoading,
+            filteredChores,
+            isChecked,
+            isFailed,
+            toggleEntry,
+        ],
     )
 
     const pagedData = useMemo(() => {
@@ -299,6 +317,70 @@ const ChoreCertificationsTable = ({
                 </>
             ) : (
                 <>
+                    <InputGroup
+                        className={classNames(
+                            'mr-2',
+                            !inputVisible ? 'outline-none border-none' : '',
+                        )}
+                    >
+                        <Input
+                            id="roles-search-input"
+                            placeholder={t('common.search')}
+                            size="xs"
+                            className={classNames(
+                                'text-xs transition-all duration-300',
+                                inputVisible
+                                    ? 'w-48 opacity-100'
+                                    : 'w-0 opacity-0 pointer-events-none',
+                            )}
+                            tabIndex={inputVisible ? 0 : -1}
+                            value={searchValue}
+                            onChange={(e) => {
+                                setSearchValue(e.target.value)
+                            }}
+                            suffix={
+                                <Button
+                                    className={classNames(
+                                        !searchValue ? 'hidden' : '',
+                                    )}
+                                    size="xs"
+                                    variant="plain"
+                                    shape="circle"
+                                    icon={<TbX className="text-xs" />}
+                                    onClick={() => {
+                                        setSearchValue('')
+                                    }}
+                                    tabIndex={-1}
+                                />
+                            }
+                        />
+                        <Button
+                            className={classNames(
+                                !inputVisible ? 'border-none bg-gray-50' : '',
+                            )}
+                            disabled={data?.chores.length === 0}
+                            size="xs"
+                            icon={
+                                inputVisible ? (
+                                    <TbX className="text-sm" />
+                                ) : (
+                                    <TbSearch className="text-sm" />
+                                )
+                            }
+                            onClick={() => {
+                                setSearchValue('')
+                                setInputVisible((prev) => !prev)
+                                if (!inputVisible) {
+                                    setTimeout(() => {
+                                        const input = document.querySelector(
+                                            `#roles-search-input`,
+                                        ) as HTMLInputElement
+                                        input?.focus()
+                                    }, 300)
+                                }
+                            }}
+                        />
+                    </InputGroup>
                     <Button
                         variant="plain"
                         shape="circle"
