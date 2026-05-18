@@ -1,7 +1,7 @@
 {
   "version": "2.0",
   "routeKey": "ANY /collabs/{proxy+}",
-  "rawPath": "/innovafam-v1-stage/collabs/19638",
+  "rawPath": "/innovafam-v1-stage/collabs/5698",
   "rawQueryString": "",
   "headers": {
     "accept": "*/*",
@@ -21,7 +21,7 @@
     "domainPrefix": "pkdzgs9mbl",
     "http": {
       "method": "GET",
-      "path": "/innovafam-v1-stage/collabs/19638",
+      "path": "/innovafam-v1-stage/collabs/5698",
       "protocol": "HTTP/1.1",
       "sourceIp": "190.196.173.15",
       "userAgent": "HoppscotchKernel/0.2.0"

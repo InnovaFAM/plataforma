@@ -190,6 +190,19 @@ def get_role_by_name(
         return items[0]
 
 
+def is_collab_certificate_exist(
+    collab_id: str,
+    code: str,
+) -> bool:
+    query_kwargs: dict[str, Any] = {
+        "KeyConditionExpression": Key("pk").eq(f"COLLABS#{collab_id}"),
+        "FilterExpression": Key("code").eq(code),
+    }
+
+    response = table.query(**query_kwargs)
+    return len(response.get("Items", [])) > 0
+
+
 def get_matrix_certificate_by_role(
     role: str,
 ) -> CertificateRoleMatrix | None:

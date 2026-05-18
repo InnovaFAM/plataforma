@@ -11,6 +11,7 @@ from aws.ddb import (
     get_paginated_items,
     get_role_by_name,
     get_temp,
+    is_collab_certificate_exist,
     log_activity,
     put_item,
     put_temp,
@@ -23,7 +24,6 @@ from models.FAM import (
     Collab,
     CollabCertificatePayload,
     CollabEvaluationPayload,
-    CollabRoleService,
 )
 from models.General import PostRoleBodyRequest
 from process import parse_certificate_compliance, parse_collab_role
@@ -31,7 +31,6 @@ from utils import (
     error_response,
     generate_unique_hash,
     get_24_hours_from_now,
-    is_collab_available,
 )
 
 router = Router()
@@ -254,6 +253,7 @@ def get_collab_by_id(collab_id: str):
             )
             for cert in global_certs:
                 certificates_required.append(Certificate(**cert))
+
             collab_certificates = query_collabs(
                 f"COLLABS#{collab_id}",
                 begin_with="CERTS",
@@ -270,15 +270,26 @@ def get_collab_by_id(collab_id: str):
                     "description",
                 ],
             )
-            len_certifcates_required = len(certificates_required)
-            count_certificates_done = 0
-            cert_code_list = [cert.code for cert in certificates_required]
-            for cert in collab_certificates:
-                if cert["code"] in cert_code_list:
-                    _ = certificates_required.pop(cert_code_list.index(cert["code"]))
-                    count_certificates_done += 1
+            len_certificates_required = len(certificates_required)
+
+            required_codes = {cert.code for cert in certificates_required}
+
+            completed_codes = {
+                cert["code"]
+                for cert in collab_certificates
+                if cert.get("code") in required_codes
+            }
+
+            count_certificates_done = len(completed_codes)
+
+            certificates_required = [
+                cert
+                for cert in certificates_required
+                if cert.code not in completed_codes
+            ]
+
             collab_json["compliance"] = (
-                count_certificates_done / len_certifcates_required
+                count_certificates_done / len_certificates_required
             )
 
             collab_evaluations = query_collabs(
@@ -315,6 +326,13 @@ def get_collab_by_id(collab_id: str):
 def create_collab_certificate(collab_id: str):
     try:
         body = CollabCertificatePayload(**router.current_event.json_body)
+
+        if is_collab_certificate_exist(collab_id, body.code):
+            return error_response(
+                "CreateCollabCertificateError",
+                "Certificado ya existe en este colaborador",
+            )
+
         cc = body.model_dump(exclude_none=True)
         cc["parentId"] = "COLLABS#CERTS"
         hash = generate_unique_hash()
@@ -336,7 +354,7 @@ def create_collab_certificate(collab_id: str):
             body="certificate created successfully",
         )
     except Exception as e:
-        return error_response("PostCollabCertificateError", str(e))
+        return error_response("CreateCollabCertificateError", str(e))
 
 
 @router.delete("/<collab_id>/certificates/<hash>")
