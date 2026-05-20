@@ -110,6 +110,7 @@ const PhoneNumberInput = <T extends FieldValues>({
                                     instanceId="dial-code"
                                     options={dialCodeList}
                                     className="w-[140px]"
+                                    isDisabled
                                     components={{
                                         Option: (
                                             props: OptionProps<

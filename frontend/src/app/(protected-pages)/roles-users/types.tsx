@@ -34,6 +34,10 @@ export type TNewUser = Pick<
     'name' | 'email' | 'phoneNumber' | 'parentId'
 >
 
+export type TEditUser = Partial<
+    Pick<TUser, 'name' | 'phoneNumber' | 'parentId' | 'lastLogin' | 'status'>
+>
+
 export type TRolesUsersData = {
     roles: TSystemRole[]
     users: TUser[]

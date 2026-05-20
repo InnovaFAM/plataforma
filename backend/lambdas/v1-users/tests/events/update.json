@@ -1,0 +1,39 @@
+{
+  "version": "2.0",
+  "routeKey": "ANY /users",
+  "rawPath": "/innovafam-v1-prod/users",
+  "rawQueryString": "",
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-encoding": "gzip, compress, deflate, br",
+    "authorization": "Bearer eyJraWQiOiIrQjdlY0o3YzdhRjl0RVRpTzhYdDZoYlpDOFwvaUVMZ0xoVFpPaHJUa1Jlcz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3NDE4MDQ5OC0xMDgxLTcwMzItNTlhMy02ODA2NTIyYTBiYzUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV8zQUppdUE3RVIiLCJjbGllbnRfaWQiOiI2amJzOWt2NzFhZDZjbzhzdXZibnJrNnRlciIsIm9yaWdpbl9qdGkiOiI2MDhlNTBjYi05ZTYwLTRhOWQtYTIxZi1kNzEwNzcwMWVlM2IiLCJldmVudF9pZCI6Ijc5NWVkMGQwLWU3NjktNGI1OC1hNDgwLTM4N2UxYWFlZGY3OSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3NzkyMTUzMjgsImV4cCI6MTc3OTI1MTMyOCwiaWF0IjoxNzc5MjE1MzI4LCJqdGkiOiIxZDVlMjhhZS1lZDEwLTQ2NjEtOGY3Zi1iNGQzNTRkZjNmMzQiLCJ1c2VybmFtZSI6Ijc0MTgwNDk4LTEwODEtNzAzMi01OWEzLTY4MDY1MjJhMGJjNSJ9.ZMmCos6AQSezF_u_1DMZ0yXewQa0d6t2-5ZLRMFMwv4sVKs7XMA_FJOaoCb7Lpub__fpuyWya95y6425oTvCcgFx1s3O090j1HK677kiTzdkpLod_i0p9U8eCh1IeLzoBzc10txCWTO4n0t3f3I3Qvpmsobi8kkUDbf1HJuowLPB53_M_XHQTDRR16IqtUR36Y-rhjb1x32-An7kt8AFqB4pasisGGPsOKUIh_f5ECBM6SC88eRDwwviAFuIdbWfIBJ3uCghYW1IAxydR7KcME8msHYKtFehsM8u_LiR-8PaGdKyAUunTgChZYGK7DjzoA1_TswJ0UtkzZd8dxnx8g",
+    "content-length": "65",
+    "content-type": "application/json",
+    "host": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "axios/1.13.2",
+    "x-amzn-trace-id": "Root=1-6a0ce39f-03c567b4628bf6b253cc59ef",
+    "x-forwarded-for": "181.42.133.65",
+    "x-forwarded-port": "443",
+    "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+    "accountId": "376218549266",
+    "apiId": "zq2gf2yyyg",
+    "domainName": "zq2gf2yyyg.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "zq2gf2yyyg",
+    "http": {
+      "method": "PATCH",
+      "path": "/innovafam-v1-prod/users",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "181.42.133.65",
+      "userAgent": "axios/1.13.2"
+    },
+    "requestId": "doiBDg6AoAMEZ-g=",
+    "routeKey": "ANY /users",
+    "stage": "innovafam-v1-prod",
+    "time": "19/May/2026:22:26:39 +0000",
+    "timeEpoch": 1779229599945
+  },
+  "body": "{\"sk\":\"USERS#941844f8-7011-7028-1dbd-ece5d5f5f403\",\"name\":\"PatC\"}",
+  "isBase64Encoded": false
+}

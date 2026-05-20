@@ -25,6 +25,8 @@ pydantic==2.12.5
     # via v1-users
 pydantic-core==2.41.5
     # via pydantic
+pyjwt==2.12.1
+    # via v1-users
 python-dateutil==2.9.0.post0
     # via botocore
 requests==2.32.5

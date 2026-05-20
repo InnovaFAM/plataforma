@@ -26,3 +26,64 @@ def create_user(email: str, name: str) -> str:
         if error_code == "UsernameExistsException":
             logger.error(f"El usuario {email} ya existe en el sistema.")
         raise e
+
+
+def delete_user(email: str) -> bool:
+    try:
+        cognito_client.admin_delete_user(
+            UserPoolId=USER_POOL_ID,
+            Username=email,
+        )
+
+        logger.info(f"Usuario {email} eliminado correctamente.")
+        return True
+
+    except ClientError as e:
+        error_code = e.response["Error"]["Code"]  # pyright: ignore[reportTypedDictNotRequiredAccess]
+
+        if error_code == "UserNotFoundException":
+            logger.warning(f"El usuario {email} no existe en Cognito.")
+            return False
+
+        logger.error(f"Error eliminando usuario {email}: {error_code}")
+        raise
+
+
+def disable_user(email: str) -> None:
+    try:
+        cognito_client.admin_disable_user(
+            UserPoolId=USER_POOL_ID,
+            Username=email,
+        )
+
+        logger.info(f"Usuario {email} desactivado correctamente.")
+
+    except ClientError as e:
+        error_code = e.response["Error"]["Code"]  # pyright: ignore[reportTypedDictNotRequiredAccess]
+
+        if error_code == "UserNotFoundException":
+            logger.error(f"El usuario {email} no existe en Cognito.")
+        else:
+            logger.error(f"Error desactivando usuario {email}: {error_code}")
+
+        raise e
+
+
+def enable_user(email: str) -> None:
+    try:
+        cognito_client.admin_enable_user(
+            UserPoolId=USER_POOL_ID,
+            Username=email,
+        )
+
+        logger.info(f"Usuario {email} activado correctamente.")
+
+    except ClientError as e:
+        error_code = e.response["Error"]["Code"]  # pyright: ignore[reportTypedDictNotRequiredAccess]
+
+        if error_code == "UserNotFoundException":
+            logger.error(f"El usuario {email} no existe en Cognito.")
+        else:
+            logger.error(f"Error activando usuario {email}: {error_code}")
+
+        raise e

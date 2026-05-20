@@ -124,20 +124,33 @@ data "aws_iam_policy_document" "users_role_policy" {
   statement {
     effect = "Allow"
     actions = [
-      "cognito-idp:AdminCreateUser"
+      "cognito-idp:AdminCreateUser",
+      "cognito-idp:AdminDeleteUser",
+      "cognito-idp:AdminDisableUser",
+      "cognito-idp:AdminEnableUser"
     ]
     resources = [
       data.aws_cognito_user_pool.nextjs_app_pool.arn
     ]
   }
 
+  statement {
+    effect = "Allow"
+    actions = ["dynamodb:DeleteItem"]
+    resources = [data.aws_dynamodb_table.core_business.arn]
 
-
-    statement {
-      effect = "Allow"
-      actions = ["lambda:InvokeFunction"]
-      resources = [module.notifications.lambda_arn]
+    condition {
+        test     = "ForAllValues:StringLike"
+        variable = "dynamodb:LeadingKeys"
+        values   = ["FAM#USERS"]
     }
+  }
+
+  statement {
+    effect = "Allow"
+    actions = ["lambda:InvokeFunction"]
+    resources = [module.notifications.lambda_arn]
+  }
 }
 
 resource "aws_iam_role_policy" "users_role_policy" {

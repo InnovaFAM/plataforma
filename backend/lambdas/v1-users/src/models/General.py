@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, field_validator
 
@@ -11,7 +11,10 @@ class PaginatedResponse(BaseModel):
 class PatchUserBodyRequest(BaseModel):
     sk: str
     phoneNumber: str | None = None
+    name: str | None = None
+    parentId: str | None = None
     lastLogin: str | None = None
+    status: Literal["pendiente", "activo", "inactivo"] | None = None
 
     @field_validator("sk")
     @classmethod

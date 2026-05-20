@@ -26,9 +26,10 @@ def lambda_handler(api_event: Dict):
 
 
 if __name__ == "__main__":
+    # with open("./tests/events/update.json", "r") as f:
     # with open("./tests/events/create.json", "r") as f:
-    # with open("./tests/events/get_users.json", "r") as f:
-    with open("./tests/events/get_user_by_id.json", "r") as f:
+    with open("./tests/events/get_users.json", "r") as f:
+        # with open("./tests/events/get_user_by_id.json", "r") as f:
         # with open("./tests/events/get_roles_with_users.json", "r") as f:
         data = json.load(f)
         lambda_handler(data)

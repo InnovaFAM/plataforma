@@ -217,3 +217,10 @@ def update_item(pk: str, sk: str, body_json: dict[str, Any]) -> dict[str, Any]:
             raise Exception(f"{pk} - {sk} no existe")
         else:
             raise RuntimeError(f"Error en update_client: {e.response['Error']}") from e  # pyright: ignore[reportTypedDictNotRequiredAccess]
+
+
+def delete_item(pk: str, sk: str):
+    try:
+        _ = table.delete_item(Key={"pk": pk, "sk": sk})
+    except Exception as e:
+        raise Exception(f"Error deleting item pk: {pk}, sk: {sk} - {e}")

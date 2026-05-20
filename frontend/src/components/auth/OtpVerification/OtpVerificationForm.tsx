@@ -47,9 +47,10 @@ const OtpVerificationForm = (props: OtpVerificationFormProps) => {
                 code: otp,
             }).then((data) => {
                 if (data?.error) {
-                    setMessage(data.error as string)
+                    console.error(data?.error)
+                    setMessage('No es posible validar el código OTP')
                     setSubmitting(false)
-                    setOtpVerified('no verificado')
+                    return
                 }
                 setOtpVerified('verificado correctamente')
             })

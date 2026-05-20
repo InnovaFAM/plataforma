@@ -2,6 +2,7 @@ import base64
 import json
 from typing import Any
 
+import jwt
 from aws_lambda_powertools.event_handler import Response, content_types
 
 from logger import logger
@@ -24,11 +25,21 @@ def decode_key(str_base64: str) -> dict[str, Any]:
     return json.loads(str_dec)
 
 
-def error_response(name: str, message: str):
+def error_response(
+    name: str, message: str, status_code: int = 400
+) -> Response[str] | None:
     error = {"error": {"name": name, "message": message}}
     logger.error(error)
     return Response(
-        status_code=400,
+        status_code=status_code,
         content_type=content_types.APPLICATION_JSON,
         body=json.dumps({"error": {"name": name, "message": message}}),
     )
+
+
+def get_payload_jwt(authorization: str | None) -> dict[str, Any] | None:
+    if not authorization:
+        return None
+    token = authorization.split(" ")[1]
+    payload = jwt.decode(token, options={"verify_signature": False})
+    return payload

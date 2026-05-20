@@ -1,19 +1,21 @@
 'use client'
 
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import Avatar from '@/components/ui/Avatar'
 import Tag from '@/components/ui/Tag'
-import Dropdown from '@/components/ui/Dropdown'
 import DataTable from '@/components/shared/DataTable'
 import useAppendQueryParams from '@/utils/hooks/useAppendQueryParams'
-import { TbChevronDown } from 'react-icons/tb'
-import type { ColumnDef, OnSortParam, Row } from '@/components/shared/DataTable'
+import { TbPencil, TbTrash, TbUserCancel, TbUserCheck } from 'react-icons/tb'
+import type { ColumnDef, OnSortParam } from '@/components/shared/DataTable'
 import { TUser, Filter, TSystemRole } from '../types'
-import { useRolesUsersStore } from '../_store/rolesUsersStore'
 import getStatusColor from '../_utils/getStatusColor'
 import useTranslation from '@/utils/hooks/useTranslation'
 import 'dayjs/locale/es'
 import classNames from '@/utils/classNames'
+import dayjs from 'dayjs'
+import RolesUsersEditUserModal from './RolesUsersEditUserModal'
+import DialogDeleteUser from './DialogDeleteUser'
+import DialogStatusUser from './DialogStatusUser'
 
 type RolesUsersUsersTableProps = {
     availableRoles: TSystemRole[]
@@ -24,24 +26,62 @@ type RolesUsersUsersTableProps = {
     filters?: Filter
 }
 
-const RolesUsersUsersTable = ({
+const ActionColumn = ({
+    onEdit,
+    onDelete,
+    onToggle,
+    userStatus,
+}: {
+    onEdit: () => void
+    onDelete: () => void
+    onToggle: () => void
+    userStatus: 'activo' | 'inactivo' | 'pendiente'
+}) => (
+    <div className="flex items-center justify-start gap-3">
+        <div
+            className="text-xl cursor-pointer select-none font-semibold"
+            role="button"
+            onClick={onEdit}
+        >
+            <TbPencil />
+        </div>
+        <div
+            className="text-xl cursor-pointer select-none font-semibold"
+            role="button"
+            onClick={onDelete}
+        >
+            <TbTrash />
+        </div>
+        <div
+            className={classNames(
+                'text-xl cursor-pointer select-none font-semibold',
+                {
+                    'opacity-50': userStatus === 'pendiente',
+                    'cursor-not-allowed': userStatus === 'pendiente',
+                },
+            )}
+            role="button"
+            onClick={userStatus !== 'pendiente' ? onToggle : undefined}
+        >
+            {userStatus === 'activo' ? <TbUserCancel /> : <TbUserCheck />}
+        </div>
+    </div>
+)
+
+const RolesUsersUsersTable: React.FC<RolesUsersUsersTableProps> = ({
     usersList,
     availableRoles,
     pageIndex = 1,
     pageSize = 10,
     searchValue = '',
     filters,
-}: RolesUsersUsersTableProps) => {
+}) => {
     const t = useTranslation()
     const { onAppendQueryParams } = useAppendQueryParams()
-
-    const selectedUsers = useRolesUsersStore((state) => state.selectedUsers)
-    const setSelectAllUsers = useRolesUsersStore(
-        (state) => state.setSelectAllUsers,
-    )
-    const setSelectedUsers = useRolesUsersStore(
-        (state) => state.setSelectedUsers,
-    )
+    const [selectedUser, setSelectUser] = useState<TUser | null>(null)
+    const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState<boolean>(false)
+    const [editDialogIsOpen, setEditDialogIsOpen] = useState<boolean>(false)
+    const [statusDialogIsOpen, setStatusDialogIsOpen] = useState<boolean>(false)
 
     const handlePaginationChange = (page: number) => {
         onAppendQueryParams({
@@ -61,23 +101,6 @@ const RolesUsersUsersTable = ({
             order: sort.order,
             sortKey: sort.key,
         })
-    }
-
-    const handleRowSelect = (checked: boolean, row: TUser) => {
-        setSelectedUsers(checked, row)
-    }
-
-    const handleAllRowSelect = (checked: boolean, rows: Row<TUser>[]) => {
-        if (checked) {
-            const originalRows = rows.map((row) => row.original)
-            setSelectAllUsers(originalRows)
-        } else {
-            setSelectAllUsers([])
-        }
-    }
-
-    const handleUpdateRole = (userId: string, newRoleId: string) => {
-        console.log(userId, newRoleId)
     }
 
     const filterUsers = useCallback(
@@ -103,10 +126,6 @@ const RolesUsersUsersTable = ({
         return filtered?.slice(start, start + pageSize)
     }, [usersList, pageIndex, pageSize, filterUsers])
 
-    const handleDeselectAll = () => {
-        setSelectAllUsers([])
-    }
-
     const columns: ColumnDef<TUser>[] = useMemo(
         () => [
             {
@@ -115,13 +134,16 @@ const RolesUsersUsersTable = ({
                 cell: (props) => {
                     const row = props.row.original
                     return (
-                        <div className="flex items-center gap-2">
+                        <div
+                            className="flex items-center gap-2"
+                            style={{ maxWidth: 200 }}
+                        >
                             <Avatar
                                 size={40}
                                 shape="circle"
                                 src={row.pictureUrl}
                             />
-                            <div>
+                            <div className="grid">
                                 <div className="font-bold heading-text">
                                     {row.name}
                                 </div>
@@ -134,6 +156,7 @@ const RolesUsersUsersTable = ({
             {
                 header: t('rolesUsers.content.userTable.status'),
                 accessorKey: 'status',
+                size: 80,
                 cell: (props) => {
                     const row = props.row.original
                     return (
@@ -153,12 +176,17 @@ const RolesUsersUsersTable = ({
             {
                 header: t('rolesUsers.content.userTable.lastLogin'),
                 accessorKey: 'lastOnline',
+                size: 180,
                 cell: (props) => {
                     const row = props.row.original
                     return (
                         <div className="flex flex-col">
                             <span className="font-semibold capitalize">
-                                {row.lastLogin || '-'}
+                                {row.lastLogin
+                                    ? dayjs(row.lastLogin).format(
+                                          'YYYY-MM-DD HH:mm:ss',
+                                      )
+                                    : '-'}
                             </span>
                         </div>
                     )
@@ -167,43 +195,40 @@ const RolesUsersUsersTable = ({
             {
                 header: t('rolesUsers.content.userTable.role'),
                 accessorKey: 'role',
-                size: 70,
+                size: 150,
                 cell: (props) => {
                     const row = props.row.original
                     return (
-                        <Dropdown
-                            disabled
-                            renderTitle={
-                                <div
-                                    className="inline-flex items-center gap-2 py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                                    role="button"
-                                >
-                                    <span className="font-bold heading-text">
-                                        {
-                                            availableRoles.find(
-                                                (role) =>
-                                                    role.sk === row.parentId,
-                                            )?.name
-                                        }
-                                    </span>
-                                    <TbChevronDown />
-                                </div>
+                        <span className="font-bold heading-text">
+                            {
+                                availableRoles.find(
+                                    (role) => role.sk === row.parentId,
+                                )?.name
                             }
-                        >
-                            {availableRoles.map((role: TSystemRole) => (
-                                <Dropdown.Item
-                                    key={role.sk}
-                                    eventKey={role.sk}
-                                    onClick={() =>
-                                        handleUpdateRole(role.sk, row.sk)
-                                    }
-                                >
-                                    {role.name}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown>
+                        </span>
                     )
                 },
+            },
+            {
+                header: t('collaborators.table.actions'),
+                id: 'action',
+                cell: (props) => (
+                    <ActionColumn
+                        onEdit={() => {
+                            setSelectUser(props.row.original)
+                            setEditDialogIsOpen(true)
+                        }}
+                        onDelete={() => {
+                            setSelectUser(props.row.original)
+                            setDeleteDialogIsOpen(true)
+                        }}
+                        userStatus={props.row.original.status}
+                        onToggle={() => {
+                            setSelectUser(props.row.original)
+                            setStatusDialogIsOpen(true)
+                        }}
+                    />
+                ),
             },
         ],
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -213,7 +238,6 @@ const RolesUsersUsersTable = ({
     return (
         <>
             <DataTable
-                selectable
                 columns={columns}
                 data={handledData}
                 noData={usersList && usersList.length === 0}
@@ -227,16 +251,41 @@ const RolesUsersUsersTable = ({
                     pageIndex,
                     pageSize,
                 }}
-                checkboxChecked={(row) =>
-                    selectedUsers.some((selected) => selected.sk === row.sk)
-                }
                 onPaginationChange={handlePaginationChange}
                 onSelectChange={handleSelectChange}
                 onSort={handleSort}
-                onCheckBoxChange={handleRowSelect}
-                onIndeterminateCheckBoxChange={handleAllRowSelect}
-                onDeselectAll={handleDeselectAll}
             />
+            {editDialogIsOpen && (
+                <RolesUsersEditUserModal
+                    availableRoles={availableRoles || []}
+                    selectedUser={selectedUser}
+                    isOpen={editDialogIsOpen && Boolean(selectedUser)}
+                    onClose={() => {
+                        setEditDialogIsOpen(false)
+                        setSelectUser(null)
+                    }}
+                />
+            )}
+            {deleteDialogIsOpen && (
+                <DialogDeleteUser
+                    isOpen={deleteDialogIsOpen && Boolean(selectedUser)}
+                    selectedUser={selectedUser}
+                    onClose={() => {
+                        setDeleteDialogIsOpen(false)
+                        setSelectUser(null)
+                    }}
+                />
+            )}
+            {statusDialogIsOpen && (
+                <DialogStatusUser
+                    isOpen={statusDialogIsOpen && Boolean(selectedUser)}
+                    selectedUser={selectedUser}
+                    onClose={() => {
+                        setStatusDialogIsOpen(false)
+                        setSelectUser(null)
+                    }}
+                />
+            )}
         </>
     )
 }
