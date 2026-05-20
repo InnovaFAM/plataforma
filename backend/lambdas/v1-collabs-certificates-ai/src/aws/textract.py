@@ -49,4 +49,32 @@ def extract_text_from_pdf(bucket_name: str, file_key: str) -> str:
 
 
 def extract_text_from_image(bucket_name: str, file_key: str) -> str:
-    return ""
+    logger.info(f"Iniciando extracción de imagen para s3://{bucket_name}/{file_key}")
+
+    try:
+        response = textract_client.detect_document_text(
+            Document={
+                "S3Object": {
+                    "Bucket": bucket_name,
+                    "Name": file_key,
+                }
+            }
+        )
+
+        text_lines: list[str] = []
+
+        for block in response.get("Blocks", []):
+            if block.get("BlockType") == "LINE":
+                text = block.get("Text")
+                if text:
+                    text_lines.append(text)
+
+        full_text = "\n".join(text_lines)
+
+        logger.info(f"Success: Extracted {len(full_text)} characters from image.")
+
+        return full_text
+
+    except Exception as e:
+        logger.warning(f"Error procesando la imagen en Textract: {str(e)}")
+        raise e

@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "connections_policy" {
 
   statement {
     effect    = "Allow"
-    actions   = ["textract:StartDocumentTextDetection", "textract:GetDocumentTextDetection"]
+    actions   = ["textract:StartDocumentTextDetection", "textract:GetDocumentTextDetection", "textract:DetectDocumentText"]
     resources = ["*"]
   }
 
